@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    public $increments = false;
+    public $incrementing = false;
     protected $fillable = ['subject_name_id', 'semester'];
 }

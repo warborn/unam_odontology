@@ -18,6 +18,15 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+// Privileges Factory
+$factory->define(App\Privilege::class, function(Faker\Generator $faker) {
+	$privileges = ['add format', 'update format', 'delete format', 'delete user', 'enable user', 'disable user'];
+	return [
+		'privilege_id' => $faker->unique()->numerify('PR#'),
+		'privilege' => $faker->unique()->randomElement($privileges),
+	];
+});
+
 // Roles Factory
 $factory->define(App\Role::class, function(Faker\Generator $faker) {
 	$roles = ['super user', 'administrator', 'teacher', 'intern', 'student', 'patient'];

@@ -21,8 +21,8 @@ class CreatePersonalInformationsTable extends Migration
             $table->string('email', 30);
             $table->string('phone', 16);
             $table->string('gender', 1);
-            $table->string('adress_id');            
-            $table->foreign('adress_id')->references('adress_id')->on('adresses');
+            $table->string('address_id');            
+            $table->foreign('address_id')->references('address_id')->on('addresses');
             $table->string('street', 100);            
             $table->timestamps();
         });

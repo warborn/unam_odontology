@@ -14,8 +14,8 @@ class CreateClinicsTable extends Migration
     {
         Schema::create('clinics', function (Blueprint $table) {
             $table->string('clinic_name_id')->primary('clinic_name_id');
-            $table->string('adress_id');
-            $table->foreign('adress_id')->references('adress_id')->on('adresses');
+            $table->string('address_id');
+            $table->foreign('address_id')->references('address_id')->on('addresses');
             $table->string('clinic_email', 25);
             $table->string('clinic_phone', 16);
             $table->string('street', 100);

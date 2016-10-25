@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Privilege extends Model
 {
-    public $increments = false;
+    public $incrementing = false;
+    protected $primaryKey = 'privilege_id';
     protected $fillable = ['privilege_id', 'privilege'];
 }

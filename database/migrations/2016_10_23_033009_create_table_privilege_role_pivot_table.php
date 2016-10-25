@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePrivilegesRolesPivotTable extends Migration
+class CreateTablePrivilegeRolePivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateTablePrivilegesRolesPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('privileges_roles', function(Blueprint $table){
+        Schema::create('privilege_role', function(Blueprint $table){
             $table->string('role_id');
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->string('privilege_id');
@@ -28,6 +28,6 @@ class CreateTablePrivilegesRolesPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('privileges_roles');
+        Schema::drop('privilege_role');
     }
 }

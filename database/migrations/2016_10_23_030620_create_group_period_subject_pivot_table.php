@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupsPeriodsSubjectsPivotTable extends Migration
+class CreateGroupPeriodSubjectPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateGroupsPeriodsSubjectsPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups_periods_subjects', function(Blueprint $table){
+        Schema::create('group_period_subject', function(Blueprint $table){
             $table->string('group_period_subject_id')->primary('group_period_subject_id');
             $table->string('subject_name');
             $table->foreign('subject_name')->references('subject_name')->on('subjects')->onDelete('cascade');
@@ -31,6 +31,6 @@ class CreateGroupsPeriodsSubjectsPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('groups_periods_subjects');
+        Schema::drop('group_period_subject');
     }
 }
