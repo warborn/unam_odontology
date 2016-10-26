@@ -63,3 +63,16 @@ $factory->define(App\Address::class, function(Faker\Generator $faker) {
 		'municipality' => $faker->city,
 	];
 });
+
+// Clinics Factory
+$factory->define(App\Clinic::class, function(Faker\Generator $faker) {
+	$clinics = ['Acatlán', 'Cuautitlán', 'Almaraz', 'Ecatepec', 'Aragón',
+	'Iztacala', 'Cuautepec', 'Molinito'];
+
+	return [
+		'clinic_id' => $faker->unique()->randomElement($clinics),
+		'clinic_email' => $faker->email,
+		'clinic_phone' => $faker->phoneNumber,
+		'street' => $faker->streetAddress,
+	];
+});

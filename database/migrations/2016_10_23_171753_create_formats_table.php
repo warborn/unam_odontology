@@ -16,8 +16,8 @@ class CreateFormatsTable extends Migration
             $table->integer('format_id')->primary('format_id');
             $table->string('user_intern_id');
             $table->foreign('user_intern_id')->references('user_id')->on('interns');
-            $table->string('clinic_name_id');
-            $table->foreign('clinic_name_id')->references('clinic_name_id')->on('clinics');
+            $table->string('clinic_id');
+            $table->foreign('clinic_id')->references('clinic_id')->on('clinics');
             $table->string('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('medical_history', 8);
