@@ -46,3 +46,20 @@ $factory->define(App\Role::class, function(Faker\Generator $faker) {
 		'role_description' => $faker->sentence,
 	];
 });
+
+// Federal Entities Factory
+$factory->define(App\FederalEntity::class, function(Faker\Generator $faker) {
+	return [
+		'federal_entity_id' => $faker->unique()->state,
+	];
+});
+
+// Addresses Factory
+$factory->define(App\Address::class, function(Faker\Generator $faker) {
+	return [
+		'address_id' => $faker->unique()->numerify('AD##'),
+		'postal_code' => $faker->postcode,
+		'settlement' => $faker->streetName,
+		'municipality' => $faker->city,
+	];
+});
