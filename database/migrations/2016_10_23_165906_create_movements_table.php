@@ -19,8 +19,8 @@ class CreateMovementsTable extends Migration
             $table->string('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('ip', 16);
-            $table->string('type_movement_id');
-            $table->foreign('type_movement_id')->references('type_movement_id')->on('type_movements');
+            $table->string('movement_type_id');
+            $table->foreign('movement_type_id')->references('movement_type_id')->on('movement_types');
             $table->timestamps();
         });
     }

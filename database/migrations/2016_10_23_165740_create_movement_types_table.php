@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypeMovementsTable extends Migration
+class CreateMovementTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class CreateTypeMovementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_movements', function (Blueprint $table) {
-            $table->string('type_movement_id')->primary('type_movement_id');
-            $table->mediumtext('description_type_movement');
+        Schema::create('movement_types', function (Blueprint $table) {
+            $table->string('movement_type_id')->primary('movement_type_id');
+            $table->mediumtext('description_movement_type');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ class CreateTypeMovementsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('type_movements');
+        Schema::drop('movement_types');
     }
 }
