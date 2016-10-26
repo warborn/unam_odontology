@@ -19,11 +19,11 @@ class CreatePersonalInformationsTable extends Migration
             $table->string('last_name', 20);
             $table->string('mother_last_name', 20);
             $table->string('email', 30);
-            $table->string('phone', 16);
-            $table->string('gender', 1);
-            $table->string('address_id');            
+            $table->string('phone', 16)->nullable();
+            $table->string('gender', 1)->nullable();
+            $table->string('address_id')->nullable();
             $table->foreign('address_id')->references('address_id')->on('addresses');
-            $table->string('street', 100);            
+            $table->string('street', 100)->nullable();
             $table->timestamps();
         });
     }

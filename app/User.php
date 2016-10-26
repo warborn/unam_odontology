@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+
     public $incrementing = false;
+    public $primaryKey = 'user_id';
     /**
      * The attributes that are mass assignable.0
      *
@@ -22,4 +24,8 @@ class User extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function personal_information() {
+        return $this->hasOne(PersonalInformation::class, 'user_id');
+    }
 }
