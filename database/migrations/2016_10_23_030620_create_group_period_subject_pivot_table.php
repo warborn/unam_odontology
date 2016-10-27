@@ -14,8 +14,8 @@ class CreateGroupPeriodSubjectPivotTable extends Migration
     {
         Schema::create('group_period_subject', function(Blueprint $table){
             $table->string('group_period_subject_id')->primary('group_period_subject_id');
-            $table->string('subject_name');
-            $table->foreign('subject_name')->references('subject_name')->on('subjects')->onDelete('cascade');
+            $table->string('subject_id');
+            $table->foreign('subject_id')->references('subject_id')->on('subjects')->onDelete('cascade');
             $table->string('group_id');
             $table->foreign('group_id')->references('group_id')->on('groups')->onDelete('cascade');
             $table->string('period_id');
