@@ -76,3 +76,10 @@ $factory->define(App\Clinic::class, function(Faker\Generator $faker) {
 		'street' => $faker->streetAddress,
 	];
 });
+
+// Groups Factory
+$factory->define(App\Group::class, function(Faker\Generator $faker) {
+	return [
+		'group_id' => $faker->randomNumber(4),
+	];
+});
