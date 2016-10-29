@@ -76,3 +76,22 @@ $factory->define(App\Clinic::class, function(Faker\Generator $faker) {
 		'street' => $faker->streetAddress,
 	];
 });
+
+// Subjects Factory
+$factory->define(App\Subject::class, function(Faker\Generator $faker) {
+	$subjects = ['dientes 1', 'dientes 2', 'dientes 3', 'sacando molares 1', 'sacando molares 2', 'terapeando al paciente 1', 'el raton de los dientes 1', 'anestesia local 1', 'anestesia local 2'];
+	$semesters = ['1er', '2do', '3ro', '4to', '5to', '6to', '7mo', '8vo', '9no'];
+	return [
+		'subject_id'=> $faker->unique()->randomElement($subjects),
+		'semester'=> $faker->randomElement($semesters),
+	];
+});
+
+//Groups Factory
+$factory->define(App\Group::class, function(Faker\Generator $faker) {
+	return [
+		'group_id'=> $faker->unique()->numerify('####'),
+	];
+});
+
+
