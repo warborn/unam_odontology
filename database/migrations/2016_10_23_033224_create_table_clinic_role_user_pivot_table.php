@@ -18,7 +18,7 @@ class CreateTableClinicRoleUserPivotTable extends Migration
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('clinic_id');
             $table->foreign('clinic_id')->references('clinic_id')->on('clinics');
-            $table->string('role_id');
+            $table->string('role_id')->nullable();
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->timestamps();
 

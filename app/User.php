@@ -28,4 +28,18 @@ class User extends Model
     public function personal_information() {
         return $this->hasOne(PersonalInformation::class, 'user_id');
     }
+
+    public function clinics() {
+        return $this->belongsToMany(Clinic::class, 'clinic_role_user', 'user_id')
+            ->withPivot('clinic_role_user_id');
+    }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'clinic_role_user', 'user_id')
+            ->withPivot('clinic_role_user_id');
+    }
+
+    public function genClinicRoleUserPK($clinic, $role) {
+        return $this->user_id . $clinic->clinic_id . (isset($role) ? $role->role_id : '');
+    }
 }
