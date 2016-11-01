@@ -140,3 +140,12 @@ $factory->define(App\Teacher::class, function(Faker\Generator $faker) {
 		'RFC' => $faker->unique()->regexify('[A-Z]{4}[0-9]{6}[A-Z0-9]{3}'),
 	];
 });
+
+// Interns Factory
+$factory->define(App\Intern::class, function(Faker\Generator $faker) {
+	return [
+		'service_start_date' => (date('Y') . '-01-30'),
+		'service_end_date' => (date('Y') . '-06-30'),
+		'account_number' => $faker->unique()->numerify('311######'),
+	];
+});

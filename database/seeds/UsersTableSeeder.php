@@ -41,6 +41,7 @@ class UsersTableSeeder extends Seeder
             } else if($index > 5) {
                 // Set user's intern role
                 $this->setRoleToUser($user, $clinic, $intern);
+                $user->intern()->save(factory(App\Intern::class)->make());
             } else if($index > 3) {
                 // Set user's student role
                 $this->setRoleToUser($user, $clinic, $student);

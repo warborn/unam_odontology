@@ -33,6 +33,10 @@ class User extends Model
         return $this->hasOne(Teacher::class, 'user_id');
     }
 
+    public function intern() {
+        return $this->hasOne(Intern::class, 'user_id');
+    }
+
     public function student() {
         return $this->hasOne(Student::class, 'user_id');
     }
