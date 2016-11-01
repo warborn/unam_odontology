@@ -29,9 +29,16 @@ class User extends Model
         return $this->hasOne(PersonalInformation::class, 'user_id');
     }
 
+    public function teacher() {
+        return $this->hasOne(Teacher::class, 'user_id');
+    }
+
+    public function student() {
+        return $this->hasOne(Student::class, 'user_id');
+    }
+
     public function clinics() {
-        return $this->belongsToMany(Clinic::class, 'clinic_role_user', 'user_id')
-            ->withPivot('clinic_role_user_id');
+        return $this->belongsToMany(Clinic::class, 'clinic_role_user', 'user_id');
     }
 
     public function roles() {

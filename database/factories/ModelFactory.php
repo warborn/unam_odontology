@@ -112,6 +112,7 @@ $factory->define(App\Period::class, function(Faker\Generator $faker) {
 	];
 });
 
+// Diseases Factory
 $factory->define(App\Disease::class, function(Faker\Generator $faker) {
 	$type_of_disease = $faker->randomElement($type=['dental', 'medical']);
 	if($type_of_disease == 'dental'){
@@ -123,5 +124,19 @@ $factory->define(App\Disease::class, function(Faker\Generator $faker) {
 		'disease_id'=>$disease_id,
 		'disease_name'=> $faker->sentence(6, true),
 		'type_of_disease'=> $type_of_disease, 
+	];
+});
+
+// Students Factory
+$factory->define(App\Student::class, function(Faker\Generator $faker) {
+	return [
+		'account_number' => $faker->unique()->numerify('311######'),
+	];
+});
+
+// Teachers Factory
+$factory->define(App\Teacher::class, function(Faker\Generator $faker) {
+	return [
+		'RFC' => $faker->unique()->regexify('[A-Z]{4}[0-9]{6}[A-Z0-9]{3}'),
 	];
 });
