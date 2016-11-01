@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FederalEntitiesTableSeeder::class);
         $this->call(ClinicsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(PeriodsTableSeeder::class);
     }
 }
