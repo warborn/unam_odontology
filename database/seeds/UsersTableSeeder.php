@@ -11,6 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $federal_entity = App\FederalEntity::first();
         $clinic = App\Clinic::first();
         $super_user = App\Role::find('super user');
         $administrator = App\Role::find('administrator');
@@ -20,7 +21,7 @@ class UsersTableSeeder extends Seeder
         $patient = App\Role::find('patient');
         factory(App\User::class, 14)->create()->each(function($user, $index) 
             use ($clinic, $super_user, $administrator, $teacher,
-                 $intern, $student, $patient) {
+                 $intern, $student, $patient, $federal_entity) {
             // Set user's personal information
         	$user->personal_information()->save(factory(App\PersonalInformation::class)->make());
             // Set clinic to user
@@ -49,6 +50,9 @@ class UsersTableSeeder extends Seeder
             } else if($index > 1) {
                 // Set user's patient role
                 $this->setRoleToUser($user, $clinic, $patient);
+                $patient = factory(App\Patient::class)->make();
+                $patient->federal_entity_id = $federal_entity->federal_entity_id;
+                $user->patient()->save($patient);
             }
         });
     }

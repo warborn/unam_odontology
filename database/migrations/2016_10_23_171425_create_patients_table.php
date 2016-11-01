@@ -13,7 +13,7 @@ class CreatePatientsTable extends Migration
     public function up()
     {
         Schema::create('patients', function(Blueprint $table){
-            $table->string('user_id');
+            $table->string('user_id')->primary('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('age', 2);
             $table->string('federal_entity_id');
@@ -22,8 +22,8 @@ class CreatePatientsTable extends Migration
             $table->string('school_grade', 20);
             $table->string('civil_status', 25);
             $table->string('phone', 16);
-            $table->tinyinteger('service_medical', 1);
-            $table->string('service_name', 25);
+            $table->tinyinteger('medical_service');
+            $table->string('service_name', 25)->nullable();
             $table->timestamps();
         });
     }

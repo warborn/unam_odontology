@@ -149,3 +149,21 @@ $factory->define(App\Intern::class, function(Faker\Generator $faker) {
 		'account_number' => $faker->unique()->numerify('311######'),
 	];
 });
+
+// Patients Factory
+$factory->define(App\Patient::class, function(Faker\Generator $faker) {
+	$grades = ['kinder', 'primaria', 'medio superior', 'superior', 'posgrado', 'maestria', 'doctorado'];
+	$services = ['IMSS', 'ISSTE'];
+	$boolean = [0, 1];
+	$medical_service = $faker->randomElement($boolean);
+	$service_name = ($medical_service == 1 ? $faker->randomElement($services) : null);
+	return [
+		'age' => $faker->numberBetween(1, 100),
+		'ocupation' => $faker->jobTitle,
+		'school_grade' => $faker->randomElement($grades),
+		'civil_status' => $faker->randomElement($boolean),
+		'phone' => $faker->phoneNumber,
+		'medical_service' => $medical_service,
+		'service_name' => $service_name,
+	];
+});
