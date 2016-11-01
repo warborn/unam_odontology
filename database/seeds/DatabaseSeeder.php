@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ClinicsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(PeriodsTableSeeder::class);
+        $this->call(DiseasesTableSeeder::class);
     }
 }
