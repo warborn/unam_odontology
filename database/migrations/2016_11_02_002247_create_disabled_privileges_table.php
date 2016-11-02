@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrivilegeDisabledPivotTable extends Migration
+class CreateDisabledPrivilegesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class CreatePrivilegeDisabledPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('privilege_disabled', function(Blueprint $table){
+        Schema::create('disabled_privileges', function (Blueprint $table) {
+            $table->string('account_id')->index();
+            $table->foreign('account_id')->references('account_id')->on('accounts');
             $table->string('privilege_id');
             $table->foreign('privilege_id')->references('privilege_id')->on('privileges');
-            $table->datetime('date_hour_movement');
-            $table->foreign('date_hour_movement')->references('date_hour_movement')->on('movements');
             $table->timestamps();
-        });   
+        });
     }
 
     /**
@@ -28,6 +28,6 @@ class CreatePrivilegeDisabledPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('privilege_disabled');
+        Schema::drop('disabled_privileges');
     }
 }

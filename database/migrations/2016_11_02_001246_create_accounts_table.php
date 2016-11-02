@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableClinicRoleUserPivotTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,13 @@ class CreateTableClinicRoleUserPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('clinic_role_user', function(Blueprint $table){
-            $table->string('clinic_role_user_id')->primary('clinic_role_user_id');
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->string('account_id')->primary('account_id');
             $table->string('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('clinic_id');
             $table->foreign('clinic_id')->references('clinic_id')->on('clinics');
-            $table->string('role_id')->nullable();
-            $table->foreign('role_id')->references('role_id')->on('roles');
             $table->timestamps();
-
         });
     }
 
@@ -32,6 +29,6 @@ class CreateTableClinicRoleUserPivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('clinic_role_user');
+        Schema::drop('accounts');
     }
 }

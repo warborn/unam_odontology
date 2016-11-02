@@ -24,32 +24,32 @@ class UsersTableSeeder extends Seeder
                  $intern, $student, $patient, $federal_entity) {
             // Set user's personal information
         	$user->personal_information()->save(factory(App\PersonalInformation::class)->make());
-            // Set clinic to user
-            $clinic_role_user_id = $user->genClinicRoleUserPK($clinic, null);
-            $user->clinics()->attach($clinic->clinic_id, 
-                ['clinic_role_user_id' => $clinic_role_user_id]);
+            // Set account to user
+            $account = new App\Account(['account_id' => $user->genAccountPK($clinic),
+                'user_id' => $user->user_id, 'clinic_id' => $clinic->clinic_id]);
+            $user->accounts()->save($account);
             
             if($index > 11) {
                 // Set user's super user role
-                $this->setRoleToUser($user, $clinic, $super_user);
+                $this->setRoleToAccount($account, $super_user);
             } else if($index > 9) {
                 // Set user's administrator role
-                $this->setRoleToUser($user, $clinic, $administrator);
+                $this->setRoleToAccount($account, $administrator);
             } else if($index > 7) {
                 // Set user's teacher role
-                $this->setRoleToUser($user, $clinic, $teacher);
+                $this->setRoleToAccount($account, $teacher);
                 $user->teacher()->save(factory(App\Teacher::class)->make());
             } else if($index > 5) {
                 // Set user's intern role
-                $this->setRoleToUser($user, $clinic, $intern);
+                $this->setRoleToAccount($account, $intern);
                 $user->intern()->save(factory(App\Intern::class)->make());
             } else if($index > 3) {
                 // Set user's student role
-                $this->setRoleToUser($user, $clinic, $student);
+                $this->setRoleToAccount($account, $student);
                 $user->student()->save(factory(App\Student::class)->make());
             } else if($index > 1) {
                 // Set user's patient role
-                $this->setRoleToUser($user, $clinic, $patient);
+                $this->setRoleToAccount($account, $patient);
                 $patient = factory(App\Patient::class)->make();
                 $patient->federal_entity_id = $federal_entity->federal_entity_id;
                 $user->patient()->save($patient);
@@ -57,8 +57,7 @@ class UsersTableSeeder extends Seeder
         });
     }
 
-    public function setRoleToUser($user, $clinic, $role) {
-        $clinic_role_user_id = $user->genClinicRoleUserPK($clinic, $role);
-        $user->roles()->attach($role->role_id, ['clinic_role_user_id' => $clinic_role_user_id, 'clinic_id' => $clinic->clinic_id]);
+    public function setRoleToAccount($account, $role) {
+        $account->roles()->attach($role->role_id);
     }
 }
