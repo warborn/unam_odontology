@@ -15,7 +15,7 @@ class CreateFormatStudentPivotTable extends Migration
         Schema::create('format_student', function(Blueprint $table){
             $table->string('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
-            $table->integer('format_id');
+            $table->string('format_id');
             $table->foreign('format_id')->references('format_id')->on('formats');
             $table->string('group_period_subject_id');
             $table->foreign('group_period_subject_id')->references('group_period_subject_id')->on('group_period_subject');

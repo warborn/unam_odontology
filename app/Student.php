@@ -17,4 +17,8 @@ class Student extends Model
     public function courses() {
     	return $this->belongsToMany(Course::class, 'group_student', 'user_id', 'group_period_subject_id');
     }
+
+    public function formats(){
+        return $this->belongsToMany(Format::class, 'format_student', 'user_id', 'format_id');
+    }
 }

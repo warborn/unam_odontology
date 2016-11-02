@@ -13,25 +13,24 @@ class CreateFormatsTable extends Migration
     public function up()
     {
         Schema::create('formats', function (Blueprint $table) {
-            $table->integer('format_id')->primary('format_id');
+            $table->string('format_id')->primary('format_id');
             $table->string('user_intern_id');
             $table->foreign('user_intern_id')->references('user_id')->on('interns');
             $table->string('clinic_id');
             $table->foreign('clinic_id')->references('clinic_id')->on('clinics');
-            $table->string('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users');
-            $table->string('medical_history', 8);
+            $table->string('user_patient_id');
+            $table->foreign('user_patient_id')->references('user_id')->on('patients');
+            $table->string('medical_history_number', 8);
             $table->datetime('hour_date_fill');
             $table->string('reason_consultation', 70);
-            $table->string('disease_id');
-            $table->foreign('disease_id')->references('disease_id')->on('diseases');
-            $table->string('general_illness');
-            $table->foreign('general_illness')->references('disease_id')->on('diseases');
+            $table->string('disease');
+            $table->string('general_disease');
+            $table->foreign('general_disease')->references('disease_id')->on('diseases');
             $table->string('other_disease', 30);
             $table->mediumtext('medical_treatment');
             $table->string('therapeutic_used', 30);
             $table->string('observations', 250);
-            $table->string('referenced', 50);
+            $table->string('referred_by', 50);
             $table->string('dental_disease');
             $table->foreign('dental_disease')->references('disease_id')->on('diseases');
             $table->mediumtext('format_status');

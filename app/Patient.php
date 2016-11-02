@@ -17,4 +17,8 @@ class Patient extends Model
     public function federalEntity() {
     	return $this->belongsTo(FederalEntity::class, 'federal_entity_id');
     }
+
+    public function format(){
+        return $this->hasOne(Format::class);
+    }
 }

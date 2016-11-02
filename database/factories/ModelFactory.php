@@ -167,3 +167,22 @@ $factory->define(App\Patient::class, function(Faker\Generator $faker) {
 		'service_name' => $service_name,
 	];
 });
+
+// Formats Factory
+$factory->define(App\Format::class, function(Faker\Generator $faker) {
+	$status = ['completado', 'no completado'];
+	$option=['si', 'no'];
+	return [
+		'format_id'=> $faker->unique()->numerify('f###'),
+		'medical_history_number'=> $faker->numerify('ab##cd##'),
+		'hour_date_fill'=> $faker->dateTimeThisMonth($max='now'),
+		'reason_consultation'=> $faker->text($maxNbChars = 50),
+		'disease'=> $faker->randomElement($option),
+		'other_disease'=> $faker->text($maxNbChars = 30),
+		'medical_treatment'=> $faker->text($maxNbChars = 50),
+		'therapeutic_used'=> $faker->text($maxNbChars = 30) ,
+		'observations'=> $faker->text($maxNbChars = 150),
+		'referred_by'=> $faker->name($gender = null|'male'|'female'),
+		'format_status'=> $faker->randomElement($status),
+	];
+});

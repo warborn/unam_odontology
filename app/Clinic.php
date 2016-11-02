@@ -13,4 +13,8 @@ class Clinic extends Model
     public function address() {
     	return $this->belongsTo(Address::class, 'address_id');
     }
+
+    public function format(){
+        return $this->hasMany(Format::class);
+    }
 }
