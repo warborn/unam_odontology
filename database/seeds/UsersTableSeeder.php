@@ -19,15 +19,22 @@ class UsersTableSeeder extends Seeder
         $intern = App\Role::find('intern');
         $student = App\Role::find('student');
         $patient = App\Role::find('patient');
+        $add_user_privilege = App\Privilege::where('privilege', '=', 'add new user')->first();
+        $add_role_privilege = App\Privilege::where('privilege', '=', 'add role to user')->first();
         factory(App\User::class, 14)->create()->each(function($user, $index) 
             use ($clinic, $super_user, $administrator, $teacher,
-                 $intern, $student, $patient, $federal_entity) {
+                 $intern, $student, $patient, $federal_entity, 
+                 $add_user_privilege, $add_role_privilege) {
             // Set user's personal information
         	$user->personal_information()->save(factory(App\PersonalInformation::class)->make());
             // Set account to user
             $account = new App\Account(['account_id' => $user->genAccountPK($clinic),
                 'user_id' => $user->user_id, 'clinic_id' => $clinic->clinic_id]);
             $user->accounts()->save($account);
+            // Add user creation movement
+            factory(App\Movement::class)->make()
+                    ->buildByAccounts($account, $account, $add_user_privilege)
+                    ->save();
             
             if($index > 11) {
                 // Set user's super user role
@@ -53,6 +60,13 @@ class UsersTableSeeder extends Seeder
                 $patient = factory(App\Patient::class)->make();
                 $patient->federal_entity_id = $federal_entity->federal_entity_id;
                 $user->patient()->save($patient);
+            }
+
+            if($index > 1) {
+                // Add role to account movement
+                factory(App\Movement::class)->make()
+                    ->buildByAccounts($account, $account, $add_role_privilege)
+                    ->save();
             }
         });
     }

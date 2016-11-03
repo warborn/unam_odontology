@@ -31,7 +31,7 @@ $factory->define(App\PersonalInformation::class, function(Faker\Generator $faker
 
 // Privileges Factory
 $factory->define(App\Privilege::class, function(Faker\Generator $faker) {
-	$privileges = ['add format', 'update format', 'delete format', 'delete user', 'enable user', 'disable user'];
+	$privileges = ['add new user', 'add role to user', 'add format', 'update format', 'delete format', 'delete user', 'enable user', 'disable user'];
 	return [
 		'privilege_id' => $faker->unique()->numerify('PR#'),
 		'privilege' => $faker->unique()->randomElement($privileges),
@@ -184,5 +184,11 @@ $factory->define(App\Format::class, function(Faker\Generator $faker) {
 		'observations'=> $faker->text($maxNbChars = 150),
 		'referred_by'=> $faker->name($gender = null|'male'|'female'),
 		'format_status'=> $faker->randomElement($status),
+
+// Movements Factory
+$factory->define(App\Movement::class, function(Faker\Generator $faker) {
+	return [
+		'timestamp' => $faker->date('Y-m-d H:i:s'),
+		'ip' => $faker->ipv4,
 	];
 });
