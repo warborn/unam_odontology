@@ -14,7 +14,7 @@ class Clinic extends Model
     	return $this->belongsTo(Address::class, 'address_id');
     }
 
-    public function format(){
-        return $this->hasMany(Format::class);
+    public function formats(){
+        return $this->hasMany(Format::class, 'clinic_id');
     }
 }
