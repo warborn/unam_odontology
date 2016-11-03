@@ -11,10 +11,10 @@ class Course extends Model
     protected $primaryKey = 'group_period_subject_id';
 
     public function formats(){
-    	return $this->belongsToMany(Format::class);
+    	return $this->belongsToMany(Format::class)->withTimestamps();
     }
 
     public function students(){
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(Student::class)->withTimestamps();
     }
 }

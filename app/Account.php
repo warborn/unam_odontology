@@ -23,10 +23,12 @@ class Account extends Model
     }
 
     public function roles() {
-    	return $this->belongsToMany(Role::class, 'account_role', 'account_id', 'role_id');
+    	return $this->belongsToMany(Role::class, 'account_role', 'account_id', 'role_id')
+            ->withTimestamps();
     }
 
     public function disabledPrivileges() {
-    	return $this->belongsToMany(Privilege::class, 'disabled_privileges', 'account_id', 'privilege_id');
+    	return $this->belongsToMany(Privilege::class, 'disabled_privileges', 'account_id', 'privilege_id')
+            ->withTimestamps();
     }
 }

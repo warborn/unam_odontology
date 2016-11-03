@@ -12,6 +12,6 @@ class Period extends Model
 
     public function subjects() {
     	return $this->belongsToMany(Subject::class, 'group_period_subject', 'period_id')
-    			->withPivot('group_period_subject_id', 'group_id');
+    			->withPivot('group_period_subject_id', 'group_id')->withTimestamps();
     }
 }

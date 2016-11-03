@@ -18,6 +18,7 @@ class CreateAccountRolePivotTable extends Migration
             $table->string('role_id');
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->primary(['account_id', 'role_id']);
+            $table->timestamps();
         });
     }
 

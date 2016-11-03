@@ -22,7 +22,7 @@ class CreatePatientsTable extends Migration
             $table->string('school_grade', 20);
             $table->string('civil_status', 25);
             $table->string('phone', 16);
-            $table->tinyinteger('medical_service');
+            $table->tinyinteger('has_medical_service');
             $table->string('service_name', 25)->nullable();
             $table->timestamps();
         });

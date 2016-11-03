@@ -11,6 +11,7 @@ class Role extends Model
     protected $fillable = ['role_id', 'role_description'];
 
     public function privileges() {
-    	return $this->belongsToMany(Privilege::class, 'privilege_role', 'role_id', 'privilege_id');
+    	return $this->belongsToMany(Privilege::class, 'privilege_role', 'role_id', 'privilege_id')
+    		->withTimestamps();
     }
 }

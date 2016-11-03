@@ -153,17 +153,18 @@ $factory->define(App\Intern::class, function(Faker\Generator $faker) {
 // Patients Factory
 $factory->define(App\Patient::class, function(Faker\Generator $faker) {
 	$grades = ['kinder', 'primaria', 'medio superior', 'superior', 'posgrado', 'maestria', 'doctorado'];
+	$civil_status = ['soltero', 'casado', 'viudo/a'];
 	$services = ['IMSS', 'ISSTE'];
-	$boolean = [0, 1];
-	$medical_service = $faker->randomElement($boolean);
+	$option = [0, 1];
+	$medical_service = $faker->randomElement($option);
 	$service_name = ($medical_service == 1 ? $faker->randomElement($services) : null);
 	return [
 		'age' => $faker->numberBetween(1, 100),
 		'ocupation' => $faker->jobTitle,
 		'school_grade' => $faker->randomElement($grades),
-		'civil_status' => $faker->randomElement($boolean),
+		'civil_status' => $faker->randomElement($civil_status),
 		'phone' => $faker->phoneNumber,
-		'medical_service' => $medical_service,
+		'has_medical_service' => $medical_service,
 		'service_name' => $service_name,
 	];
 });
@@ -171,19 +172,21 @@ $factory->define(App\Patient::class, function(Faker\Generator $faker) {
 // Formats Factory
 $factory->define(App\Format::class, function(Faker\Generator $faker) {
 	$status = ['completado', 'no completado'];
-	$option=['si', 'no'];
+	$option = [0, 1];
 	return [
 		'format_id'=> $faker->unique()->numerify('f###'),
 		'medical_history_number'=> $faker->numerify('ab##cd##'),
 		'hour_date_fill'=> $faker->dateTimeThisMonth($max='now'),
-		'reason_consultation'=> $faker->text($maxNbChars = 50),
-		'disease'=> $faker->randomElement($option),
+		'consultation_reason'=> $faker->text($maxNbChars = 50),
+		'has_disease'=> $faker->randomElement($option),
 		'other_disease'=> $faker->text($maxNbChars = 30),
 		'medical_treatment'=> $faker->text($maxNbChars = 50),
 		'therapeutic_used'=> $faker->text($maxNbChars = 30) ,
 		'observations'=> $faker->text($maxNbChars = 150),
 		'referred_by'=> $faker->name($gender = null|'male'|'female'),
 		'format_status'=> $faker->randomElement($status),
+		];
+});
 
 // Movements Factory
 $factory->define(App\Movement::class, function(Faker\Generator $faker) {
