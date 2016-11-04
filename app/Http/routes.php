@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/catalogs', function() {
+	return view('catalogs.index');
+});
+
+Route::get('/groups', 'GroupsController@index');
+Route::get('/periods', 'PeriodsController@index');
+Route::get('/subjects', 'SubjectsController@index');
+Route::get('/privileges', 'PrivilegesController@index');
+Route::get('/roles', 'RolesController@index');
+Route::get('/federal-entities', 'FederalEntitiesController@index');
+Route::get('/diseases', 'DiseasesController@index');
+Route::get('/addresses', 'AddressesController@index');
