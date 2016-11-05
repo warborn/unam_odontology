@@ -20,6 +20,10 @@ Route::get('/catalogs', function() {
 });
 
 Route::get('/groups', 'GroupsController@index');
+Route::post('/groups', 'GroupsController@store');
+Route::patch('/groups/{group}', 'GroupsController@update');
+Route::delete('/groups/{group}', 'GroupsController@destroy');
+
 Route::get('/periods', 'PeriodsController@index');
 Route::get('/subjects', 'SubjectsController@index');
 Route::get('/privileges', 'PrivilegesController@index');
