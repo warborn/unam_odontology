@@ -33,7 +33,6 @@ $factory->define(App\PersonalInformation::class, function(Faker\Generator $faker
 $factory->define(App\Privilege::class, function(Faker\Generator $faker) {
 	$privileges = ['add new user', 'add role to user', 'add format', 'update format', 'delete format', 'delete user', 'enable user', 'disable user'];
 	return [
-		'privilege_id' => $faker->unique()->numerify('PR##'),
 		'privilege_name' => $faker->unique()->randomElement($privileges),
 	];
 });
@@ -42,7 +41,6 @@ $factory->define(App\Privilege::class, function(Faker\Generator $faker) {
 $factory->define(App\Role::class, function(Faker\Generator $faker) {
 	$roles = ['super user', 'administrator', 'teacher', 'intern', 'student', 'patient'];
 	return [
-		'role_id' => $faker->unique()->numerify('RL##'),
 		'role_name' => $faker->unique()->randomElement($roles),
 		'role_description' => $faker->sentence,
 	];
@@ -58,8 +56,7 @@ $factory->define(App\FederalEntity::class, function(Faker\Generator $faker) {
 // Addresses Factory
 $factory->define(App\Address::class, function(Faker\Generator $faker) {
 	return [
-		'address_id' => $faker->unique()->numerify('AD##'),
-		'postal_code' => $faker->postcode,
+		'postal_code' => $faker->numerify('#####'),
 		'settlement' => $faker->streetName,
 		'municipality' => $faker->city,
 	];
@@ -83,7 +80,6 @@ $factory->define(App\Subject::class, function(Faker\Generator $faker) {
 	$subjects = ['dientes 1', 'dientes 2', 'dientes 3', 'sacando molares 1', 'sacando molares 2', 'terapeando al paciente 1', 'el raton de los dientes 1', 'anestesia local 1', 'anestesia local 2'];
 	$semesters = ['1er', '2do', '3ro', '4to', '5to', '6to', '7mo', '8vo', '9no'];
 	return [
-		'subject_id' => $faker->unique()->numerify('SJ##'),
 		'subject_name'=> $faker->unique()->randomElement($subjects),
 		'semester'=> $faker->randomElement($semesters),
 	];

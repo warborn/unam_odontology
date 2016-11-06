@@ -12,7 +12,9 @@ class FederalEntitiesTableSeeder extends Seeder
     public function run()
     {
         factory(App\FederalEntity::class, 3)->create()->each(function($entity) {
-        	$entity->addresses()->saveMany(factory(App\Address::class, 5)->make());
+        	$entity->addresses()->saveMany(factory(App\Address::class, 5)->make()->each(function($address) {
+                $address->generatePK();
+            }));
         });
     }
 }

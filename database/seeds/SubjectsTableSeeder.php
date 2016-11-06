@@ -11,6 +11,9 @@ class SubjectsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Subject::class, 9)->create();
+        factory(App\Subject::class, 9)->make()->each(function($subject) {
+        	$subject->generatePK();
+        	$subject->save();
+        });
     }
 }
