@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
 use App\Group;
 
@@ -38,15 +38,7 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
-        $group = new Group(['group_id' => $request->group_id]);
-        if($group->save()) {
-            return response()->json($group, 201);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al guardar'
-            ], 400);
-        }
+        return $this->makeValidation($request);
     }
 
     /**
@@ -80,14 +72,7 @@ class GroupsController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        if($group->update(['group_id' => $request->group_id])) {
-            return response()->json($group, 200);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al modificar'
-            ], 400);
-        }
+        return $this->makeValidation($request, $group);
     }
 
     /**
@@ -106,5 +91,24 @@ class GroupsController extends Controller
                 'message' => 'Error al eliminar'
             ], 400);
         }
+    }
+
+    private function makeValidation(Request $request, $resource = null) 
+    {
+        $validator = Validator::make($request->all(), [
+            'group_id' => 'required|unique:groups|max:6'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        if(isset($resource)) {
+            $resource->update(['group_id' => $request->group_id]);
+        } else {
+            $resource = Group::create(['group_id' => $request->group_id]);
+        }
+
+        return response()->json($resource, 200);
     }
 }
