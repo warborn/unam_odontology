@@ -13,7 +13,7 @@ class CreateTeachersTable extends Migration
     public function up()
     {
         Schema::create('teachers', function (Blueprint $table) {
-            $table->string('user_id')->primary('user_id');
+            $table->string('user_id', 20)->primary('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('RFC', 14);
             $table->timestamps();

@@ -13,9 +13,9 @@ class CreateDisabledPrivilegesTable extends Migration
     public function up()
     {
         Schema::create('disabled_privileges', function (Blueprint $table) {
-            $table->string('account_id')->index();
+            $table->string('account_id', 45)->index();
             $table->foreign('account_id')->references('account_id')->on('accounts');
-            $table->string('privilege_id');
+            $table->string('privilege_id', 10);
             $table->foreign('privilege_id')->references('privilege_id')->on('privileges');
             $table->timestamps();
         });

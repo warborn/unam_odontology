@@ -13,14 +13,14 @@ class UsersTableSeeder extends Seeder
     {
         $federal_entity = App\FederalEntity::first();
         $clinic = App\Clinic::first();
-        $super_user = App\Role::find('super user');
-        $administrator = App\Role::find('administrator');
-        $teacher = App\Role::find('teacher');
-        $intern = App\Role::find('intern');
-        $student = App\Role::find('student');
-        $patient = App\Role::find('patient');
-        $add_user_privilege = App\Privilege::where('privilege', '=', 'add new user')->first();
-        $add_role_privilege = App\Privilege::where('privilege', '=', 'add role to user')->first();
+        $super_user = App\Role::where('role_name', '=', 'super user')->first();
+        $administrator = App\Role::where('role_name', '=', 'administrator')->first();
+        $teacher = App\Role::where('role_name', '=', 'teacher')->first();
+        $intern = App\Role::where('role_name', '=', 'intern')->first();
+        $student = App\Role::where('role_name', '=', 'student')->first();
+        $patient = App\Role::where('role_name', '=', 'patient')->first();
+        $add_user_privilege = App\Privilege::where('privilege_name', '=', 'add new user')->first();
+        $add_role_privilege = App\Privilege::where('privilege_name', '=', 'add role to user')->first();
         factory(App\User::class, 14)->create()->each(function($user, $index) 
             use ($clinic, $super_user, $administrator, $teacher,
                  $intern, $student, $patient, $federal_entity, 

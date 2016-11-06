@@ -36,7 +36,7 @@ class Format extends Model
     }
 
     public function courses(){
-        return $this->belongsToMany(Course::class, 'format_student', 'format_id', 'group_period_subject_id')
+        return $this->belongsToMany(Course::class, 'format_student', 'format_id', 'course_id')
             ->withTimestamps();
     }
 }

@@ -13,7 +13,7 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->string('user_id')->primary('user_id');
+            $table->string('user_id', 20)->primary('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('account_number', 10);
             $table->timestamps();

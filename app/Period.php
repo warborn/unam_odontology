@@ -11,7 +11,7 @@ class Period extends Model
     protected $fillable = ['period_id', 'period_start_date', 'period_end_date'];
 
     public function subjects() {
-    	return $this->belongsToMany(Subject::class, 'group_period_subject', 'period_id')
-    			->withPivot('group_period_subject_id', 'group_id')->withTimestamps();
+    	return $this->belongsToMany(Subject::class, 'courses', 'period_id')
+    			->withPivot('course_id', 'group_id')->withTimestamps();
     }
 }

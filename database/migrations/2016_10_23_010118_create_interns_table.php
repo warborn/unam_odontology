@@ -13,7 +13,7 @@ class CreateInternsTable extends Migration
     public function up()
     {
         Schema::create('interns', function (Blueprint $table) {
-            $table->string('user_id')->primary('user_id');
+            $table->string('user_id', 20)->primary('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->date('service_start_date');
             $table->date('service_end_date');

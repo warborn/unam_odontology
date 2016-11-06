@@ -16,11 +16,11 @@ class CoursesSeeder extends Seeder
         $teachers = App\Teacher::all();
         $courses->each(function($course) use ($students, $teachers) {
         	$students->each(function($student) use ($course) {
-        		$student->courses()->attach($course->group_period_subject_id);
+        		$student->courses()->attach($course->course_id);
         	});
 
         	$teachers->each(function($teacher) use ($course) {
-        		$teacher->courses()->attach($course->group_period_subject_id);
+        		$teacher->courses()->attach($course->course_id);
         	});
         });
     }

@@ -26,8 +26,8 @@ class FormatsTableSeeder extends Seeder
        		$format->general_disease = $medical_disease->disease_id;
        		$format->dental_disease = $dental_disease->disease_id;
           $format->save();
-          $format->students()->attach($student1->user_id, ['group_period_subject_id' => $course->group_period_subject_id]);
-          $format->students()->attach($student2->user_id, ['group_period_subject_id' => $course->group_period_subject_id]);
+          $format->students()->attach($student1->user_id, ['course_id' => $course->course_id]);
+          $format->students()->attach($student2->user_id, ['course_id' => $course->course_id]);
        });
 
     }

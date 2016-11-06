@@ -33,8 +33,8 @@ $factory->define(App\PersonalInformation::class, function(Faker\Generator $faker
 $factory->define(App\Privilege::class, function(Faker\Generator $faker) {
 	$privileges = ['add new user', 'add role to user', 'add format', 'update format', 'delete format', 'delete user', 'enable user', 'disable user'];
 	return [
-		'privilege_id' => $faker->unique()->numerify('PR#'),
-		'privilege' => $faker->unique()->randomElement($privileges),
+		'privilege_id' => $faker->unique()->numerify('PR##'),
+		'privilege_name' => $faker->unique()->randomElement($privileges),
 	];
 });
 
@@ -42,7 +42,8 @@ $factory->define(App\Privilege::class, function(Faker\Generator $faker) {
 $factory->define(App\Role::class, function(Faker\Generator $faker) {
 	$roles = ['super user', 'administrator', 'teacher', 'intern', 'student', 'patient'];
 	return [
-		'role_id' => $faker->unique()->randomElement($roles),
+		'role_id' => $faker->unique()->numerify('RL##'),
+		'role_name' => $faker->unique()->randomElement($roles),
 		'role_description' => $faker->sentence,
 	];
 });
@@ -82,7 +83,8 @@ $factory->define(App\Subject::class, function(Faker\Generator $faker) {
 	$subjects = ['dientes 1', 'dientes 2', 'dientes 3', 'sacando molares 1', 'sacando molares 2', 'terapeando al paciente 1', 'el raton de los dientes 1', 'anestesia local 1', 'anestesia local 2'];
 	$semesters = ['1er', '2do', '3ro', '4to', '5to', '6to', '7mo', '8vo', '9no'];
 	return [
-		'subject_id'=> $faker->unique()->randomElement($subjects),
+		'subject_id' => $faker->unique()->numerify('SJ##'),
+		'subject_name'=> $faker->unique()->randomElement($subjects),
 		'semester'=> $faker->randomElement($semesters),
 	];
 });
@@ -106,7 +108,7 @@ $factory->define(App\Period::class, function(Faker\Generator $faker) {
 		$end = $faker->numerify( $age.'-05-24');
 	}
 	return [
-		'period_id'=> $age.$period,
+		'period_id'=> $age. '-' . $period,
 		'period_start_date'=> $start,
 		'period_end_date'=> $end,
 	];

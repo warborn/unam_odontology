@@ -13,7 +13,7 @@ class CreatePeriodsTable extends Migration
     public function up()
     {
         Schema::create('periods', function (Blueprint $table) {
-            $table->string('period_id')->primary('period_id');
+            $table->string('period_id', 7)->primary('period_id');
             $table->date('period_start_date');
             $table->date('period_end_date');
             $table->timestamps();

@@ -13,10 +13,10 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->string('account_id')->primary('account_id');
-            $table->string('user_id');
+            $table->string('account_id', 45)->primary('account_id');
+            $table->string('user_id', 20);
             $table->foreign('user_id')->references('user_id')->on('users');
-            $table->string('clinic_id');
+            $table->string('clinic_id', 25);
             $table->foreign('clinic_id')->references('clinic_id')->on('clinics');
             $table->timestamps();
         });

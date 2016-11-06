@@ -8,5 +8,5 @@ class Subject extends Model
 {
     public $incrementing = false;
     public $primaryKey = 'subject_id';
-    protected $fillable = ['subject_name_id', 'semester'];
+    protected $fillable = ['subject_name_id', 'subject_name', 'semester'];
 }

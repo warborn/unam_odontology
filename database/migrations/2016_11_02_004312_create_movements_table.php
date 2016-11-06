@@ -14,12 +14,12 @@ class CreateMovementsTable extends Migration
     {
         Schema::create('movements', function (Blueprint $table) {
             $table->datetime('timestamp')->primary('timestamp');
-            $table->string('receiver_account_id');
+            $table->string('receiver_account_id', 45);
             $table->foreign('receiver_account_id')->references('account_id')->on('accounts');
-            $table->string('maker_account_id');
+            $table->string('maker_account_id', 45);
             $table->foreign('maker_account_id')->references('account_id')->on('accounts');
             $table->string('ip', 16);
-            $table->string('privilege_id');
+            $table->string('privilege_id', 10);
             $table->foreign('privilege_id')->references('privilege_id')->on('privileges');
         });
     }
