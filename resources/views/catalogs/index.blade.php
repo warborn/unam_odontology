@@ -1,4 +1,4 @@
-@extends('layouts.application')
+@extends('layouts.app')
 
 @section('content')
 <h1>This is the catalogs view</h1>
@@ -62,13 +62,13 @@ $(document).ready(function() {
 						entity.period_end_date].map(createTD);
 			break;
 			case 'subject':
-				$tds = [entity.subject_id, entity.semester].map(createTD);
+				$tds = [entity.subject_id, entity.subject_name, entity.semester].map(createTD);
 			break;
 			case 'privilege':
-				$tds = [entity.privilege_id, entity.privilege].map(createTD);
+				$tds = [entity.privilege_id, entity.privilege_name].map(createTD);
 			break;
 			case 'role':
-				$tds = [entity.role_id, entity.role_description].map(createTD);
+				$tds = [entity.role_id, entity.role_name, entity.role_description].map(createTD);
 			break;
 			case 'federal-entitie':
 				$tds = [entity.federal_entity_id].map(createTD);
