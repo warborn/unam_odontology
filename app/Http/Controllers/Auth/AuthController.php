@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\PersonalInformation;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -49,9 +50,14 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'user_id' => 'required|max:20',
+            'email' => 'required|email|max:80|unique:personal_informations',
             'password' => 'required|min:6|confirmed',
+            'name' => 'required|max:30',
+            'last_name' => 'required|max:20',
+            'mother_last_name' => 'required|max:20',
+            'phone' => 'alpha_num',
+            'street' => 'string|max:100'
         ]);
     }
 
@@ -63,10 +69,46 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $personal_information = new PersonalInformation([
             'name' => $data['name'],
+            'last_name' => $data['last_name'],
+            'mother_last_name' => $data['mother_last_name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
+            'gender' => $data['gender'],
+            'street' => $data['street'],
+        ]);
+
+        $user = User::create([
+            'user_id' => $data['user_id'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $user->personal_information()->save($personal_information);
+        return $user;
     }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+     */
+    public function authenticate()
+    {
+        if (Auth::attempt(['user_id' => $user_id, 'password' => $password])) {
+            // Authentication passed...
+            return redirect()->intended('dashboard');
+        }
+    }
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function loginUsername()
+    {
+        return property_exists($this, 'username') ? $this->username : 'user_id';
+    }
+
 }

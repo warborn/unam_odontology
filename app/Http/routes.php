@@ -31,3 +31,6 @@ Route::get('/roles', 'RolesController@index');
 Route::get('/federal-entities', 'FederalEntitiesController@index');
 Route::get('/diseases', 'DiseasesController@index');
 Route::get('/addresses', 'AddressesController@index');
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
