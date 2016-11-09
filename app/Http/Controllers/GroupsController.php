@@ -39,6 +39,15 @@ class GroupsController extends Controller
     public function store(Request $request)
     {
         return $this->makeValidation($request);
+        $group = new Group(['group_id' => $request->group_id]);
+        if($group->save()){
+            return response()->json($group, 201);
+        }else{
+            return response()->json([
+                'error' =>true,
+                'message' => 'error al guardar'
+                ], 400);
+        }
     }
 
     /**
@@ -73,6 +82,15 @@ class GroupsController extends Controller
     public function update(Request $request, Group $group)
     {
         return $this->makeValidation($request, $group);
+        if($group->update(['group_id'=> $request->group_id])){
+            return response()->json($group, 201);
+        }else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Error al modificar'
+                ], 400);
+        }
+
     }
 
     /**

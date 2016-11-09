@@ -37,7 +37,20 @@ class SubjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->makeValidation($request);
+        $subject = new Subject([
+            'subject_id' => $request->subject_id,
+            'subject_name' => $request->subject_name,
+            'semester' => $request->semester
+            ]);
+        if($subject->save()){
+            return response()->json($subject, 201);
+        }else{
+            return response()->json([
+                'error' =>true,
+                'message' => 'error al guardar'
+                ], 400);
+        }
     }
 
     /**
@@ -69,9 +82,21 @@ class SubjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Subject $subject)
     {
-        //
+        return $this->makeValidation($request, $subject);
+        if($subject->update([
+            'subject_id' => $request->subject_id,
+            'subject_name' => $request->subject_name,
+            'semester' => $request->semester
+            ])){
+            return response()->json($subject, 201);
+        }else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Error al modificar'
+                ], 400);
+        }
     }
 
     /**
@@ -80,8 +105,44 @@ class SubjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subject $subject)
     {
-        //
+        if($subject->delete()) {
+            return response()->json($subject);
+        } else {
+            return response()->json([
+                'error' => true,
+                'message' => 'Error al eliminar'
+            ], 400);
+        }
+    }
+
+    private function makeValidation(Request $request, $resource = null) 
+    {
+        $validator = Validator::make($request->all(), [
+            'subject_id' => 'required|unique:groups|max:15',
+            'subject_name' => 'required',
+            'semester' => 'required|max:3' 
+        ]);
+
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        if(isset($resource)) {
+            $resource->update([
+                'subject_id' => $request->subject_id,
+                'subject_name' => $request->subject_name,
+                'semester' => $request->semester
+                ]);
+        } else {
+            $resource = Subject::create([
+                'subject_id' => $request->subject_id,
+                'subject_name' => $request->subject_name,
+                'semester' => $request->semester
+                ]);
+        }
+
+        return response()->json($resource, 200);
     }
 }

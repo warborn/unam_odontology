@@ -25,9 +25,36 @@ Route::patch('/groups/{group}', 'GroupsController@update');
 Route::delete('/groups/{group}', 'GroupsController@destroy');
 
 Route::get('/periods', 'PeriodsController@index');
+Route::post('/periods', 'PeriodsController@store');
+Route::patch('/periods/{period}', 'PeriodsController@update');
+Route::delete('/periods/{period}', 'PeriodsController@destroy');
+
 Route::get('/subjects', 'SubjectsController@index');
+Route::post('/subjects', 'SubjectsController@store');
+Route::patch('/subjects/{subject}', 'SubjectsController@update');
+Route::delete('/subjects/{subject}', 'SubjectsController@destroy');
+
 Route::get('/privileges', 'PrivilegesController@index');
+Route::post('/privileges', 'PrivilegesController@store');
+Route::patch('/privileges/{privilege}', 'PrivilegesController@update');
+Route::delete('/privileges/{privilege}', 'PrivilegesController@destroy');
+
 Route::get('/roles', 'RolesController@index');
+Route::post('/roles', 'RolesController@store');
+Route::patch('/roles/{role}', 'RolesController@update');
+Route::delete('/roles/{role}', 'RolesController@destroy');
+
 Route::get('/federal-entities', 'FederalEntitiesController@index');
+Route::post('/federal-entities', 'FederalEntitiesController@store');
+Route::patch('/federal-entities/{federalEntities}', 'FederalEntitiesController@update');
+Route::delete('/federal-entities/{federalEntities}', 'FederalEntitiesController@destroy');
+
 Route::get('/diseases', 'DiseasesController@index');
+Route::post('/diseases', 'DiseasesController@store');
+Route::patch('/diseases/{disease}', 'DiseasesController@update');
+Route::delete('/diseases/{disease}', 'DiseasesController@destroy');
+
 Route::get('/addresses', 'AddressesController@index');
+Route::post('/addresses', 'AddressesController@store');
+Route::patch('/addresses/{address}', 'AddressesController@update');
+Route::delete('/addresses/{address}', 'AddressesController@destroy');
