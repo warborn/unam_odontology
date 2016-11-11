@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -9,77 +8,79 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
+    | such as the size rules. Feel free to tweak each of these messages.
     |
     */
-
-    // 'accepted'             => 'The :attribute must be accepted.',
-    // 'active_url'           => 'The :attribute is not a valid URL.',
+    'accepted'             => ':attribute debe ser aceptado.',
+    'active_url'           => ':attribute no es una URL válida.',
     'after'                => ':attribute debe ser una fecha posterior a :date.',
-    'alpha'                => ':attribute puede contener solo letras.',
-    // 'alpha_dash'           => 'The :attribute may only contain letters, numbers, and dashes.',
-    'alpha_num'            => ':attribute puede contener solo números y letras.',
-    // 'array'                => 'The :attribute must be an array.',
+    'alpha'                => ':attribute sólo debe contener letras.',
+    'alpha_dash'           => ':attribute sólo debe contener letras, números y guiones.',
+    'alpha_num'            => ':attribute sólo debe contener letras y números.',
+    'array'                => ':attribute debe ser un conjunto.',
     'before'               => ':attribute debe ser una fecha anterior a :date.',
-    // 'between'              => [
-    //     'numeric' => 'The :attribute must be between :min and :max.',
-    //     'file'    => 'The :attribute must be between :min and :max kilobytes.',
-    //     'string'  => 'The :attribute must be between :min and :max characters.',
-    //     'array'   => 'The :attribute must have between :min and :max items.',
-    // ],
-    // 'boolean'              => 'The :attribute field must be true or false.',
-    // 'confirmed'            => ':attribute confirmation does not match.',
-    'date'                 => ':attribute no es una fecha valida.',
-    // 'date_format'          => 'The :attribute does not match the format :format.',
-    // 'different'            => 'The :attribute and :other must be different.',
-    'digits'               => ':attribute debe contener :digits digitos.',
-    // 'digits_between'       => 'The :attribute must be between :min and :max digits.',
-    // 'distinct'             => 'The :attribute field has a duplicate value.',
-    'email'                => ':attribute debe ser un correo electronico valido.',
-    // 'exists'               => 'The selected :attribute is invalid.',
-    // 'filled'               => 'The :attribute field is required.',
-    // 'image'                => 'The :attribute must be an image.',
-    // 'in'                   => 'The selected :attribute is invalid.',
-    // 'in_array'             => 'The :attribute field does not exist in :other.',
-    // 'integer'              => 'The :attribute must be an integer.',
-    // 'ip'                   => 'The :attribute must be a valid IP address.',
-    // 'json'                 => 'The :attribute must be a valid JSON string.',
+    'between'              => [
+        'numeric' => ':attribute tiene que estar entre :min - :max.',
+        'file'    => ':attribute debe pesar entre :min - :max kilobytes.',
+        'string'  => ':attribute tiene que tener entre :min - :max caracteres.',
+        'array'   => ':attribute tiene que tener entre :min - :max ítems.',
+    ],
+    'boolean'              => 'El campo :attribute debe tener un valor verdadero o falso.',
+    'confirmed'            => 'La confirmación de :attribute no coincide.',
+    'date'                 => ':attribute no es una fecha válida.',
+    'date_format'          => ':attribute no corresponde al formato :format.',
+    'different'            => ':attribute y :other deben ser diferentes.',
+    'digits'               => ':attribute debe tener :digits dígitos.',
+    'digits_between'       => ':attribute debe tener entre :min y :max dígitos.',
+    'dimensions'           => 'Las dimensiones de la imagen :attribute no son válidas.',
+    'distinct'             => 'El campo :attribute contiene un valor duplicado.',
+    'email'                => ':attribute no es un correo válido',
+    'exists'               => ':attribute es inválido.',
+    'file'                 => 'El campo :attribute debe ser un archivo.',
+    'filled'               => 'El campo :attribute es obligatorio.',
+    'image'                => ':attribute debe ser una imagen.',
+    'in'                   => ':attribute es inválido.',
+    'in_array'             => 'El campo :attribute no existe en :other.',
+    'integer'              => ':attribute debe ser un número entero.',
+    'ip'                   => ':attribute debe ser una dirección IP válida.',
+    'json'                 => 'El campo :attribute debe tener una cadena JSON válida.',
     'max'                  => [
         'numeric' => ':attribute no debe ser mayor a :max.',
-        // 'file'    => 'The :attribute may not be greater than :max kilobytes.',
-        'string'  => ':attribute no debe tener más de :max caracteres.',
-        // 'array'   => ':attribute may not have more than :max items.',
+        'file'    => ':attribute no debe ser mayor que :max kilobytes.',
+        'string'  => ':attribute no debe ser mayor que :max caracteres.',
+        'array'   => ':attribute no debe tener más de :max elementos.',
     ],
-    // 'mimes'                => 'The :attribute must be a file of type: :values.',
+    'mimes'                => ':attribute debe ser un archivo con formato: :values.',
+    'mimetypes'            => ':attribute debe ser un archivo con formato: :values.',
     'min'                  => [
-        'numeric' => ':attribute debe ser al menos :min.',
-        // 'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => ':attribute debe tener al menos :min caracteres.',
-        // 'array'   => ':attribute must have at least :min items.',
+        'numeric' => 'El tamaño de :attribute debe ser de al menos :min.',
+        'file'    => 'El tamaño de :attribute debe ser de al menos :min kilobytes.',
+        'string'  => ':attribute debe contener al menos :min caracteres.',
+        'array'   => ':attribute debe tener al menos :min elementos.',
     ],
-    // 'not_in'               => 'The selected :attribute is invalid.',
-    // 'numeric'              => 'The :attribute must be a number.',
-    'present'              => ':attribute debe estar presente.',
-    // 'regex'                => ':attribute format is invalid.',
-    'required'             => ':attribute es obligatorio/a.',
-    // 'required_if'          => 'The :attribute field is required when :other is :value.',
-    // 'required_unless'      => 'The :attribute field is required unless :other is in :values.',
-    // 'required_with'        => 'The :attribute field is required when :values is present.',
-    // 'required_with_all'    => 'The :attribute field is required when :values is present.',
-    // 'required_without'     => 'The :attribute field is required when :values is not present.',
-    // 'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    // 'same'                 => 'The :attribute and :other must match.',
-    // 'size'                 => [
-    //     'numeric' => 'The :attribute must be :size.',
-    //     'file'    => 'The :attribute must be :size kilobytes.',
-    //     'string'  => 'The :attribute must be :size characters.',
-    //     'array'   => 'The :attribute must contain :size items.',
-    // ],
-    // 'string'               => 'The :attribute must be a string.',
-    // 'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => ':attribute ya existe.',
-    // 'url'                  => 'The :attribute format is invalid.',
-
+    'not_in'               => ':attribute es inválido.',
+    'numeric'              => ':attribute debe ser numérico.',
+    'present'              => 'El campo :attribute debe estar presente.',
+    'regex'                => 'El formato de :attribute es inválido.',
+    'required'             => 'El campo :attribute es obligatorio.',
+    'required_if'          => 'El campo :attribute es obligatorio cuando :other es :value.',
+    'required_unless'      => 'El campo :attribute es obligatorio a menos que :other esté en :values.',
+    'required_with'        => 'El campo :attribute es obligatorio cuando :values está presente.',
+    'required_with_all'    => 'El campo :attribute es obligatorio cuando :values está presente.',
+    'required_without'     => 'El campo :attribute es obligatorio cuando :values no está presente.',
+    'required_without_all' => 'El campo :attribute es obligatorio cuando ninguno de :values estén presentes.',
+    'same'                 => ':attribute y :other deben coincidir.',
+    'size'                 => [
+        'numeric' => 'El tamaño de :attribute debe ser :size.',
+        'file'    => 'El tamaño de :attribute debe ser :size kilobytes.',
+        'string'  => ':attribute debe contener :size caracteres.',
+        'array'   => ':attribute debe contener :size elementos.',
+    ],
+    'string'               => 'El campo :attribute debe ser una cadena de caracteres.',
+    'timezone'             => 'El :attribute debe ser una zona válida.',
+    'unique'               => ':attribute ya ha sido registrado.',
+    'uploaded'             => 'Subir :attribute ha fallado.',
+    'url'                  => 'El formato :attribute es inválido.',
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -90,12 +91,11 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
-    // 'custom' => [
-    //     'attribute-name' => [
-    //         'rule-name' => 'custom-message',
-    //     ],
-    // ],
+    'custom'               => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -108,76 +108,147 @@ return [
     |
     */
 
+    // 'attributes' => [
+    // 	// Groups
+    // 	'group_id' => 'El nombre del grupo',
+    // 	// Periods
+    // 	'period_id' => 'El periodo',
+    // 	'period_start_date' => 'La fecha de inicio del periodo',
+    // 	'period_end_date' => 'La fecha de termino del periodo',
+    // 	// Subjects
+    // 	'subject_name' => 'El nombre de la asignatura',
+    // 	'semester' => 'El semestre',
+    // 	// Users
+    // 	'user_id' => 'El nombre de usuario',
+    // 	'password' => 'La contraseña',
+    // 	// Teachers
+    // 	'rfc' => 'El RFC',
+    // 	// Students
+    // 	'account_number' => 'El número de cuenta',
+    // 	// Patients
+    // 	'age' => 'La edad',
+    // 	'federal_entity_id' => 'La entidad federativa',
+    // 	'ocupation' => 'La ocupación',
+    // 	'school_grade' => 'El grado escolar',
+    // 	'civil_status' => 'El estado civil',
+    // 	'phone' => 'El teléfono',
+    // 	'medical_service' => 'El servicio médico',
+    // 	'service_name' => 'El nombre nombre del servicio',
+    // 	// Interns
+    // 	'service_start_date' => 'La fecha de inicio del servicio',
+    // 	'service_end_date' => 'La fecha de termino del servicio',
+    // 	// 'account_number' => 'El número de cuenta',
+    // 	// Privileges
+    // 	'privilege_name' =>  'El nombre del privilegio',
+    // 	// Roles
+    // 	'role_name' => 'El nombre del rol',
+    // 	'role_description' => 'La descripción del rol',
+    // 	// Clinics
+    // 	'clinic_id' => 'La clínica',
+    // 	'clinic_email' => 'El correo electronico',
+    // 	'clinic_phone' => 'El teléfono',
+    // 	'street' => 'La calle',
+    // 	// Federal Entities
+    // 	'federal_entity_id' => 'La entidad federativa',
+    // 	// Addresses
+    // 	'postal_code' => 'El codigo postal',
+    // 	'settlement' => 'La colonia',
+    // 	'minicipality' => 'El municipio',
+    // 	'federal_entity_id' => 'La entidad federativa',
+    // 	// Formats
+    // 	'user_intern_id' => 'El pasante',
+    // 	// 'clinic_id' => 'La clínica',
+    // 	'user_patient_id' => 'El paciente',
+    // 	'medical_history_number' => 'El número de historia clínica',
+    // 	'consultation_reason' => 'La rázon de consulta',
+    // 	'medical_treatment' => 'El tratamiento médico',
+    // 	'therapeutic_used' => 'La terapeutica usada',
+    // 	'observations' => 'Las observaciones',
+    // 	'referrenced_by' => 'Referido por',
+    // 	'dental_disease' => 'Enfermedad odontológica',
+    // 	'format_status' => 'El estado del formato',
+    // 	// Personal Informations
+    // 	'user_name' => 'El nombre',
+    // 	'last_name' => 'El apellido paterno',
+    // 	'mother_last_name' => 'El apellido materno',
+    // 	'email' => 'El correo electronico',
+    // 	'phone' => 'El teléfono',
+    // 	'gender' => 'El sexo',
+    // 	// 'street' => 'La calle',
+    // 	// Diseases
+    // 	'disease_name' => 'El nombre de la enfermedad',
+    // 	'type_of_disease' => 'El tipo de la enfermedad',
+    // ],
+
     'attributes' => [
-    	// Groups
-    	'group_id' => 'El nombre del grupo',
-    	// Periods
-    	'period_id' => 'El periodo',
-    	'period_start_date' => 'La fecha de inicio del periodo',
-    	'period_end_date' => 'La fecha de termino del periodo',
-    	// Subjects
-    	'subject_name' => 'El nombre de la asignatura',
-    	'semester' => 'El semestre',
-    	// Users
-    	'user_id' => 'El nombre de usuario',
-    	'password' => 'La contraseña',
-    	// Teachers
-    	'rfc' => 'El RFC',
-    	// Students
-    	'account_number' => 'El número de cuenta',
-    	// Patients
-    	'age' => 'La edad',
-    	'federal_entity_id' => 'La entidad federativa',
-    	'ocupation' => 'La ocupación',
-    	'school_grade' => 'El grado escolar',
-    	'civil_status' => 'El estado civil',
-    	'phone' => 'El teléfono',
-    	'medical_service' => 'El servicio médico',
-    	'service_name' => 'El nombre nombre del servicio',
-    	// Interns
-    	'service_start_date' => 'La fecha de inicio del servicio',
-    	'service_end_date' => 'La fecha de termino del servicio',
-    	// 'account_number' => 'El número de cuenta',
-    	// Privileges
-    	'privilege_name' =>  'El nombre del privilegio',
-    	// Roles
-    	'role_name' => 'El nombre del rol',
-    	'role_description' => 'La descripción del rol',
-    	// Clinics
-    	'clinic_id' => 'La clínica',
-    	'clinic_email' => 'El correo electronico',
-    	'clinic_phone' => 'El teléfono',
-    	'street' => 'La calle',
-    	// Federal Entities
-    	'federal_entity_id' => 'La entidad federativa',
-    	// Addresses
-    	'postal_code' => 'El codigo postal',
-    	'settlement' => 'La colonia',
-    	'minicipality' => 'El municipio',
-    	'federal_entity_id' => 'La entidad federativa',
-    	// Formats
-    	'user_intern_id' => 'El pasante',
-    	// 'clinic_id' => 'La clínica',
-    	'user_patient_id' => 'El paciente',
-    	'medical_history_number' => 'El número de historia clínica',
-    	'consultation_reason' => 'La rázon de consulta',
-    	'medical_treatment' => 'El tratamiento médico',
-    	'therapeutic_used' => 'La terapeutica usada',
-    	'observations' => 'Las observaciones',
-    	'referrenced_by' => 'Referido por',
-    	'dental_disease' => 'Enfermedad odontológica',
-    	'format_status' => 'El estado del formato',
-    	// Personal Informations
-    	'user_name' => 'El nombre',
-    	'last_name' => 'El apellido paterno',
-    	'mother_last_name' => 'El apellido materno',
-    	'email' => 'El correo electronico',
-    	'phone' => 'El teléfono',
-    	'gender' => 'El sexo',
-    	// 'street' => 'La calle',
-    	// Diseases
-    	'disease_name' => 'El nombre de la enfermedad',
-    	'type_of_disease' => 'El tipo de la enfermedad',
+        // Groups
+        'group_id' => 'nombre del grupo',
+        // Periods
+        'period_id' => 'periodo',
+        'period_start_date' => 'fecha de inicio del periodo',
+        'period_end_date' => 'fecha de termino del periodo',
+        // Subjects
+        'subject_name' => 'nombre de la asignatura',
+        'semester' => 'semestre',
+        // Users
+        'user_id' => 'nombre de usuario',
+        'password' => 'contraseña',
+        // Teachers
+        'rfc' => 'RFC',
+        // Students
+        'account_number' => 'número de cuenta',
+        // Patients
+        'age' => 'La edad',
+        'federal_entity_id' => 'entidad federativa',
+        'ocupation' => 'ocupación',
+        'school_grade' => 'grado escolar',
+        'civil_status' => 'estado civil',
+        'phone' => 'teléfono',
+        'medical_service' => 'servicio médico',
+        'service_name' => 'nombre nombre del servicio',
+        // Interns
+        'service_start_date' => 'fecha de inicio del servicio',
+        'service_end_date' => 'fecha de termino del servicio',
+        // 'account_number' => 'El número de cuenta',
+        // Privileges
+        'privilege_name' =>  'nombre del privilegio',
+        // Roles
+        'role_name' => 'nombre del rol',
+        'role_description' => 'descripción del rol',
+        // Clinics
+        'clinic_id' => 'clínica',
+        'clinic_email' => 'correo electrónico',
+        'clinic_phone' => 'teléfono',
+        'street' => 'calle',
+        // Federal Entities
+        'federal_entity_id' => 'entidad federativa',
+        // Addresses
+        'postal_code' => 'codigo postal',
+        'settlement' => 'colonia',
+        'minicipality' => 'municipio',
+        'federal_entity_id' => 'entidad federativa',
+        // Formats
+        'user_intern_id' => 'pasante',
+        // 'clinic_id' => 'La clínica',
+        'user_patient_id' => 'paciente',
+        'medical_history_number' => 'número de historia clínica',
+        'consultation_reason' => 'rázon de consulta',
+        'medical_treatment' => 'tratamiento médico',
+        'therapeutic_used' => 'terapeutica usada',
+        'observations' => 'observaciones',
+        'referrenced_by' => 'referido por',
+        'dental_disease' => 'enfermedad odontológica',
+        'format_status' => 'estado del formato',
+        // Personal Informations
+        'user_name' => 'nombre',
+        'last_name' => 'apellido paterno',
+        'mother_last_name' => 'apellido materno',
+        'phone' => 'teléfono',
+        'gender' => 'sexo',
+        // 'street' => 'La calle',
+        // Diseases
+        'disease_name' => 'nombre de la enfermedad',
+        'type_of_disease' => 'tipo de la enfermedad',
     ],
 
 ];

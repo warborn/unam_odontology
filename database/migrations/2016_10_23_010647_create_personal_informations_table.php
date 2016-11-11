@@ -15,10 +15,10 @@ class CreatePersonalInformationsTable extends Migration
         Schema::create('personal_informations', function (Blueprint $table) {
             $table->string('user_id', 20)->primary('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
-            $table->string('user_name', 30);
+            $table->string('name', 30);
             $table->string('last_name', 20);
             $table->string('mother_last_name', 20);
-            $table->string('email', 80);
+            $table->string('email', 80)->unique();
             $table->string('phone', 16)->nullable();
             $table->string('gender', 1)->nullable();
             $table->string('address_id', 200)->nullable();

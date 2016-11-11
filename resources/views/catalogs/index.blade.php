@@ -1,4 +1,4 @@
-@extends('layouts.application')
+@extends('layouts.app')
 
 @section('content')
 <h1>This is the catalogs view</h1>

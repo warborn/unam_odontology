@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class PersonalInformation extends Model
 {
 	public $incrementing = false;
-	protected $fillable = ['user_id', 'user_name', 'last_name', 'mother_last_name', 'email', 'phone', 'gender', 'address_id', 'street'];
+	public $primaryKey = 'user_id';
+	protected $fillable = ['user_id', 'name', 'last_name', 'mother_last_name', 'email', 'phone', 'gender', 'address_id', 'street'];
+
+	public function fullname() {
+		return $this->name . ' ' . $this->last_name;
+	}
+
 }

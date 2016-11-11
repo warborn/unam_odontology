@@ -63,3 +63,6 @@ Route::get('/clinics', 'ClinicsController@index');
 Route::post('/clinics', 'ClinicsController@store');
 Route::patch('/clinics/{clinic}', 'ClinicsController@update');
 Route::delete('/clinics/{clinic}', 'ClinicsController@destroy');
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

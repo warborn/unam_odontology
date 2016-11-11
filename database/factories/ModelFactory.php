@@ -15,14 +15,14 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->userName,
-        'password' => bcrypt($faker->password),
+        'password' => bcrypt('password'),
     ];
 });
 
 // Personal Informations Factory
 $factory->define(App\PersonalInformation::class, function(Faker\Generator $faker) {
 	return [
-		'user_name' => $faker->firstName,
+		'name' => $faker->firstName,
 		'last_name' => $faker->lastName,
 		'mother_last_name' => $faker->lastName,
 		'email' => $faker->email,
