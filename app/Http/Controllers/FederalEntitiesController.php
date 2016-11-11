@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
 use App\FederalEntity;
 class FederalEntitiesController extends Controller
@@ -38,17 +38,6 @@ class FederalEntitiesController extends Controller
     public function store(Request $request)
     {
         return $this->makeValidation($request);
-        $federal = new FederalEntity([
-            'federal_entity_id' => $request->federal_entity_id
-            ]);
-        if($federal->save()){
-            return response()->json($federal, 201);
-        }else{
-            return response()->json([
-                'error' =>true,
-                'message' => 'error al guardar'
-                ], 400);
-        }
     }
 
     /**
@@ -83,16 +72,6 @@ class FederalEntitiesController extends Controller
     public function update(Request $request, FederalEntity $federal)
     {
         return $this->makeValidation($request, $federal);
-        if($federal->update([
-            'federal_entity_id' => $request->federal_entity_id
-            ])){
-            return response()->json($federal, 201);
-        }else{
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al modificar'
-                ], 400);
-        }
     }
 
     /**
@@ -122,11 +101,11 @@ class FederalEntitiesController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-
+        $datos=['federal_entity_id' => $request->federal_entity_id];
         if(isset($resource)) {
-            $resource->update(['federal_entity_id' => $request->federal_entity_id]);
+            $resource->update($datos);
         } else {
-            $resource = FederalEntity::create(['federal_entity_id' => $request->federal_entity_id]);
+            $resource = FederalEntity::create($datos);
         }
 
         return response()->json($resource, 200);

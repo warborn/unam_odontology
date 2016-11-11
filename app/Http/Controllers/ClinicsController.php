@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
-use App\Privilege;
-class PrivilegesController extends Controller
+use App\Clinic;
+class ClinicsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class PrivilegesController extends Controller
      */
     public function index()
     {
-        $privileges = Privilege::all();
-        return $privileges->toJson();        
+        $clinics = Clinic::with('address')->get();
+        return $clinics->toJson();
     }
 
     /**
@@ -69,9 +69,9 @@ class PrivilegesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Privilege $privilege)
+    public function update(Request $request, Clinic $clinic)
     {
-        return $this->makeValidation($request, $privilege);
+        return $this->makeValidation($request, $clinic);
     }
 
     /**
@@ -80,10 +80,10 @@ class PrivilegesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Privilege $privilege)
+    public function destroy(Clinic $clinic)
     {
-         if($privilege->delete()) {
-            return response()->json($privilege);
+        if($clinic->delete()) {
+            return response()->json($clinic);
         } else {
             return response()->json([
                 'error' => true,
@@ -95,21 +95,27 @@ class PrivilegesController extends Controller
     private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'privilege_id' => 'required|unique:groups|max:10',
-            'privilege_name' => 'required|max:100'
+            'clinic_id' => 'required|unique:groups|max:25',
+        	'address_id' => 'required|max:200',
+        	'clinic_email' => 'required|max:25',
+        	'clinic_phone' =>'required|max:16',
+        	'street' => 'required|max:100'
         ]);
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
         $datos=[
-                'privilege_id' => $request->privilege_id,
-                'privilege_name' =>$request->privilege_name
-                ];
+        	'clinic_id' => $request->clinic_id,
+        	'address_id' => $request->address_id,
+        	'clinic_email' => $request->clinic_email,
+        	'clinic_phone' =>$request->clinic_phone,
+        	'street' => $request->street
+        ];
         if(isset($resource)) {
             $resource->update($datos);
         } else {
-            $resource = Privilege::create($datos);
+            $resource = Clinic::create($datos);
         }
 
         return response()->json($resource, 200);

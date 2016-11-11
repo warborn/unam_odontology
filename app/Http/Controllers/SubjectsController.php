@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
 use App\Subject;
 class SubjectsController extends Controller
@@ -38,19 +38,6 @@ class SubjectsController extends Controller
     public function store(Request $request)
     {
         return $this->makeValidation($request);
-        $subject = new Subject([
-            'subject_id' => $request->subject_id,
-            'subject_name' => $request->subject_name,
-            'semester' => $request->semester
-            ]);
-        if($subject->save()){
-            return response()->json($subject, 201);
-        }else{
-            return response()->json([
-                'error' =>true,
-                'message' => 'error al guardar'
-                ], 400);
-        }
     }
 
     /**
@@ -85,18 +72,6 @@ class SubjectsController extends Controller
     public function update(Request $request, Subject $subject)
     {
         return $this->makeValidation($request, $subject);
-        if($subject->update([
-            'subject_id' => $request->subject_id,
-            'subject_name' => $request->subject_name,
-            'semester' => $request->semester
-            ])){
-            return response()->json($subject, 201);
-        }else{
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al modificar'
-                ], 400);
-        }
     }
 
     /**
@@ -128,19 +103,15 @@ class SubjectsController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-
+        $datos=[
+                'subject_id' => $request->subject_id,
+                'subject_name' => $request->subject_name,
+                'semester' => $request->semester
+                ];
         if(isset($resource)) {
-            $resource->update([
-                'subject_id' => $request->subject_id,
-                'subject_name' => $request->subject_name,
-                'semester' => $request->semester
-                ]);
+            $resource->update($datos);
         } else {
-            $resource = Subject::create([
-                'subject_id' => $request->subject_id,
-                'subject_name' => $request->subject_name,
-                'semester' => $request->semester
-                ]);
+            $resource = Subject::create($datos);
         }
 
         return response()->json($resource, 200);

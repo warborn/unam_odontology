@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
 use App\Role;
 class RolesController extends Controller
@@ -38,19 +38,6 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         return $this->makeValidation($request);
-        $role = new Role([
-            'role_id' => $request->role_id,
-            'role_name' => $request->role_name,
-            'role_description' =>$request->role_description
-            ]);
-        if($role->save()){
-            return response()->json($role, 201);
-        }else{
-            return response()->json([
-                'error' =>true,
-                'message' => 'error al guardar'
-                ], 400);
-        }
     }
 
     /**
@@ -85,18 +72,6 @@ class RolesController extends Controller
     public function update(Request $request, Role $role)
     {
         return $this->makeValidation($request, $role);
-        if($role->update([
-            'role_id' => $request->role_id,
-            'role_name' => $request->role_name,
-            'role_description' =>$request->role_description
-            ])){
-            return response()->json($role, 201);
-        }else{
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al modificar'
-                ], 400);
-        }
     }
 
     /**
@@ -128,19 +103,15 @@ class RolesController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-
+        $datos=[
+                'role_id' => $request->role_id,
+                'role_name' => $request->role_name,
+                'role_description' =>$request->role_description
+                ];
         if(isset($resource)) {
-            $resource->update([
-                'role_id' => $request->role_id,
-                'role_name' => $request->role_name,
-                'role_description' =>$request->role_description
-                ]);
+            $resource->update($datos);
         } else {
-            $resource = Role::create([
-                'role_id' => $request->role_id,
-                'role_name' => $request->role_name,
-                'role_description' =>$request->role_description
-                ]);
+            $resource = Role::create($datos);
         }
 
         return response()->json($resource, 200);

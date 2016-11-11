@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
 use App\Period;
 class PeriodsController extends Controller
@@ -38,19 +38,6 @@ class PeriodsController extends Controller
     public function store(Request $request)
     {
         return $this->makeValidation($request);
-        $period = new Period([
-            'period_id' => $request->period_id,
-            'period_start_date' => $request->period_start_date,
-            'period_end_date' => $request->period_end_date
-            ]);
-        if($period->save()){
-            return response()->json($period, 201);
-        }else{
-            return response()->json([
-                'error' =>true,
-                'message' => 'error al guardar'
-                ], 400);
-        }
     }
 
     /**
@@ -85,18 +72,6 @@ class PeriodsController extends Controller
     public function update(Request $request, Period $period)
     {
         return $this->makeValidation($request, $period);
-        if($period->update([
-            'period_id' => $request->period_id,
-            'period_start_date' => $request->period_start_date,
-            'period_end_date' => $request->period_end_date
-            ])){
-            return response()->json($period, 201);
-        }else{
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al modificar'
-                ], 400);
-        }
     }
 
     /**
@@ -128,19 +103,15 @@ class PeriodsController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-
+        $datos=[
+                'period_id' => $request->period_id,
+                'period_start_date' => $request->period_start_date,
+                'period_end_date' => $request->period_end_date
+                ];
         if(isset($resource)) {
-            $resource->update([
-                'period_id' => $request->period_id,
-                'period_start_date' => $request->period_start_date,
-                'period_end_date' => $request->period_end_date
-                ]);
+            $resource->update($datos);
         } else {
-            $resource = Period::create([
-                'period_id' => $request->period_id,
-                'period_start_date' => $request->period_start_date,
-                'period_end_date' => $request->period_end_date
-                ]);
+            $resource = Period::create($datos);
         }
 
         return response()->json($resource, 200);

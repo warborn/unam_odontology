@@ -58,3 +58,8 @@ Route::get('/addresses', 'AddressesController@index');
 Route::post('/addresses', 'AddressesController@store');
 Route::patch('/addresses/{address}', 'AddressesController@update');
 Route::delete('/addresses/{address}', 'AddressesController@destroy');
+
+Route::get('/clinics', 'ClinicsController@index');
+Route::post('/clinics', 'ClinicsController@store');
+Route::patch('/clinics/{clinic}', 'ClinicsController@update');
+Route::delete('/clinics/{clinic}', 'ClinicsController@destroy');

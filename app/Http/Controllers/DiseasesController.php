@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
 use App\Disease;
 class DiseasesController extends Controller
@@ -38,19 +38,6 @@ class DiseasesController extends Controller
     public function store(Request $request)
     {
         return $this->makeValidation($request);
-        $disease = new Disease([
-            'disease_id' => $request->disease_id,
-            'disease_name' => $request->disease_name,
-            'type_of_disease' => $request->type_of_disease
-            ]);
-        if($disease->save()){
-            return response()->json($disease, 201);
-        }else{
-            return response()->json([
-                'error' =>true,
-                'message' => 'error al guardar'
-                ], 400);
-        }
     }
 
     /**
@@ -85,18 +72,6 @@ class DiseasesController extends Controller
     public function update(Request $request, Disease $disease)
     {
         return $this->makeValidation($request, $disease);
-        if($disease->update([
-            'disease_id' => $request->disease_id,
-            'disease_name' => $request->disease_name,
-            'type_of_disease' => $request->type_of_disease
-            ])){
-            return response()->json($disease, 201);
-        }else{
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al modificar'
-                ], 400);
-        }
     }
 
     /**
@@ -128,19 +103,15 @@ class DiseasesController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-
+        $datos=[
+                'disease_id' => $request->disease_id,
+                'disease_name' => $request->disease_name,
+                'type_of_disease' => $request->type_of_disease
+                ];
         if(isset($resource)) {
-            $resource->update([
-                'disease_id' => $request->disease_id,
-                'disease_name' => $request->disease_name,
-                'type_of_disease' => $request->type_of_disease
-                ]);
+            $resource->update($datos);
         } else {
-            $resource = Disease::create([
-                'disease_id' => $request->disease_id,
-                'disease_name' => $request->disease_name,
-                'type_of_disease' => $request->type_of_disease
-                ]);
+            $resource = Disease::create($datos);
         }
 
         return response()->json($resource, 200);
