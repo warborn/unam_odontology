@@ -102,11 +102,11 @@ class GroupsController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=['group_id' => $request->group_id];
+        $values=['group_id' => $request->group_id];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = Group::create($datos);
+            $resource = Group::create($values);
         }
 
         return response()->json($resource, 200);

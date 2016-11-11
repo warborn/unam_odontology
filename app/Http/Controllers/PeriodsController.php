@@ -103,15 +103,15 @@ class PeriodsController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=[
+        $values=[
                 'period_id' => $request->period_id,
                 'period_start_date' => $request->period_start_date,
                 'period_end_date' => $request->period_end_date
                 ];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = Period::create($datos);
+            $resource = Period::create($values);
         }
 
         return response()->json($resource, 200);

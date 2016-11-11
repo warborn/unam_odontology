@@ -13,6 +13,7 @@
 	<option value="federal-entitie">Entidades federativas</option>
 	<option value="disease">Enfermedades</option>
 	<option value="addresse">Direcciones</option>
+	<option value="clinic">Clinicas</option>
 </select>
 
 <table border="1">
@@ -78,6 +79,9 @@ $(document).ready(function() {
 			break;
 			case 'addresse':
 				$tds = [entity.address_id, entity.postal_code, entity.settlement, entity.municipality, entity.federal_entity_id	].map(createTD);
+			break;
+			case 'clinic':
+				$tds = [entity.clinic_id, entity.address_id, entity.clinic_email, entity.clinic_phone, entity.street, entity.address.settlement, entity.address.municipality, entity.address.federal_entity_id, entity.address.postal_code, ].map(createTD);
 			break;
 		}
 		$tr.append(generateHTMLString.apply(null, $tds));

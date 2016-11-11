@@ -95,21 +95,21 @@ class PrivilegesController extends Controller
     private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'privilege_id' => 'required|unique:groups|max:10',
+            'privilege_id' => 'required|unique:privileges|max:10',
             'privilege_name' => 'required|max:100'
         ]);
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=[
+        $values=[
                 'privilege_id' => $request->privilege_id,
                 'privilege_name' =>$request->privilege_name
                 ];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = Privilege::create($datos);
+            $resource = Privilege::create($values);
         }
 
         return response()->json($resource, 200);

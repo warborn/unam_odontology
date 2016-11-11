@@ -95,17 +95,17 @@ class FederalEntitiesController extends Controller
     private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'federal_entity_id' => 'required|unique:groups|max:35'
+            'federal_entity_id' => 'required|unique:federalEntities|max:35'
         ]);
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=['federal_entity_id' => $request->federal_entity_id];
+        $values=['federal_entity_id' => $request->federal_entity_id];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = FederalEntity::create($datos);
+            $resource = FederalEntity::create($values);
         }
 
         return response()->json($resource, 200);
