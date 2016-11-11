@@ -95,7 +95,7 @@ class SubjectsController extends Controller
     private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'subject_id' => 'required|unique:groups|max:15',
+            'subject_id' => 'required|unique:subjects|max:15',
             'subject_name' => 'required',
             'semester' => 'required|max:3' 
         ]);
@@ -103,15 +103,15 @@ class SubjectsController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=[
+        $values=[
                 'subject_id' => $request->subject_id,
                 'subject_name' => $request->subject_name,
                 'semester' => $request->semester
                 ];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = Subject::create($datos);
+            $resource = Subject::create($values);
         }
 
         return response()->json($resource, 200);

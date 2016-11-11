@@ -95,7 +95,7 @@ class RolesController extends Controller
     private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'role_id' => 'required|unique:groups|max:10',
+            'role_id' => 'required|unique:roles|max:10',
             'role_name' => 'required|max:25',
             'role_description' => 'required'
         ]);
@@ -103,15 +103,15 @@ class RolesController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=[
+        $values=[
                 'role_id' => $request->role_id,
                 'role_name' => $request->role_name,
                 'role_description' =>$request->role_description
                 ];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = Role::create($datos);
+            $resource = Role::create($values);
         }
 
         return response()->json($resource, 200);

@@ -95,7 +95,7 @@ class DiseasesController extends Controller
      private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'disease_id' => 'required|unique:groups|max:20',
+            'disease_id' => 'required|unique:diseases|max:20',
             'disease_name' => 'required|max:150',
             'type_of_disease' => 'required|max:20'
         ]);
@@ -103,15 +103,15 @@ class DiseasesController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=[
+        $values=[
                 'disease_id' => $request->disease_id,
                 'disease_name' => $request->disease_name,
                 'type_of_disease' => $request->type_of_disease
                 ];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = Disease::create($datos);
+            $resource = Disease::create($values);
         }
 
         return response()->json($resource, 200);

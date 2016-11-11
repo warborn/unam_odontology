@@ -69,7 +69,7 @@ class ClinicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Clinic $clinic)
+    public function update(Request $request,Clinic $clinic)
     {
         return $this->makeValidation($request, $clinic);
     }
@@ -95,7 +95,7 @@ class ClinicsController extends Controller
     private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'clinic_id' => 'required|unique:groups|max:25',
+            'clinic_id' => 'required|unique:clinics|max:25',
         	'address_id' => 'required|max:200',
         	'clinic_email' => 'required|max:25',
         	'clinic_phone' =>'required|max:16',
@@ -105,7 +105,7 @@ class ClinicsController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $datos=[
+        $values=[
         	'clinic_id' => $request->clinic_id,
         	'address_id' => $request->address_id,
         	'clinic_email' => $request->clinic_email,
@@ -113,9 +113,9 @@ class ClinicsController extends Controller
         	'street' => $request->street
         ];
         if(isset($resource)) {
-            $resource->update($datos);
+            $resource->update($values);
         } else {
-            $resource = Clinic::create($datos);
+            $resource = Clinic::create($values);
         }
 
         return response()->json($resource, 200);
