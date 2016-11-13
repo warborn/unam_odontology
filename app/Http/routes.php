@@ -50,6 +50,7 @@ Route::patch('/federal-entities/{federalEntities}', 'FederalEntitiesController@u
 Route::delete('/federal-entities/{federalEntities}', 'FederalEntitiesController@destroy');
 
 Route::get('/diseases', 'DiseasesController@index');
+Route::get('/diseases/{disease}', 'DiseasesController@show');
 Route::post('/diseases', 'DiseasesController@store');
 Route::patch('/diseases/{disease}', 'DiseasesController@update');
 Route::delete('/diseases/{disease}', 'DiseasesController@destroy');
