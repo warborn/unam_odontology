@@ -34,4 +34,5 @@
 	@include('catalogs._disease_modal')
 	@include('catalogs._address_modal')
 	@include('catalogs._clinic_modal')
+	@include('catalogs._group_modal')
 @endsection

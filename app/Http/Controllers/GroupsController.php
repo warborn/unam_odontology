@@ -21,16 +21,6 @@ class GroupsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,7 +28,8 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        $validations = ['group_id' => 'required|unique:groups|max:6'];
+        return $this->makeValidation($request, $validations);
     }
 
     /**
@@ -47,20 +38,9 @@ class GroupsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Group $group)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($group);
     }
 
     /**
@@ -72,7 +52,8 @@ class GroupsController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        return $this->makeValidation($request, $group);
+        $validations = ['group_id' => "required|unique:groups,group_id,{$group->group_id},group_id|max:6"];
+        return $this->makeValidation($request, $validations, $group);
     }
 
     /**
@@ -83,26 +64,20 @@ class GroupsController extends Controller
      */
     public function destroy(Group $group)
     {
-        if($group->delete()) {
-            return response()->json($group);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al eliminar'
-            ], 400);
-        }
+        $group->delete();
+        return response()->json($group);
     }
 
-    private function makeValidation(Request $request, $resource = null) 
+    private function makeValidation(Request $request, $validations = [], $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
-            'group_id' => 'required|unique:groups|max:6'
-        ]);
+        $validator = Validator::make($request->all(), $validations);
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $values=['group_id' => $request->group_id];
+        
+        $values = ['group_id' => $request->group_id];
+
         if(isset($resource)) {
             $resource->update($values);
         } else {

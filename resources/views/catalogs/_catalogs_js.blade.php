@@ -298,19 +298,25 @@ function updateCatalog(form, catalog, id) {
 	var $formGroups = removeErrors(form);
 
 	var success = function(response) {
+		console.log(response);
 		var $newtr = createCatalogRow(catalog, response);
 		var $oldtr = $($('[data-id=' + id + ']')[0]).parent().parent();
-		$oldtr.replaceWith('<tr>' + generateHTMLString([$newtr]) + '</tr>');
+		$oldtr.replaceWith('<tr data-state="new">' + generateHTMLString([$newtr]) + '</tr>');
 		$('#' + catalog + '-modal').modal('hide');
 		swal("¡Se ha modificado el registro!", null, "success");
-		$oldtr = $($('[data-id=' + id + ']')[0]).parent().parent();
+		$oldtr = $($('[data-state=new]')[0]).parent().parent();
 		attachUpdateEvent($oldtr.find('.btn.update'));
 		attachDeleteEvent($oldtr.find('.btn.delete'), deleteAlert);
+		$oldtr.removeAttr('data-state');
 	}
 
 	var options = {method: 'PATCH', data: data, success: success, 
 		error: function(error) {
+			if(error.status === 500) {
+				swal("Error!", "No se pudo modificar el registro.", "error")
+			} else if(error.status === 422) {
 				handleFormErrors($formGroups, error);
+			}
 		}
 	};
 	sendAJAX(options, catalog, id);
