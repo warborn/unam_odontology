@@ -112,7 +112,7 @@ $factory->define(App\Period::class, function(Faker\Generator $faker) {
 
 // Diseases Factory
 $factory->define(App\Disease::class, function(Faker\Generator $faker) {
-	$type_of_disease = $faker->randomElement($type=['general', 'odontological']);
+	$type_of_disease = $faker->randomElement($type=['general', 'odontológica']);
 	if($type_of_disease == 'dental'){
 		$disease_id = $faker->unique()->numerify('d###');
 	}else{

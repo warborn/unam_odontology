@@ -18,7 +18,7 @@ class FormatsTableSeeder extends Seeder
        $clinic = App\Clinic::first();
        $patient = App\Patient::first();
        $medical_disease = App\Disease::where('type_of_disease', '=', 'general')->first();
-       $dental_disease = App\Disease::where('type_of_disease', '=', 'odontological')->first();
+       $dental_disease = App\Disease::where('type_of_disease', '=', 'odontológica')->first();
        factory(App\Format::class, 10)->make()->each(function($format) use ($course, $student1, $student2, $intern, $clinic, $patient, $medical_disease, $dental_disease){
           $format->user_intern_id = $intern->user_id;
        		$format->clinic_id = $clinic->clinic_id;

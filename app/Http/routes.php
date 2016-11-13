@@ -20,6 +20,7 @@ Route::get('/catalogs', function() {
 });
 
 Route::get('/groups', 'GroupsController@index');
+Route::get('/groups/{group}', 'GroupsController@show');
 Route::post('/groups', 'GroupsController@store');
 Route::patch('/groups/{group}', 'GroupsController@update');
 Route::delete('/groups/{group}', 'GroupsController@destroy');
@@ -56,11 +57,13 @@ Route::patch('/diseases/{disease}', 'DiseasesController@update');
 Route::delete('/diseases/{disease}', 'DiseasesController@destroy');
 
 Route::get('/addresses', 'AddressesController@index');
+Route::get('/addresses/{address}', 'AddressesController@show');
 Route::post('/addresses', 'AddressesController@store');
 Route::patch('/addresses/{address}', 'AddressesController@update');
 Route::delete('/addresses/{address}', 'AddressesController@destroy');
 
 Route::get('/clinics', 'ClinicsController@index');
+Route::get('/clinics/{clinic}', 'ClinicsController@show');
 Route::post('/clinics', 'ClinicsController@store');
 Route::patch('/clinics/{clinic}', 'ClinicsController@update');
 Route::delete('/clinics/{clinic}', 'ClinicsController@destroy');

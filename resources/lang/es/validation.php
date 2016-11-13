@@ -78,7 +78,7 @@ return [
     ],
     'string'               => 'El campo :attribute debe ser una cadena de caracteres.',
     'timezone'             => 'El :attribute debe ser una zona válida.',
-    'unique'               => ':attribute ya ha sido registrado.',
+    'unique'               => 'El :attribute ya ha sido registrado.',
     'uploaded'             => 'Subir :attribute ha fallado.',
     'url'                  => 'El formato :attribute es inválido.',
     /*
@@ -247,6 +247,7 @@ return [
         'gender' => 'sexo',
         // 'street' => 'La calle',
         // Diseases
+        'disease_id' => 'codigo de la enfermedad',
         'disease_name' => 'nombre de la enfermedad',
         'type_of_disease' => 'tipo de la enfermedad',
     ],
