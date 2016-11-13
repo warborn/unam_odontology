@@ -358,16 +358,8 @@ $('.modal-form').submit(function(e) {
 	}
 });
 
-$('#disease-btn').click(function() {
-	setupFormAction(this, 'create');
-});
-
-$('#group-btn').click(function() {
-	setupFormAction(this, 'create');
-});
-
-$('#subject-btn').click(function() {
-	setupFormAction(this, 'create');
+$('.btn.catalog').click(function() {
+		setupFormAction(this, 'create');
 });
 
 // reset modal form on close

@@ -1,21 +1,21 @@
-<button type="button" class="btn btn-primary catalog" data-toggle="modal" data-target="#clinic-modal" id="clinic-btn">Agregar Clinica</button>
+<button type="button" class="btn btn-primary catalog" id="clinic-btn">Agregar Clinica</button>
 
 <div class="modal fade" id="clinic-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title text-center" id="myModalLabel" >Agregar Clínicas</h4>
+				<h4 class="modal-title text-center" id="myModalLabel" >Clínica</h4>
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form>
+					<form id="clinic-form" class="modal-form">
 						<div class="form-group">
 							<input type="text" name="clinic_id" placeholder="Nombre" class="form-control">
 						</div>
 
 						<div class="form-group">
-							<input type="text" placeholder="Código" class="form-control">
+							<input type="text" placeholder="Código postal" class="form-control">
 						</div>
 
 						<div class="form-group">
@@ -40,15 +40,15 @@
 						</div>
 
 						<div class="form-group">
-							<input type="email" placeholder="Email" class="form-control">
+							<input type="email" name="clinic_email" placeholder="Email" class="form-control">
 						</div>
 
 						<div class="form-group">
-							<input type="text" placeholder="Teléfono" class="form-control">
+							<input type="text" name="clinic_phone" placeholder="Teléfono" class="form-control">
 						</div>
 
 						<div class="form-group">
-							<input type="text" placeholder="Calle" class="form-control">
+							<input type="text" name="street" placeholder="Calle" class="form-control">
 						</div>
 
 						<div class="form-group custom-btn">

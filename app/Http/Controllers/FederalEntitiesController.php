@@ -20,16 +20,6 @@ class FederalEntitiesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -52,26 +42,15 @@ class FederalEntitiesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FederalEntity $federal)
+    public function update(Request $request, FederalEntity $federal_entity)
     {
-        return $this->makeValidation($request, $federal);
+        return $this->makeValidation($request, $federal_entity);
     }
 
     /**
@@ -80,10 +59,10 @@ class FederalEntitiesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FederalEntity $federal)
+    public function destroy(FederalEntity $federal_entity)
     {
-        if($federal->delete()) {
-            return response()->json($federal);
+        if($federal_entity->delete()) {
+            return response()->json($federal_entity);
         } else {
             return response()->json([
                 'error' => true,
