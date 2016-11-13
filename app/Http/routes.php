@@ -65,4 +65,10 @@ Route::patch('/clinics/{clinic}', 'ClinicsController@update');
 Route::delete('/clinics/{clinic}', 'ClinicsController@destroy');
 Route::auth();
 
+Route::get('/courses', 'CoursesController@index');
+Route::get('/courses/create', 'CoursesController@create');
+Route::post('/courses', 'CoursesController@store');
+Route::patch('/courses/{course}', 'CoursesController@update');
+Route::delete('/courses/{course}', 'CoursesController@destroy');
+
 Route::get('/home', 'HomeController@index');
