@@ -102,7 +102,7 @@ function getColumns(catalog, entity) {
 					entity.period_end_date];
 		break;
 		case 'subject':
-			columns = [entity.subject_id, entity.subject_name, entity.semester];
+			columns = [entity.subject_id, entity.subject_name, entity.semester + '°'];
 		break;
 		case 'privilege':
 			columns = [entity.privilege_id, entity.privilege_name];
@@ -363,6 +363,10 @@ $('#disease-btn').click(function() {
 });
 
 $('#group-btn').click(function() {
+	setupFormAction(this, 'create');
+});
+
+$('#subject-btn').click(function() {
 	setupFormAction(this, 'create');
 });
 
