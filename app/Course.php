@@ -8,22 +8,27 @@ class Course extends Model
 {
     public $incrementing = false;
     protected $primaryKey = 'course_id';
-    protected $fillable = ['course_id', 'group_id', 'period_id', 'subject_id'];
+    protected $fillable = ['group_id', 'period_id', 'subject_id'];
     
     public function students(){
         return $this->belongsToMany(Student::class, 'course_student', 'course_id', 'user_id')
         ->withTimestamps();
     }
 
-    public function groups(){
+    public function group(){
     	return $this->belongsTo(Group::class, 'group_id');
     }
 
-    public function periods(){
+    public function period(){
     	return $this->belongsTo(Period::class, 'period_id');
     }
 
-    public function subjects(){
+    public function subject(){
     	return $this->belongsTo(Subject::class, 'subject_id');
+    }
+
+    public function generatePK() {
+        $this->course_id = $this->group_id . $this->period_id . $this->subject_id;
+        return $this->subject_id;
     }
 }

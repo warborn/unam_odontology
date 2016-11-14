@@ -18,7 +18,7 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('groups')->with('periods')->with('subjects')->get();
+        $courses = Course::with('group')->with('period')->with('subject')->get();
         return View('courses.index')->with('courses',$courses);
     }
 
@@ -44,7 +44,11 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        if($this->makeValidation($request)) {
+            return redirect('courses');
+        } else {
+            return redirect('courses/create');
+        }
     }
 
     /**
@@ -89,40 +93,26 @@ class CoursesController extends Controller
      */
     public function destroy(Course $course)
     {
-        if($course->delete()) {
-            return response()->json($course);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al eliminar'
-            ], 400);
-        }
+        $course->delete();
+        return redirect()->back();
     }
 
-     private function makeValidation(Request $request, $resource = null) 
+    private function makeValidation(Request $request, $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
-            'subject_id' => 'required|max:15',
-            'group_id' => 'required|max:6',
-            'period_id' => 'required|max:7'
-        ]);
+        $group = Group::findOrFail($request->group_id);
+        $subject = Subject::findOrFail($request->subject_id);
+        $period = Period::findOrFail($request->period_id);
 
-        if($validator->fails()) {
-            return response()->json($validator->messages(), 422);
-        }
-        $values=[
-        'course_id' => $request->group_id.$request->period_id.$request->subject_id,
-        'subject_id' => $request->subject_id,
-        'group_id' => $request->group_id,
-        'period_id' => $request->period_id
-        ];
+        $values = ['subject_id' => $request->subject_id, 
+                   'group_id' => $request->group_id, 
+                   'period_id' => $request->period_id];
 
         if(isset($resource)) {
-            $resource->update($values);
+            return $resource->update($values);
         } else {
-            $resource = Course::create($values);
+            $resource = new Course($values);
+            $resource->generatePK();
+            return $resource->save();
         }
-
-        return response()->json($resource, 200);
     }
 }
