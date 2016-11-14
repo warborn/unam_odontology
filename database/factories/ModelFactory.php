@@ -49,7 +49,7 @@ $factory->define(App\Role::class, function(Faker\Generator $faker) {
 // Federal Entities Factory
 $factory->define(App\FederalEntity::class, function(Faker\Generator $faker) {
 	return [
-		'federal_entity_id' => $faker->unique()->state,
+		'federal_entity_name' => $faker->unique()->state,
 	];
 });
 
