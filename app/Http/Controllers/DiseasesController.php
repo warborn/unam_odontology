@@ -20,16 +20,6 @@ class DiseasesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +27,8 @@ class DiseasesController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        $validations = ['disease_id' => 'required|unique:diseases|max:20'];
+        return $this->makeValidation($request, $validations);
     }
 
     /**
@@ -46,20 +37,9 @@ class DiseasesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Disease $disease)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($disease);
     }
 
     /**
@@ -71,7 +51,9 @@ class DiseasesController extends Controller
      */
     public function update(Request $request, Disease $disease)
     {
-        return $this->makeValidation($request, $disease);
+        $validations = ["disease_id' => 'required|unique:diseases,disease_id,{$disease->disease_id},disease_id|max:20"];
+
+        return $this->makeValidation($request, $validations, $disease);
     }
 
     /**
@@ -82,36 +64,32 @@ class DiseasesController extends Controller
      */
     public function destroy(Disease $disease)
     {
-        if($disease->delete()) {
-            return response()->json($disease);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al eliminar'
-            ], 400);
-        }
+        $disease->delete();
+        return response()->json($disease);
     }
-
-     private function makeValidation(Request $request, $resource = null) 
+ 
+    private function makeValidation(Request $request, $validations = [], $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
-            'disease_id' => 'required|unique:diseases|max:20',
+        $validations = array_merge($validations, [
             'disease_name' => 'required|max:150',
             'type_of_disease' => 'required|max:20'
         ]);
 
+        $validator = Validator::make($request->all(), $validations);
+
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $values=[
-                'disease_id' => $request->disease_id,
-                'disease_name' => $request->disease_name,
-                'type_of_disease' => $request->type_of_disease
-                ];
+
+        $values = ['disease_name' => $request->disease_name,
+                   'type_of_disease' => $request->type_of_disease];
+
         if(isset($resource)) {
             $resource->update($values);
         } else {
-            $resource = Disease::create($values);
+            $resource = new Disease($values);
+            $resource->disease_id = $request->disease_id;
+            $resource->save();
         }
 
         return response()->json($resource, 200);

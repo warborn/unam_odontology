@@ -78,7 +78,7 @@ $factory->define(App\Clinic::class, function(Faker\Generator $faker) {
 // Subjects Factory
 $factory->define(App\Subject::class, function(Faker\Generator $faker) {
 	$subjects = ['dientes 1', 'dientes 2', 'dientes 3', 'sacando molares 1', 'sacando molares 2', 'terapeando al paciente 1', 'el raton de los dientes 1', 'anestesia local 1', 'anestesia local 2'];
-	$semesters = ['1er', '2do', '3ro', '4to', '5to', '6to', '7mo', '8vo', '9no'];
+	$semesters = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 	return [
 		'subject_name'=> $faker->unique()->randomElement($subjects),
 		'semester'=> $faker->randomElement($semesters),
@@ -112,7 +112,7 @@ $factory->define(App\Period::class, function(Faker\Generator $faker) {
 
 // Diseases Factory
 $factory->define(App\Disease::class, function(Faker\Generator $faker) {
-	$type_of_disease = $faker->randomElement($type=['dental', 'medical']);
+	$type_of_disease = $faker->randomElement($type=['general', 'odontológica']);
 	if($type_of_disease == 'dental'){
 		$disease_id = $faker->unique()->numerify('d###');
 	}else{
