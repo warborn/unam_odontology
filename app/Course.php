@@ -29,6 +29,6 @@ class Course extends Model
 
     public function generatePK() {
         $this->course_id = $this->group_id . $this->period_id . $this->subject_id;
-        return $this->subject_id;
+        return $this->course_id;
     }
 }

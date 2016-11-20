@@ -30,13 +30,7 @@ Route::resource('diseases', 'DiseasesController', ['except' => ['create', 'edit'
 Route::resource('federal-entities', 'FederalEntitiesController', ['except' => ['create', 'edit']]);
 Route::resource('addresses', 'AddressesController', ['except' => ['create', 'edit']]);
 Route::resource('clinics', 'ClinicsController', ['except' => ['create', 'edit']]);
-
+Route::resource('courses', 'CoursesController');
 Route::auth();
-
-Route::get('/courses', 'CoursesController@index');
-Route::get('/courses/create', 'CoursesController@create');
-Route::post('/courses', 'CoursesController@store');
-Route::patch('/courses/{course}', 'CoursesController@update');
-Route::delete('/courses/{course}', 'CoursesController@destroy');
 
 Route::get('/home', 'HomeController@index');
