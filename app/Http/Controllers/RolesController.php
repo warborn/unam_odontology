@@ -20,16 +20,6 @@ class RolesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +27,8 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        $validations = ['role_name' => 'required|max:25'];
+        return $this->makeValidation($request, $validations);
     }
 
     /**
@@ -46,20 +37,9 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($role);
     }
 
     /**
@@ -71,7 +51,8 @@ class RolesController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        return $this->makeValidation($request, $role);
+        $validations = ['role_name' => "required|unique:roles,role_name,{$role->role_id},role_id|max:25"];
+        return $this->makeValidation($request, $validations, $role);
     }
 
     /**
@@ -82,36 +63,28 @@ class RolesController extends Controller
      */
     public function destroy(Role $role)
     {
-        if($role->delete()) {
-            return response()->json($role);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al eliminar'
-            ], 400);
-        }
+        $role->delete();
+        return response()->json($role);
     }
 
-    private function makeValidation(Request $request, $resource = null) 
+    private function makeValidation(Request $request, $validations = [], $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
-            'role_id' => 'required|unique:roles|max:10',
-            'role_name' => 'required|max:25',
-            'role_description' => 'required'
-        ]);
+        $validations = array_merge($validations, ['role_description' => 'required']);
+        $validator = Validator::make($request->all(), $validations);
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $values=[
-                'role_id' => $request->role_id,
-                'role_name' => $request->role_name,
-                'role_description' =>$request->role_description
-                ];
+
+        $values = ['role_name' => $request->role_name,
+                   'role_description' =>$request->role_description];
+
         if(isset($resource)) {
             $resource->update($values);
         } else {
-            $resource = Role::create($values);
+            $resource = new Role($values);
+            $resource->generatePK();
+            $resource->save();
         }
 
         return response()->json($resource, 200);
