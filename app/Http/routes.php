@@ -39,4 +39,10 @@ Route::post('/courses', 'CoursesController@store');
 Route::patch('/courses/{course}', 'CoursesController@update');
 Route::delete('/courses/{course}', 'CoursesController@destroy');
 
+Route::get('/teacher/courses', 'TeachersController@index_courses');
+Route::get('/teacher/courses/{course}', 'TeachersController@show_course');
+
+Route::get('/student/courses', 'StudentsController@index_courses');
+Route::get('/student/course/{course}', 'StudentsController@store_course');
+
 Route::get('/home', 'HomeController@index');
