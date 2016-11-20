@@ -61,7 +61,7 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Course $course)
     {
         //
     }
@@ -93,7 +93,7 @@ class CoursesController extends Controller
         try{
             $this->makeValidation($request, $course);
         }catch(\Illuminate\Database\QueryException $e){
-            session()->flash('warning', 'El curso no se pudo modificar error:'.$e->getCode());
+            session()->flash('warning', 'El curso no se pudo modificar');
             return redirect('courses');
         }
             session()->flash('info', 'Se modifico el curso: '.$course->course_id);
@@ -111,7 +111,7 @@ class CoursesController extends Controller
         try {
             $course->delete();
             }catch (\Illuminate\Database\QueryException $e){
-                session()->flash('warning', 'El curso no se puede eliminar error:'.$e->getCode());
+                session()->flash('warning', 'El curso no se puede eliminar');
                 return redirect('courses');
             }
             session()->flash('danger', 'El curso fue eliminado correctamente.');

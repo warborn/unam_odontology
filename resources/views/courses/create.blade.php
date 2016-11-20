@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('alert.alerts')
+@include('shared._alerts')
 
 {{ Form::open(['action' => ['CoursesController@store']]) }}
 <div class="form-group">
