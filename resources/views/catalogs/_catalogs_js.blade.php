@@ -131,7 +131,7 @@ function getColumns(catalog, entity) {
 function htmlButton(entity, catalog, type, content) {
 	var btnType = type == 'update' ? 'info' : 'danger';
 	return '<button class="btn btn-' + btnType + ' ' + type + 
-				 '" data-id="' +  entity[catalog + '_id'] + 
+				 '" data-id="' +  entity[catalog.replace(/-/g, '_') + '_id'] + 
 				 '" data-entity="' + catalog + '">' + content + '</button>';
 }
 

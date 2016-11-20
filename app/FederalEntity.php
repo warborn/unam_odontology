@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FederalEntity extends Model
 {
-		use WordsTrait;
+	use WordsTrait;
 		
     public $incrementing = false;
     protected $primaryKey = 'federal_entity_id';

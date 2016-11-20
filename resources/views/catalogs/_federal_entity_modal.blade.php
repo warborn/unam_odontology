@@ -12,7 +12,7 @@
 			<div class="modal-body">
 				<div class="well">
 					<form id="federal-entity-form" class="modal-form">
-						<div class="form-group">
+						<div class="form-group" id="federal_entity_name">
 							<input type="text" name="federal_entity_name" placeholder="Nombre" class="form-control">
 						</div>
 						<div class="form-group custom-btn">

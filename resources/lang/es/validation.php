@@ -221,7 +221,7 @@ return [
         'clinic_phone' => 'teléfono',
         'street' => 'calle',
         // Federal Entities
-        'federal_entity_id' => 'entidad federativa',
+        'federal_entity_name' => 'entidad federativa',
         // Addresses
         'postal_code' => 'codigo postal',
         'settlement' => 'colonia',
