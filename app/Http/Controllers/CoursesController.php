@@ -44,11 +44,15 @@ class CoursesController extends Controller
      */
     public function store(Request $request)
     {
-        if($this->makeValidation($request)) {
-            return redirect('courses');
-        } else {
+        try{
+            $this->makeValidation($request);
+
+        }catch(\Illuminate\Database\QueryException $e){
+            session()->flash('warning', 'No se pudo crear el grupo error:'.$e->getCode());
             return redirect('courses/create');
         }
+            session()->flash('success', 'El curso fue creado correctamente.');
+            return redirect('courses');
     }
 
     /**
@@ -57,7 +61,7 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Course $course)
     {
         //
     }
@@ -68,9 +72,13 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($course)
     {
-        //
+        $groups = Group::pluck('group_id', 'group_id');
+        $periods = Period::pluck('period_id', 'period_id');
+        $subjects = Subject::pluck('subject_name','subject_id');
+        $course = Course::find($course);
+        return View('courses/edit')->with('course', $course)->with('groups', $groups)->with('periods', $periods)->with('subjects', $subjects);
     }
 
     /**
@@ -82,7 +90,14 @@ class CoursesController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        return $this->makeValidation($request, $course);
+        try{
+            $this->makeValidation($request, $course);
+        }catch(\Illuminate\Database\QueryException $e){
+            session()->flash('warning', 'El curso no se pudo modificar');
+            return redirect('courses');
+        }
+            session()->flash('info', 'Se modifico el curso: '.$course->course_id);
+            return redirect('courses');
     }
 
     /**
@@ -93,12 +108,18 @@ class CoursesController extends Controller
      */
     public function destroy(Course $course)
     {
-        $course->delete();
-        return redirect()->back();
+        try {
+            $course->delete();
+            }catch (\Illuminate\Database\QueryException $e){
+                session()->flash('warning', 'El curso no se puede eliminar');
+                return redirect('courses');
+            }
+            session()->flash('danger', 'El curso fue eliminado correctamente.');
+            return redirect('courses');        
     }
 
     private function makeValidation(Request $request, $resource = null) 
-    {
+    {   
         $group = Group::findOrFail($request->group_id);
         $subject = Subject::findOrFail($request->subject_id);
         $period = Period::findOrFail($request->period_id);
@@ -108,6 +129,8 @@ class CoursesController extends Controller
                    'period_id' => $request->period_id];
 
         if(isset($resource)) {
+            $resource->update($values);
+            $resource->generatePk();
             return $resource->update($values);
         } else {
             $resource = new Course($values);

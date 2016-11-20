@@ -20,16 +20,6 @@ class PrivilegesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +27,8 @@ class PrivilegesController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        $validations = ['privilege_name' => 'required|max:100'];
+        return $this->makeValidation($request, $validations);
     }
 
     /**
@@ -46,20 +37,9 @@ class PrivilegesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Privilege $privilege)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($privilege);
     }
 
     /**
@@ -71,7 +51,8 @@ class PrivilegesController extends Controller
      */
     public function update(Request $request, Privilege $privilege)
     {
-        return $this->makeValidation($request, $privilege);
+        $validations = ['privilege_name' => "required|unique:privileges,privilege_name,{$privilege->privilege_id},privilege_id|max:100"];
+        return $this->makeValidation($request, $validations, $privilege);
     }
 
     /**
@@ -82,34 +63,27 @@ class PrivilegesController extends Controller
      */
     public function destroy(Privilege $privilege)
     {
-         if($privilege->delete()) {
-            return response()->json($privilege);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al eliminar'
-            ], 400);
-        }
+        $privilege->delete();
+        return response()->json($privilege);
+        
     }
 
-    private function makeValidation(Request $request, $resource = null) 
+    private function makeValidation(Request $request, $validations = [], $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
-            'privilege_id' => 'required|unique:privileges|max:10',
-            'privilege_name' => 'required|max:100'
-        ]);
+        $validator = Validator::make($request->all(), $validations);
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $values=[
-                'privilege_id' => $request->privilege_id,
-                'privilege_name' =>$request->privilege_name
-                ];
+
+        $values = ['privilege_name' => $request->privilege_name];
+
         if(isset($resource)) {
             $resource->update($values);
         } else {
-            $resource = Privilege::create($values);
+            $resource = new Privilege($values);
+            $resource->generatePK();
+            $resource->save();
         }
 
         return response()->json($resource, 200);
