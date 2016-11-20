@@ -62,6 +62,7 @@ class SubjectsController extends Controller
     public function destroy(Subject $subject)
     {
         $subject->delete();
+        return response()->json($federal_entity);
     }
 
     private function makeValidation(Request $request, $resource = null) 

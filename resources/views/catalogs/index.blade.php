@@ -37,4 +37,6 @@
 	@include('catalogs._group_modal')
 	@include('catalogs._subject_modal')
 	@include('catalogs._federal_entity_modal')
+	@include('catalogs._role_modal')
+	@include('catalogs._privilege_modal')
 @endsection
