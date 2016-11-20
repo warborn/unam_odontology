@@ -56,7 +56,7 @@ function translateProperty(name) {
 		'subject_name': 'asignatura', 'semester': 'semestre',
 		'privilege_name': 'privilegio',
 		'role_name': 'rol', 'role_description': 'descripción',
-		'federal_entity_id': 'entidad_federativa',
+		'federal_entity_name': 'entidad_federativa',
 		'disease_id': 'código', 'disease_name': 'enfermedad', 'type_of_disease': 'tipo',
 		'postal_code': 'código postal', 'settlement': 'colonia', 'municipality': 'municipio',
 		'clinic_id': 'clínica', 'clinic_email': 'correo electrónico', 'clinic_phone': 'teléfono', 'address': 'dirección',
@@ -111,7 +111,7 @@ function getColumns(catalog, entity) {
 			columns = [entity.role_id, entity.role_name, entity.role_description];
 		break;
 		case 'federal-entity':
-			columns = [entity.federal_entity_id];
+			columns = [entity.federal_entity_id, entity.federal_entity_name];
 		break;
 		case 'disease':
 			columns = [entity.disease_id, entity.disease_name, entity.type_of_disease];
