@@ -53,4 +53,13 @@ Route::get('/roles/{role}/privileges', 'RolesController@index_privileges');
 Route::post('/roles/{role}/privileges', 'RolesController@store_privilege');
 Route::delete('/roles/{role}/privileges/{privilege}', 'RolesController@destroy_privilege');
 
+Route::get('/accounts', 'AccountsController@index');
+Route::get('/accounts/{account}', 'AccountsController@show');
+Route::post('/accounts/{account}/roles', 'AccountsController@store_role');
+Route::delete('/accounts/{account}/roles/{role}', 'AccountsController@destroy_role');
+Route::post('/accounts/{account}/privileges/{privilege}', 'AccountsController@store_disabled_privilege');
+Route::delete('/accounts/{account}/privileges/{privilege}', 'AccountsController@destroy_disabled_privilege');
+Route::post('/accounts/{account}/deactivate', 'AccountsController@deactivate');
+Route::delete('/accounts/{account}/activate', 'AccountsController@activate');
+
 Route::get('/home', 'HomeController@index');

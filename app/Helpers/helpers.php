@@ -10,6 +10,15 @@ function translate_status($status) {
 	return ucwords($new_status);
 }
 
+function translate_account_status($status) {
+	$new_status = $status == null ? 'activa' : $status;
+	switch($status) {
+		case 'deleted' : $new_status =  'eliminada'; break;
+		case 'disabled' : $new_status =  'deshabilitada'; break;
+	}
+	return ucwords($new_status);
+}
+
 
 function translate_student_status($status) {
 	$new_status = $status == null ? 'no registrado' : $status;

@@ -18,6 +18,14 @@ class Account extends Model
     	return $this->inactiveAccount == null ? true : false;
     }
 
+    public function status() {
+        if(!$this->isActive()) {
+            return $this->inactiveAccount->status;
+        } else {
+            return null;
+        }
+    }
+
     public function clinic() {
     	return $this->belongsTo(Clinic::class, 'clinic_id');
     }
@@ -29,6 +37,17 @@ class Account extends Model
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function all_privileges() {
+        $disabled_privileges = $this->disabledPrivileges->pluck('privilege_name', 'privilege_id');
+        return $this->roles->map(function($role) { 
+                return $role->privileges->pluck('privilege_name', 'privilege_id'); 
+            })->flatten(1)->map(function($privilege_name, $key) use ($disabled_privileges) {
+                $status = $disabled_privileges->has($key) == true ? 'disabled' : 'enabled';
+                return ['privilege_name' => $privilege_name, 'status' => $status];
+            })->toArray();
+
     }
 
     public function disabledPrivileges() {
