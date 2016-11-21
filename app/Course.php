@@ -35,6 +35,10 @@ class Course extends Model
         return $this->students()->find($student->user_id) != null ? true : false;
     }
 
+    public function info() {
+        return "{$this->group->group_id} {$this->period->period_id} {$this->subject->subject_name}";
+    }
+
     public function generatePK() {
         $this->course_id = $this->group_id . $this->period_id . $this->subject_id;
         return $this->course_id;

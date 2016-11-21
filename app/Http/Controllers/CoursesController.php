@@ -48,12 +48,12 @@ class CoursesController extends Controller
         try{
             $this->makeValidation($request);
 
-        }catch(\Illuminate\Database\QueryException $e){
+        } catch(\Illuminate\Database\QueryException $e){
             session()->flash('warning', 'No se pudo crear el grupo error:'.$e->getCode());
             return redirect('courses/create');
         }
-            session()->flash('success', 'El curso fue creado correctamente.');
-            return redirect('courses');
+        session()->flash('success', 'El curso fue creado correctamente.');
+        return redirect('courses');
     }
 
     /**
@@ -64,9 +64,16 @@ class CoursesController extends Controller
      */
     public function show(Course $course)
     {
-        $teachers = Teacher::with('personal_information')->get();
-        $courses = Course::with('teachers')->with('period')->with('group')->with('subject')->find($course->course_id);
-        return View('courses/show')->with('course', $courses)->with('teachers', $teachers);
+        $teachers = Teacher::with('personal_information')->get()->map(function($teacher) {
+            return [$teacher->user_id => $teacher->personal_information->fullname()];
+        })->flatten(1);
+
+        $teachers = $teachers->diffKeys($course->teachers->map(function($teacher) {
+            return [$teacher->user_id => $teacher->personal_information->fullname()];
+        })->flatten(1));
+
+        $course->load('teachers.personal_information')->load('period')->load('group')->load('subject');
+        return View('courses.show')->with('course', $course)->with('teachers', $teachers);
     }
 
     /**
@@ -81,7 +88,7 @@ class CoursesController extends Controller
         $periods = Period::pluck('period_id', 'period_id');
         $subjects = Subject::pluck('subject_name','subject_id');
         $course = Course::find($course);
-        return View('courses/edit')->with('course', $course)->with('groups', $groups)->with('periods', $periods)->with('subjects', $subjects);
+        return View('courses.edit')->with('course', $course)->with('groups', $groups)->with('periods', $periods)->with('subjects', $subjects);
     }
 
     /**
@@ -95,12 +102,12 @@ class CoursesController extends Controller
     {
         try{
             $this->makeValidation($request, $course);
-        }catch(\Illuminate\Database\QueryException $e){
+        } catch(\Illuminate\Database\QueryException $e){
             session()->flash('warning', 'El curso no se pudo modificar');
             return redirect('courses');
         }
-            session()->flash('info', 'Se modifico el curso: '.$course->course_id);
-            return redirect('courses');
+        session()->flash('info', 'Se modifico el curso: '.$course->course_id);
+        return redirect('courses');
     }
 
     /**
@@ -113,41 +120,26 @@ class CoursesController extends Controller
     {
         try {
             $course->delete();
-            }catch (\Illuminate\Database\QueryException $e){
-                session()->flash('warning', 'El curso no se puede eliminar');
-                return redirect('courses');
-            }
-            session()->flash('danger', 'El curso fue eliminado correctamente.');
-            return redirect('courses');        
+        } catch (\Illuminate\Database\QueryException $e){
+            session()->flash('warning', 'El curso no se puede eliminar');
+            return redirect('courses');
+        }
+        session()->flash('danger', 'El curso fue eliminado correctamente.');
+        return redirect('courses');        
     }
 
     public function store_teacher(Request $request, Course $course){
-            $teacher = Teacher::findOrFail($request->teacher_id);
-            $course = Course::findOrFail($request->course_id);
-            $values = ['teacher_id'=>$request->teacher_id,
-                        'course_id'=>$request->course_id
-                        ];
-            $resource = new CourseTeacher($values);
-        try{
-            $resource->save();
-        }catch(\Illuminate\Database\QueryException $e){
-            session()->flash('warning', 'No se pudo crear la relacion curso-profesor');
-            return redirect()->action('CoursesController@show', ['course'=>$request->course_id]);
-        }
-            session()->flash('success', 'Se creo la relacion curso-profesor de manera correcta');
-            return redirect()->action('CoursesController@show', ['course'=>$request->course_id]);
+        $teacher = Teacher::findOrFail($request->user_id);
+        $course->teachers()->attach($teacher->user_id);
+        session()->flash('success', 'El profesor fue asignado correctamente.');
+        return redirect()->back();
     }
 
-    public function delete_teacher(Course $course, Teacher $teacher)
+    public function destroy_teacher(Course $course, Teacher $teacher)
     {
-        try {
-            $course->delete();
-            }catch (\Illuminate\Database\QueryException $e){
-                session()->flash('warning', 'La relacion curso-profesor no se puede eliminar');
-                return redirect('courses');
-            }
-            session()->flash('danger', 'La relacion curso-profesor fue eliminada correctamente.');
-            return redirect('courses');        
+        $course->teachers()->detach($teacher->user_id);
+        session()->flash('success', 'El profesor fue eliminado correctamente.');
+        return redirect()->back(); 
     }
 
     private function makeValidation(Request $request, $resource = null) 

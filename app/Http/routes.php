@@ -39,7 +39,7 @@ Route::post('/courses', 'CoursesController@store');
 Route::patch('/courses/{course}', 'CoursesController@update');
 Route::delete('/courses/{course}', 'CoursesController@destroy');
 Route::post('/courses/{course}/teachers/', 'CoursesController@store_teacher');
-Route::delete('/courses/{course}/teachers/{teacher}', 'CoursesController@delete_teacher');
+Route::delete('/courses/{course}/teachers/{teacher}', 'CoursesController@destroy_teacher');
 
 Route::get('/teacher/courses', 'TeachersController@index_courses');
 Route::get('/teacher/courses/{course}', 'TeachersController@show_course');
