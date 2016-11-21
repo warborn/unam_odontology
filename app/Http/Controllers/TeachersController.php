@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Course;
 use App\Teacher;
+use App\Student;
 
 class TeachersController extends Controller
 {
@@ -92,5 +93,19 @@ class TeachersController extends Controller
         // $teacher = Auth::user()->teacher;
         $teacher = Teacher::first();
         return View('teachers.index_courses')->with('courses',$teacher->courses);
+    }
+
+    public function update_student(Course $course, Student $student) {
+        if($course->has_student($student)) {            
+            $course->students()->updateExistingPivot($student->user_id, ['status' => 'accepted']);
+        }
+        return redirect()->back();
+    }
+
+    public function delete_student(Course $course, Student $student) {
+        if($course->has_student($student)) {
+            $course->students()->updateExistingPivot($student->user_id, ['status' => 'rejected']);
+        }
+        return redirect()->back();
     }
 }

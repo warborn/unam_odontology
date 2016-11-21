@@ -41,8 +41,11 @@ Route::delete('/courses/{course}', 'CoursesController@destroy');
 
 Route::get('/teacher/courses', 'TeachersController@index_courses');
 Route::get('/teacher/courses/{course}', 'TeachersController@show_course');
+Route::patch('/teacher/courses/{course}/students/{student}', 'TeachersController@update_student');
+Route::delete('/teacher/courses/{course}/students/{student}', 'TeachersController@delete_student');
 
 Route::get('/student/courses', 'StudentsController@index_courses');
-Route::get('/student/course/{course}', 'StudentsController@store_course');
+Route::post('/student/course/{course}', 'StudentsController@store_course');
+Route::delete('/student/course/{course}', 'StudentsController@delete_course');
 
 Route::get('/home', 'HomeController@index');

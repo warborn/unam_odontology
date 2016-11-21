@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-	<h1>Grupos</h1>
+	<h1>Cursos</h1>
 	  	<table class="table table-hover">
 			<tr>
-			  <td><strong>Asignatura</strong></td>
-			   <td><strong>Grupos</strong></td>
-			  <td><strong>Periodo</strong></td>
-			  <td><strong>Semestre</strong></td>
-              <td>&nbsp;</td>
+			  <th>Asignatura</th>
+			  <th>Grupo</th>
+			  <th>Periodo</th>
+			  <th>Semestre</th>
+			  <th>Estado</th>
+        <th>&nbsp;</th>
 			</tr>
 			@foreach($courses as $course)
 			<tr>
@@ -16,14 +17,22 @@
 			  <td>{{$course->group->group_id}}</td>
 			  <td>{{$course->period->period_id}}</td>
 			  <td>{{$course->subject->semester}}</td>
-			  <td><a href="{{url('student/course/' . $course->course_id )}}"type="button" class="btn btn-info">
-			  	@if ($course->students()->find($student->user_id))
-			  		{{$course->students()->find($student->user_id)->pivot->status}}
-			  	@else
-			  		Alta
-			  	@endif
-			  </a></td>
-			  </tr>
+			  <td>{{translate_status($student->course_status($course))}}</td>
+			  @if($student->course_status($course) != 'accepted')
+			  <td>
+				  <form action="{{url('student/course/' . $course->course_id )}}" method="POST">
+				  	@if ($course->has_student($student))
+				  		{{ method_field('DELETE') }}
+				  		<input type="submit" value="Cancelar" class="btn btn-danger">
+				  	@else
+				  		<input type="submit" value="Alta" class="btn btn-primary">
+				  	@endif
+				  </form>
+			  </td>
+			  @else
+			  <td></td>
+			  @endif
+		  </tr>
 			@endforeach
 		</table>
 		

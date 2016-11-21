@@ -4,12 +4,14 @@
 <h1>Solicitud de Alumnos</h1>
 <table class="table table-hover">
 	<tr>
-		<td><strong>Nombre del Alumno</strong></td>
-		<td><strong>Asignatura</strong></td>
-		<td><strong>Grupos</strong></td>
-		<td><strong>Periodo</strong></td>
-		<td><strong>Semestre</strong></td>
-		<td>&nbsp;</td>
+		<th>Nombre del Alumno</th>
+		<th>Asignatura</th>
+		<th>Grupos</th>
+		<th>Periodo</th>
+		<th>Semestre</th>
+		<th>Estado</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
 	</tr>
 	@foreach($course->students as $student)
 	<tr>
@@ -18,7 +20,15 @@
 		<td>{{$course->group->group_id}}</td>
 		<td>{{$course->period->period_id}}</td>
 		<td>{{$course->subject->semester}}</td>
-		<td><button type="button" class="btn btn-success">{{$student->pivot->status}}</button></td>
+		<td>{{translate_status($student->course_status($course))}}</td>
+		@if($student->course_status($course) == 'accepted')
+			@include('teachers._reject_button')
+		@elseif($student->course_status($course) == 'rejected')
+			@include('teachers._accept_button')
+		@else
+			@include('teachers._accept_button')
+			@include('teachers._reject_button')
+		@endif
 	</tr>
 	@endforeach
 </table>

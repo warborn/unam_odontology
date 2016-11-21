@@ -20,6 +20,14 @@ class Student extends Model
         ->withTimestamps();
     }
 
+    public function course_status($course) {
+        if($course->has_student($this)) {
+            return $this->courses()->find($course->course_id)->pivot->status;
+        } else {
+            return null;
+        }
+    }
+
     public function formats(){
         return $this->belongsToMany(Format::class, 'format_student', 'user_id', 'format_id')
         ->withTimestamps();
