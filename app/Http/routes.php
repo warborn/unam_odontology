@@ -31,7 +31,9 @@ Route::resource('federal-entities', 'FederalEntitiesController', ['except' => ['
 Route::resource('addresses', 'AddressesController', ['except' => ['create', 'edit']]);
 Route::resource('clinics', 'ClinicsController', ['except' => ['create', 'edit']]);
 Route::resource('courses', 'CoursesController');
+
 Route::auth();
+Route::get('user/activation/{token}', 'Auth\AuthController@activate_user')->name('user.activate');
 
 Route::get('/courses', 'CoursesController@index');
 Route::get('/courses/create', 'CoursesController@create');

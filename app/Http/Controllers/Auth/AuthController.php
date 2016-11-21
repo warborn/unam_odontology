@@ -8,6 +8,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+use App\ActivationService;
 
 class AuthController extends Controller
 {
@@ -31,14 +33,17 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected $activationService;
+
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ActivationService $activationService)
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->activationService = $activationService;
     }
 
     /**
@@ -85,6 +90,7 @@ class AuthController extends Controller
         ]);
 
         $user->personal_information()->save($personal_information);
+
         return $user;
     }
 
@@ -101,6 +107,16 @@ class AuthController extends Controller
         }
     }
 
+    public function authenticated(Request $request, $user) {
+        if(!$user->activated) {
+            $this->activationService->sendActivationMail($user);
+            auth()->logout();
+            return back()->with('warning', 'Necesitas activar tu cuenta primero. Hemos enviado un enlace de activación a tu correo.');
+        }
+
+        return redirect()->intended($this->redirectPath());
+    }
+
     /**
      * Get the login username to be used by the controller.
      *
@@ -111,4 +127,26 @@ class AuthController extends Controller
         return property_exists($this, 'username') ? $this->username : 'user_id';
     }
 
+    public function register(Request $request) {
+        $validator = $this->validator($request->all());
+
+        if($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $user = $this->create($request->all());
+
+        $this->activationService->sendActivationMail($user);
+        return redirect('/login')->with('status', 'Te hemos enviado un enlace de activación. Revisa tu correo.');
+    }
+
+    public function activate_user($token) {
+        if($user = $this->activationService->activateuser($token)) {
+            auth()->login($user);
+            return redirect($this->redirectPath());
+        }
+        abort(404);
+    }
 }
