@@ -7,6 +7,7 @@ use App\Group;
 use App\Period;
 use App\Subject;
 use App\Course;
+use App\Teacher;
 use App\Http\Requests;
 
 class CoursesController extends Controller
@@ -63,7 +64,9 @@ class CoursesController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        $teachers = Teacher::with('personal_information')->get();
+        $courses = Course::with('teachers')->with('period')->with('group')->with('subject')->find($course->course_id);
+        return View('courses/show')->with('course', $courses)->with('teachers', $teachers);
     }
 
     /**
@@ -115,6 +118,35 @@ class CoursesController extends Controller
                 return redirect('courses');
             }
             session()->flash('danger', 'El curso fue eliminado correctamente.');
+            return redirect('courses');        
+    }
+
+    public function store_teacher(Request $request, Course $course){
+            $teacher = Teacher::findOrFail($request->teacher_id);
+            $course = Course::findOrFail($request->course_id);
+            $values = ['teacher_id'=>$request->teacher_id,
+                        'course_id'=>$request->course_id
+                        ];
+            $resource = new CourseTeacher($values);
+        try{
+            $resource->save();
+        }catch(\Illuminate\Database\QueryException $e){
+            session()->flash('warning', 'No se pudo crear la relacion curso-profesor');
+            return redirect()->action('CoursesController@show', ['course'=>$request->course_id]);
+        }
+            session()->flash('success', 'Se creo la relacion curso-profesor de manera correcta');
+            return redirect()->action('CoursesController@show', ['course'=>$request->course_id]);
+    }
+
+    public function delete_teacher(Course $course, Teacher $teacher)
+    {
+        try {
+            $course->delete();
+            }catch (\Illuminate\Database\QueryException $e){
+                session()->flash('warning', 'La relacion curso-profesor no se puede eliminar');
+                return redirect('courses');
+            }
+            session()->flash('danger', 'La relacion curso-profesor fue eliminada correctamente.');
             return redirect('courses');        
     }
 

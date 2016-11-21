@@ -15,7 +15,10 @@ class Course extends Model
         ->withPivot('status')
         ->withTimestamps();
     }
-
+    public function teachers(){
+        return $this->belongsToMany(Teacher::class, 'course_teacher', 'course_id', 'user_id')
+        ->withTimestamps();
+    }
     public function group(){
     	return $this->belongsTo(Group::class, 'group_id');
     }

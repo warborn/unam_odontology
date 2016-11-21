@@ -18,4 +18,9 @@ class Teacher extends Model
     	return $this->belongsToMany(Course::class, 'course_teacher', 'user_id', 'course_id')
     		->withTimestamps();
     }
+
+    public function personal_information() {
+        return $this->hasOne(PersonalInformation::class, 'user_id');
+    }
+
 }
