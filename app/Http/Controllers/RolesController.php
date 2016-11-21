@@ -19,6 +19,12 @@ class RolesController extends Controller
         return $roles->toJson();
     }
 
+    public function index_privileges(Role $role)
+    {
+        $privileges = $role->privileges;
+        return View('roles.index_privileges')->with('role' => $role)->with('privileges' => $privileges);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

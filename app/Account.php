@@ -27,6 +27,10 @@ class Account extends Model
             ->withTimestamps();
     }
 
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function disabledPrivileges() {
     	return $this->belongsToMany(Privilege::class, 'disabled_privileges', 'account_id', 'privilege_id')
             ->withTimestamps();

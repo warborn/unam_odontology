@@ -48,4 +48,10 @@ Route::get('/student/courses', 'StudentsController@index_courses');
 Route::post('/student/course/{course}', 'StudentsController@store_course');
 Route::delete('/student/course/{course}', 'StudentsController@delete_course');
 
+Route::get('/movements', 'MovementsController@index');
+
+Route::get('/roles/{role}/privileges', 'RolesController@index_privileges');
+Route::post('/roles/{role}/privileges/{privilege}', 'RolesController@store_privilege');
+Route::delete('/roles/{role}/privileges/{privilege}', 'RolesController@delete_privilege');
+
 Route::get('/home', 'HomeController@index');
