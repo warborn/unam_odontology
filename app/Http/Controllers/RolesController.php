@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Role;
+use App\Privilege;
+
 class RolesController extends Controller
 {
     /**
@@ -19,6 +21,13 @@ class RolesController extends Controller
         return $roles->toJson();
     }
 
+    public function index_privileges(Role $role)
+    {
+        $privileges = Privilege::pluck('privilege_name','privilege_id');
+        $privileges = $privileges->diffKeys($role->privileges->pluck('privilege_name','privilege_id'));
+        return View('roles.index_privileges')->with('role', $role)->with('privileges', $privileges);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -29,6 +38,14 @@ class RolesController extends Controller
     {
         $validations = ['role_name' => 'required|max:25'];
         return $this->makeValidation($request, $validations);
+    }
+
+    public function store_privilege(Request $request, Role $role)
+    {
+        $privilege = Privilege::findOrFail($request->privilege_id);
+        $role->privileges()->attach($privilege->privilege_id);
+        session()->flash('success', 'El privilegio fue asignado correctamente.');
+        return redirect()->back();
     }
 
     /**
@@ -65,6 +82,13 @@ class RolesController extends Controller
     {
         $role->delete();
         return response()->json($role);
+    }
+
+    public function destroy_privilege(Role $role, Privilege $privilege)
+    {
+        $role->privileges()->detach($privilege->privilege_id);
+        session()->flash('success', 'El privilegio fue eliminado correctamente.');
+        return redirect()->back();
     }
 
     private function makeValidation(Request $request, $validations = [], $resource = null) 

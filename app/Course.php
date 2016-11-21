@@ -31,9 +31,10 @@ class Course extends Model
     	return $this->belongsTo(Subject::class, 'subject_id');
     }
 
-    public function has_teacher($teacher) {
-        return $this->teachers()->find($teacher->user_id) != null ? true : false;
+    public function has_student($student) {
+        return $this->students()->find($student->user_id) != null ? true : false;
     }
+
     public function generatePK() {
         $this->course_id = $this->group_id . $this->period_id . $this->subject_id;
         return $this->course_id;

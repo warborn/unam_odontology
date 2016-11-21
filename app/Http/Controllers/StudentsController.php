@@ -87,7 +87,6 @@ class StudentsController extends Controller
         //
     }
 
-
     public function index_courses() {
         // $student = Auth::user()->student;
         $student = Student::first();
@@ -96,10 +95,21 @@ class StudentsController extends Controller
             ->with('student', $student);
     }
 
-    public function toggle(Course $course) {
+    public function store_course(Course $course) {
         // $student = Auth::user()->student;
         $student = Student::first();
-        $course->students()->attach($student->user_id);
+        if(!$course->has_student($student)) {            
+            $course->students()->attach($student->user_id);
+        }
+        return redirect()->back();
+    }
+
+    public function destroy_course(Course $course) {
+        // $student = Auth::user()->student;
+        $student = Student::first();
+        if($course->has_student($student)) {
+            $course->students()->detach($student->user_id);
+        }
         return redirect()->back();
     }
 }
