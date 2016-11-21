@@ -104,7 +104,7 @@ class StudentsController extends Controller
         return redirect()->back();
     }
 
-    public function delete_course(Course $course) {
+    public function destroy_course(Course $course) {
         // $student = Auth::user()->student;
         $student = Student::first();
         if($course->has_student($student)) {

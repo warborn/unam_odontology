@@ -42,16 +42,15 @@ Route::delete('/courses/{course}', 'CoursesController@destroy');
 Route::get('/teacher/courses', 'TeachersController@index_courses');
 Route::get('/teacher/courses/{course}', 'TeachersController@show_course');
 Route::patch('/teacher/courses/{course}/students/{student}', 'TeachersController@update_student');
-Route::delete('/teacher/courses/{course}/students/{student}', 'TeachersController@delete_student');
 
 Route::get('/student/courses', 'StudentsController@index_courses');
 Route::post('/student/course/{course}', 'StudentsController@store_course');
-Route::delete('/student/course/{course}', 'StudentsController@delete_course');
+Route::delete('/student/course/{course}', 'StudentsController@destroy_course');
 
 Route::get('/movements', 'MovementsController@index');
 
 Route::get('/roles/{role}/privileges', 'RolesController@index_privileges');
-Route::post('/roles/{role}/privileges/{privilege}', 'RolesController@store_privilege');
-Route::delete('/roles/{role}/privileges/{privilege}', 'RolesController@delete_privilege');
+Route::post('/roles/{role}/privileges', 'RolesController@store_privilege');
+Route::delete('/roles/{role}/privileges/{privilege}', 'RolesController@destroy_privilege');
 
 Route::get('/home', 'HomeController@index');

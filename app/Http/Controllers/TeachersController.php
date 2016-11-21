@@ -95,16 +95,11 @@ class TeachersController extends Controller
         return View('teachers.index_courses')->with('courses',$teacher->courses);
     }
 
-    public function update_student(Course $course, Student $student) {
-        if($course->has_student($student)) {            
-            $course->students()->updateExistingPivot($student->user_id, ['status' => 'accepted']);
-        }
-        return redirect()->back();
-    }
-
-    public function delete_student(Course $course, Student $student) {
-        if($course->has_student($student)) {
-            $course->students()->updateExistingPivot($student->user_id, ['status' => 'rejected']);
+    public function update_student(Request $request, Course $course, Student $student) {
+        if($request->status == 'accepted' || $request->status == 'rejected') {
+            if($course->has_student($student)) {            
+                $course->students()->updateExistingPivot($student->user_id, ['status' => $request->status]);
+            }
         }
         return redirect()->back();
     }
