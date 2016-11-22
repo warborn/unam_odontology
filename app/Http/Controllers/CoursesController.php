@@ -19,7 +19,7 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('group')->with('period')->with('subject')->get();
+        $courses = Course::with('group')->with('period')->with('subject')->Paginate(10);
         return View('courses.index')->with('courses',$courses);
     }
 
