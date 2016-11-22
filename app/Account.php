@@ -54,4 +54,9 @@ class Account extends Model
     	return $this->belongsToMany(Privilege::class, 'disabled_privileges', 'account_id', 'privilege_id')
             ->withTimestamps();
     }
+
+    public function generatePK() {
+        $this->account_id = $this->user_id . $this->clinic_id;
+        return $this->account_id;
+    }
 }

@@ -48,6 +48,20 @@
                         </div>
                     </div>
 
+                    <div class="form-group{{ $errors->has('clinic_id') ? ' has-error' : '' }}">
+                        <label for="clinic_id" class="col-md-4 control-label">Clínica</label>
+
+                        <div class="col-md-6">
+                            {{ Form::select('clinic_id', $clinics, null, ['class' => 'form-control'] )}}
+
+                            @if ($errors->has('clinic_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('clinic_id') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <div class="checkbox">

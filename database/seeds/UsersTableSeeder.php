@@ -12,6 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $federal_entity = App\FederalEntity::first();
+        $address = $federal_entity->addresses()->first();
         $clinic = App\Clinic::first();
         $super_user = App\Role::where('role_name', '=', 'super user')->first();
         $administrator = App\Role::where('role_name', '=', 'administrator')->first();
@@ -23,13 +24,15 @@ class UsersTableSeeder extends Seeder
         $add_role_privilege = App\Privilege::where('privilege_name', '=', 'add role to user')->first();
         factory(App\User::class, 14)->create()->each(function($user, $index) 
             use ($clinic, $super_user, $administrator, $teacher,
-                 $intern, $student, $patient, $federal_entity, 
+                 $intern, $student, $patient, $federal_entity, $address,
                  $add_user_privilege, $add_role_privilege) {
             // Set user's personal information
-        	$user->personal_information()->save(factory(App\PersonalInformation::class)->make());
+            $personal_information = factory(App\PersonalInformation::class)->make();
+            $personal_information->address()->associate($address);
+        	$user->personal_information()->save($personal_information);
             // Set account to user
-            $account = new App\Account(['account_id' => $user->genAccountPK($clinic),
-                'user_id' => $user->user_id, 'clinic_id' => $clinic->clinic_id]);
+            $account = new App\Account(['user_id' => $user->user_id, 'clinic_id' => $clinic->clinic_id]);
+            $account->generatePK();
             $user->accounts()->save($account);
             // Add user creation movement
             factory(App\Movement::class)->make()
