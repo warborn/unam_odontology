@@ -14,4 +14,7 @@ class PersonalInformation extends Model
 		return $this->name.' '.$this->last_name.' '.$this->mother_last_name;
 	}
 
+	public function address(){
+		return $this->hasOne(Address::class, 'address_id');
+	}
 }

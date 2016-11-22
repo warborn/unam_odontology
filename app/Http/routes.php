@@ -31,6 +31,7 @@ Route::resource('federal-entities', 'FederalEntitiesController', ['except' => ['
 Route::resource('addresses', 'AddressesController', ['except' => ['create', 'edit']]);
 Route::resource('clinics', 'ClinicsController', ['except' => ['create', 'edit']]);
 Route::resource('courses', 'CoursesController');
+Route::resource('formats', 'FormatsController');
 Route::auth();
 
 Route::get('/courses', 'CoursesController@index');
