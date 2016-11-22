@@ -90,11 +90,21 @@
 		<div class="collapse" id="collapseDeactiveForm">
 			<div class="well">
 				{{ Form::open(['action' => ['AccountsController@deactivate', $account->account_id]]) }}
-				<div class="form-group">
+				<div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
 					{{ Form::select('status', $deactivation, null, ['class' => 'form-control'] )}}
+					@if ($errors->has('status'))
+              <span class="help-block">
+                  <strong>{{ $errors->first('status') }}</strong>
+              </span>
+          @endif
 				</div>
-				<div class="form-group">
+				<div class="form-group{{ $errors->has('reason') ? ' has-error' : '' }}">
 					{{ Form::textarea('reason', null, ['class' => 'form-control', 'placeholder' => 'razón'])}}
+					@if ($errors->has('reason'))
+              <span class="help-block">
+                  <strong>{{ $errors->first('reason') }}</strong>
+              </span>
+          @endif
 				</div>
 				<div class="form-group">
 					{{ Form::submit('Desactivar', ['class' => 'btn btn-danger form-control'])}}
