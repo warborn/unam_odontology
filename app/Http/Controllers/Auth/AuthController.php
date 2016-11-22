@@ -156,9 +156,14 @@ class AuthController extends Controller
             if($account === null) {
                 auth()->logout();
                 return redirect('/login')->with('warning', 'No estas registrado en esta clínica.');
+            } else {
+                if(!$account->isActive()) {
+                    auth()->logout();
+                    return redirect('/login')->with('warning', 'Tu cuenta para esta clínica ha sido desactivada.');
+                }
+                session()->put('account_id', $account->account_id);
+                return $this->handleUserWasAuthenticated($request, $throttles);
             }
-            session()->put('account_id', $account->account_id);
-            return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
