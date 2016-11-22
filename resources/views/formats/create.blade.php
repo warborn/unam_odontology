@@ -3,7 +3,7 @@
 @include('shared._alerts')
 <h1>Formato a1</h1>
 <h3>Datos Generales</h3>
-{{ Form::open(['action' => ['FormatsController@store']]) }}
+{{ Form::open(['action' => ['FormatsController@store', $patient->user_id]]) }}
 <div class="col-sm-12 col-md-12 col-lg-12">
 {{Form::label('Nombre del paciente')}} : {{Form::text('name','Monroy Reyes Angel Ricardo',['class' => 'form-control'])}}
 </div>

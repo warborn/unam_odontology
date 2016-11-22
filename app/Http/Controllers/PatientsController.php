@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Patient;
 
-class FormatsController extends Controller
+class PatientsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,8 @@ class FormatsController extends Controller
      */
     public function index()
     {
-        //
+        $patients = Patient::all();
+        return View('patients.index')->with('patients', $patients);
     }
 
     /**
@@ -24,9 +25,9 @@ class FormatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Patient $patient)
+    public function create()
     {
-        return View('formats.create')->with('patient', $patient);
+        //
     }
 
     /**
@@ -35,7 +36,7 @@ class FormatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Patient $patient)
+    public function store(Request $request)
     {
         //
     }
