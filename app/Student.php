@@ -32,4 +32,7 @@ class Student extends Model
         return $this->belongsToMany(Format::class, 'format_student', 'user_id', 'format_id')
         ->withTimestamps();
     }
+    public function personal_information() {
+        return $this->hasOne(PersonalInformation::class, 'user_id');
+    }
 }

@@ -5,55 +5,55 @@
 <h3>Datos Generales</h3>
 {{ Form::open(['action' => ['FormatsController@store']]) }}
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Nombre del paciente')}} : {{Form::text('name','Monroy Reyes Angel Ricardo',['class' => 'form-control'])}}
+{{Form::label('Nombre del paciente')}} : {{Form::text('name',$patient->user->personal_information->name.' '.$patient->user->personal_information->last_name.' '.$patient->user->personal_information->mother_last_name,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-6 col-lg-6">
 {{Form::label('Historia clinica')}} : {{Form::text('clinic_history', null, ['class'=>'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-6 col-lg-6">
-{{Form::label('Genero')}} : {{Form::select('gender', ['M'=>'Mujer','H'=>'Hombre'],null, ['class' => 'form-control'])}}
+{{Form::label('Genero')}} : {{Form::select('gender', ['M'=>'Mujer','H'=>'Hombre'],$patient->user->personal_information->gender, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Direccion')}} : {{Form::text('street','KBDFHJBDFSBDMF JSDFJNJSD 12', ['class' => 'form-control'])}}
+{{Form::label('Direccion')}} : {{Form::text('street',$patient->user->personal_information->street, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-3 col-lg-3">
-{{Form::label('Codigo postal')}} : {{Form::text('postal_code','07918',['class' => 'form-control'])}}
+{{Form::label('Codigo postal')}} : {{Form::text('postal_code',$patient->user->personal_information->address,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-3 col-lg-3">
-{{Form::label('Colonia')}} : {{Form::text('settlement','San juan de aragon 6ta sección',['class' => 'form-control'])}}
+{{Form::label('Colonia')}} : {{Form::text('settlement',$patient->user->personal_information->address,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-3 col-lg-3">
-{{Form::label('Delegacion o Municipio')}} : {{Form::text('municipality','Gustavo A madero',['class' => 'form-control'])}}
+{{Form::label('Delegacion o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-3 col-lg-3">
-{{Form::label('Estado')}} : {{Form::select('federal_entity_id',['Estado de mexico','Queretaro', 'Ciudad de México'],'Ciudad de México',['class' => 'form-control'])}}
+{{Form::label('Estado')}} : {{Form::select('federal_entity_id',$federal->pluck('federal_entity_name'),$patient->federalEntity->federal_entity_name,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-3 col-lg-3">
-{{Form::label('Edad')}} : {{Form::selectRange('age', 1 ,99,'25',['class' => 'form-control'])}}
+{{Form::label('Edad')}} : {{Form::selectRange('age',1,99,$patient->age,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-9 col-lg-9">
-{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_name',['cdmx'=>'ciudad de  mexico'],'ciudad de mexico', ['class' => 'form-control'])}}
+{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_name',$federal->pluck('federal_entity_name'),$patient->federalEntity->federal_entity_name, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
-{{Form::label('Ocupacion')}} : {{Form::select('ocupation',['trabajador', 'estudiante'],'estudiante',['class' => 'form-control'] )}}
+{{Form::label('Ocupacion')}} : {{Form::select('ocupation',['Seleccione','Empleado','Estudiante', 'Otro'],$patient->ocupation,['class' => 'form-control'] )}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
-{{Form::label('Grado escolar')}} : {{Form::select('school_grade',['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria'],'Primaria',['class' => 'form-control'])}}
+{{Form::label('Grado escolar')}} : {{Form::select('school_grade',['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'doctorado'],$patient->school_grade,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
-{{Form::label('Estado civil')}} : {{Form::select('civil_status',['Solter@', 'Casad@', 'Divorciad@', 'Viud@'],'Viud@', ['class' => 'form-control'])}}
+{{Form::label('Estado civil')}} : {{Form::select('civil_status',['Solter@', 'Casad@', 'Divorciad@', 'Viud@'],$patient->civil_status, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Telefono')}} : {{Form::text('phone','5526577011', ['class' => 'form-control'])}}
+{{Form::label('Telefono')}} : {{Form::text('phone',$patient->phone, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-3">
-{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::select('has_medical_service',['Si', 'No'],'Si',['class' => 'form-control'])}}
+{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::select('has_medical_service',['Si', 'No'],$patient->has_medical_service,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
-{{Form::label('Nombre del servicio medico')}} : {{Form::select('service_name',['Seleccione','IMSS', 'ISSSTE', 'POPULAR'],'IMSS',['class' => 'form-control'])}}
+{{Form::label('Nombre del servicio medico')}} : {{Form::select('service_name',['Seleccione','IMSS', 'ISSSTE', 'POPULAR'],$patient->service_name,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-5">
-{{Form::label('Otro')}} : {{Form::text('service_name', null, ['class' => 'form-control'])}}
+{{Form::label('Otro')}} : {{Form::text('service_name', $patient->service_name, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
 {{Form::label('Referido por')}} : {{Form::text('intern_id', 'leonel guadaberto', ['class' => 'form-control'])}}
@@ -66,7 +66,7 @@
 {{Form::label('¿Padece alguna enfermedad?')}} : {{Form::select('has_disease',['Si', 'No'],null,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
-{{Form::label('¿Cuál enfermedad?')}} : {{Form::select('general_disease',['Seleccione','diabetes', 'colesterol alto', 'hepatitis'],null,['class' => 'form-control'])}}
+{{Form::label('¿Cuál enfermedad?')}} : {{Form::select('general_disease',$medical->pluck('disease_id', 'disease_name'),null,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-5">
 {{Form::label('Otra')}} : {{Form::text('other_disease', null , ['class' => 'form-control'])}}
@@ -81,13 +81,19 @@
 {{Form::label('Observaciones')}} : {{Form::textArea('observations', null , ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',['caries', 'muelas picadas', 'encias sangrientas'],null,['class' => 'form-control'])}}
+{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',$dental->pluck('disease_id', 'disease_name'),null,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
 {{Form::label('Remisión jerarquizada')}} : {{Form::text('referred_by', null , ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-8 col-lg-8">
-{{Form::label('Alumno')}} : {{Form::select('user_id',['carlos', 'juan', 'leonel'],null,['class' => 'form-control'])}}
+{{Form::label('Alumno')}} :
+<select class="form-control" value="user_student_id">
+	<option value="">Seleccione alumno</option>
+	@foreach($student as $std)
+		<option value={{$std->user_id}}>{{$std->personal_information->fullname()}}</option>
+	@endforeach
+</select>
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
 {{Form::submit('Agregar', ['class' => 'btn btn-success form-control'])}}
