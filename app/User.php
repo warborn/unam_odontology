@@ -48,8 +48,4 @@ class User extends Authenticatable
     public function accounts() {
         return $this->hasMany(Account::class, 'user_id');
     }
-
-    public function genAccountPK($clinic) {
-        return $this->user_id . $clinic->clinic_id;
-    }
 }

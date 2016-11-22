@@ -33,6 +33,7 @@ Route::resource('clinics', 'ClinicsController', ['except' => ['create', 'edit']]
 Route::resource('courses', 'CoursesController');
 Route::resource('formats', 'FormatsController');
 Route::auth();
+Route::get('user/activation/{token}', 'Auth\AuthController@activate_user')->name('user.activate');
 
 Route::get('/courses', 'CoursesController@index');
 Route::get('/courses/create', 'CoursesController@create');
