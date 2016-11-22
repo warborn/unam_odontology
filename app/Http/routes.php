@@ -71,3 +71,4 @@ Route::get('/patients/{patient}/formats/create', 'FormatsController@create');
 Route::post('/patients/{patient}/formats', 'FormatsController@store');
 
 Route::get('/home', 'HomeController@index');
+Route::get('/my-profile', 'UsersController@profile');

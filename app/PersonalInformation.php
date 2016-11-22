@@ -14,7 +14,11 @@ class PersonalInformation extends Model
 		return $this->name.' '.$this->last_name.' '.$this->mother_last_name;
 	}
 
+	public function full_address() {
+		return $this->address->municipality . ' '. $this->address->settlement . ' ' . $this->address->postal_code;
+	}
+
 	public function address(){
-		return $this->hasOne(Address::class, 'address_id');
+		return $this->belongsTo(Address::class, 'address_id');
 	}
 }

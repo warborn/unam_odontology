@@ -162,6 +162,7 @@ class AuthController extends Controller
                     return redirect('/login')->with('warning', 'Tu cuenta para esta clínica ha sido desactivada.');
                 }
                 session()->put('account_id', $account->account_id);
+                session()->put('clinic_id', $account->clinic_id);
                 return $this->handleUserWasAuthenticated($request, $throttles);
             }
         }
@@ -180,6 +181,7 @@ class AuthController extends Controller
     {
         Auth::guard($this->getGuard())->logout();
         session()->forget('account_id');
+        session()->forget('clinic_id');
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 
