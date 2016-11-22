@@ -47,7 +47,7 @@ return [
     'max'                  => [
         'numeric' => ':attribute no debe ser mayor a :max.',
         'file'    => ':attribute no debe ser mayor que :max kilobytes.',
-        'string'  => ':attribute no debe ser mayor que :max caracteres.',
+        'string'  => 'El campo :attribute no debe ser mayor que :max caracteres.',
         'array'   => ':attribute no debe tener más de :max elementos.',
     ],
     'mimes'                => ':attribute debe ser un archivo con formato: :values.',
@@ -250,6 +250,9 @@ return [
         'disease_id' => 'codigo de la enfermedad',
         'disease_name' => 'nombre de la enfermedad',
         'type_of_disease' => 'tipo de la enfermedad',
+        // Inactive accounts
+        'status' => 'estado',
+        'reason' => 'razón',
     ],
 
 ];

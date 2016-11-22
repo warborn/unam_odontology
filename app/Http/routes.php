@@ -31,7 +31,7 @@ Route::resource('federal-entities', 'FederalEntitiesController', ['except' => ['
 Route::resource('addresses', 'AddressesController', ['except' => ['create', 'edit']]);
 Route::resource('clinics', 'ClinicsController', ['except' => ['create', 'edit']]);
 Route::resource('courses', 'CoursesController');
-Route::resource('formats', 'FormatsController');
+
 Route::auth();
 Route::get('user/activation/{token}', 'Auth\AuthController@activate_user')->name('user.activate');
 
@@ -65,5 +65,9 @@ Route::post('/accounts/{account}/privileges/{privilege}', 'AccountsController@st
 Route::delete('/accounts/{account}/privileges/{privilege}', 'AccountsController@destroy_disabled_privilege');
 Route::post('/accounts/{account}/deactivate', 'AccountsController@deactivate');
 Route::delete('/accounts/{account}/activate', 'AccountsController@activate');
+
+Route::get('/patients', 'PatientsController@index');
+Route::get('/patients/{patient}/formats/create', 'FormatsController@create');
+Route::post('/patients/{patient}/formats', 'FormatsController@store');
 
 Route::get('/home', 'HomeController@index');

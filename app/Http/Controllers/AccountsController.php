@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Validator;
 use App\Account;
 use App\Role;
 use App\Privilege;
@@ -66,6 +67,21 @@ class AccountsController extends Controller
     }
 
     public function deactivate(Request $request, Account $account) {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required',
+            'reason' => 'max:150'
+        ]);
+
+        if($validator->fails()) {
+            $roles = Role::pluck('role_name','role_id');
+            $roles = $roles->diffKeys($account->roles->pluck('role_name','role_id'));
+            $deactivation = ['disabled' => 'deshabilitar', 'deleted' => 'eliminar'];
+
+            $account->load('user.personal_information')->load('roles');
+            return redirect()->back()->with('account', $account)->with('roles', $roles)
+                ->with('deactivation', $deactivation)->withErrors($validator)->withInput();
+        }
+
         $account->inactiveAccount()->save(new InactiveAccount($request->all()));
         session()->flash('success', 'Se ha desactivado esta cuenta correctamente.');
         return redirect()->back();

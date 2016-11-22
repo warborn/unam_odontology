@@ -6,12 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Patient;
-use App\FederalEntity;
-use App\Student;
-use App\Disease;
-use App\Address;
 
-class FormatsController extends Controller
+class PatientsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +16,8 @@ class FormatsController extends Controller
      */
     public function index()
     {
-        //
+        $patients = Patient::all();
+        return View('patients.index')->with('patients', $patients);
     }
 
     /**
@@ -28,16 +25,9 @@ class FormatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Patient $patient)
+    public function create()
     {
-        $federal = FederalEntity::all();
-        $address = Address::all();
-        $medical = Disease::where('type_of_disease', 'medical');
-        $dental = Disease::where('type_of_disease', 'dental');
-        $student = Student::all();
-        $patient = Patient::first();
-        return View('formats.create')->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('medical', $medical)->with('dental', $dental)->with('student', $student);
-        return View('formats.create')->with('patient', $patient);
+        //
     }
 
     /**
@@ -46,7 +36,7 @@ class FormatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Patient $patient)
+    public function store(Request $request)
     {
         //
     }
