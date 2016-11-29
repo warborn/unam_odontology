@@ -18,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="css/app.css">
     <!-- sweetalert -->
     <link rel="stylesheet" type="text/css" href="vendor/sweetalert/dist/sweetalert.css">
+    <!-- bootstrap datetimepicker -->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
 
     <style>
         body {
@@ -41,6 +43,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
     <script src="vendor/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="vendor/momentjs/moment.js"></script>
+    <script src="vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
     @stack('js')
 </body>
 </html>
