@@ -193,6 +193,7 @@ return [
         // Users
         'user_id' => 'nombre de usuario',
         'password' => 'contraseña',
+        'old_password' => 'contraseña anterior',
         // Teachers
         'rfc' => 'RFC',
         // Students

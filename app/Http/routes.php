@@ -72,3 +72,4 @@ Route::post('/patients/{patient}/formats', 'FormatsController@store');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/my-profile', 'UsersController@profile');
+Route::patch('/password', 'UsersController@update_password');
