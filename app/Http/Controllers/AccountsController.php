@@ -43,9 +43,13 @@ class AccountsController extends Controller
 
     public function store_role(Request $request, Account $account)
     {
-        $role = Role::findOrFail($request->role_id);
-        $account->roles()->attach($role->role_id);
-        session()->flash('success', 'El rol fue asignado correctamente.');
+        $role = Role::find($request->role_id);
+        if(isset($role)) {
+            $account->roles()->attach($role->role_id);
+            session()->flash('success', 'El rol fue asignado correctamente.');
+        } else {
+            session()->flash('danger', 'Hubo un problema al asignar el rol.');
+        }
         return redirect()->back();
     }
 
