@@ -145,22 +145,22 @@ class FormatsController extends Controller
         
 
         $values = [
-                    'format_id' => $request->'format_id',
-                    'user_intern_id' => $request->'user_intern_id',  
-                    'clinic_id' => $request->'clinic_id', 
-                    'user_patient_id' => $request->'user_patient_id', 
-                    'medical_history_number' => $request->'medical_history_number', 
-                    'hour_data_fill' => $request->'hour_data_fill', 
-                    'reason_consultation' => $request->'reason_consultation', 
-                    'disease' => $request->'disease', 
-                    'general_disease' => $request->'general_disease', 
-                    'other_disease' => $request->'other_disease', 
-                    'medical_treatment' => $request->'medical_treatment', 
-                    'therapeutic_used' => $request->'therapeutic_used', 
-                    'observations' => $request->'observations', 
-                    'referred_by' => $request->'referred_by', 
-                    'dental_disease' => $request->'dental_disease', 
-                    'format_status' => $request->'format_status'
+                    'format_id' => $request->format_id,
+                    'user_intern_id' => $request->user_intern_id,  
+                    'clinic_id' => $request->clinic_id, 
+                    'user_patient_id' => $request->user_patient_id, 
+                    'medical_history_number' => $request->medical_history_number, 
+                    'hour_data_fill' => $request->hour_data_fill, 
+                    'reason_consultation' => $request->reason_consultation, 
+                    'disease' => $request->disease, 
+                    'general_disease' => $request->general_disease, 
+                    'other_disease' => $request->other_disease, 
+                    'medical_treatment' => $request->medical_treatment, 
+                    'therapeutic_used' => $request->therapeutic_used, 
+                    'observations' => $request->observations, 
+                    'referred_by' => $request->referred_by, 
+                    'dental_disease' => $request->dental_disease, 
+                    'format_status' => $request->format_status
                     ];
 
         if(isset($resource)) {
