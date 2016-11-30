@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -85,8 +86,28 @@ class UsersController extends Controller
         //
     }
 
-    public function profile() {
+    public function profile() 
+    {
         $user = Auth::user()->load('personal_information');
         return View('users.profile')->with('user', $user);
+    }
+
+    public function update_password(Request $request) 
+    {
+        $user = Auth::user();
+
+        $this->validate($request, [
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:6'
+        ]);
+
+        if(Hash::check($request->old_password, $user->password)) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            session()->flash('success', 'Se ha cambiado la contraseña exitosamente.');
+        } else {
+            session()->flash('danger', 'La contraseña introducida no esta asociada a tu cuenta.');
+        }
+        return redirect()->back();
     }
 }

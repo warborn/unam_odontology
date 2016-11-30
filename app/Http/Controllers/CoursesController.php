@@ -128,10 +128,15 @@ class CoursesController extends Controller
         return redirect('courses');        
     }
 
-    public function store_teacher(Request $request, Course $course){
-        $teacher = Teacher::findOrFail($request->user_id);
-        $course->teachers()->attach($teacher->user_id);
-        session()->flash('success', 'El profesor fue asignado correctamente.');
+    public function store_teacher(Request $request, Course $course)
+    {
+        $teacher = Teacher::find($request->user_id);
+        if(isset($teacher)) {
+            $course->teachers()->attach($teacher->user_id);
+            session()->flash('success', 'El profesor fue asignado correctamente.');
+        } else {
+            session()->flash('danger', 'Hubo un error al asignar al profesor.');
+        }
         return redirect()->back();
     }
 

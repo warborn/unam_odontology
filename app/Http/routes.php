@@ -78,3 +78,4 @@ Route::get('/formats/{format}', 'FormatsController@show');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/my-profile', 'UsersController@profile');
+Route::patch('/password', 'UsersController@update_password');

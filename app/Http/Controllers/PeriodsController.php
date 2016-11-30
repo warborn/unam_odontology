@@ -20,16 +20,6 @@ class PeriodsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +27,8 @@ class PeriodsController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        $validations = ['period_id' => 'required|unique:periods|max:7'];
+        return $this->makeValidation($request, $validations);
     }
 
     /**
@@ -46,20 +37,9 @@ class PeriodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Period $period)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($period);
     }
 
     /**
@@ -71,7 +51,8 @@ class PeriodsController extends Controller
      */
     public function update(Request $request, Period $period)
     {
-        return $this->makeValidation($request, $period);
+        $validations = ['period_id' => "required|unique:periods,period_id,{$period->period_id},period_id|max:7"];
+        return $this->makeValidation($request, $validations, $period);
     }
 
     /**
@@ -82,32 +63,25 @@ class PeriodsController extends Controller
      */
     public function destroy(Period $period)
     {
-        if($period->delete()) {
-            return response()->json($period);
-        } else {
-            return response()->json([
-                'error' => true,
-                'message' => 'Error al eliminar'
-            ], 400);
-        }
+        $period->delete();
+        return response()->json($period);
     }
 
-    private function makeValidation(Request $request, $resource = null) 
+    private function makeValidation(Request $request, $validations = [], $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
-            'period_id' => 'required|unique:periods|max:7',
+        $validator = Validator::make($request->all(), array_merge($validations, [
             'period_start_date' => 'required',
             'period_end_date' => 'required'
-        ]);
+        ]));
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $values=[
-                'period_id' => $request->period_id,
-                'period_start_date' => $request->period_start_date,
-                'period_end_date' => $request->period_end_date
-                ];
+
+        $values = ['period_id' => $request->period_id,
+                   'period_start_date' => $request->period_start_date,
+                   'period_end_date' => $request->period_end_date];
+
         if(isset($resource)) {
             $resource->update($values);
         } else {

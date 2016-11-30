@@ -42,9 +42,13 @@ class RolesController extends Controller
 
     public function store_privilege(Request $request, Role $role)
     {
-        $privilege = Privilege::findOrFail($request->privilege_id);
-        $role->privileges()->attach($privilege->privilege_id);
-        session()->flash('success', 'El privilegio fue asignado correctamente.');
+        $privilege = Privilege::find($request->privilege_id);
+        if(isset($privilege)) {
+            $role->privileges()->attach($privilege->privilege_id);
+            session()->flash('success', 'El privilegio fue asignado correctamente.');
+        } else {
+            session()->flash('danger', 'Hubo un problema al asignar el privilegio.');
+        }
         return redirect()->back();
     }
 
