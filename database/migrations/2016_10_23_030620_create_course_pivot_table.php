@@ -20,6 +20,8 @@ class CreateCoursePivotTable extends Migration
             $table->foreign('group_id')->references('group_id')->on('groups')->onDelete('cascade');
             $table->string('period_id', 7);
             $table->foreign('period_id')->references('period_id')->on('periods')->onDelete('cascade');
+            $table->string('clinic_id', 25);
+            $table->foreign('clinic_id')->references('clinic_id')->on('clinics')->onDelete('cascade');
             $table->timestamps();
         });
     }

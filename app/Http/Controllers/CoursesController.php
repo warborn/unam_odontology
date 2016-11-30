@@ -8,6 +8,7 @@ use App\Period;
 use App\Subject;
 use App\Course;
 use App\Teacher;
+use App\Clinic;
 use App\Http\Requests;
 
 class CoursesController extends Controller
@@ -164,6 +165,7 @@ class CoursesController extends Controller
         } else {
             $resource = new Course($values);
             $resource->generatePK();
+            $resource->clinic_id = Clinic::first()->clinic_id;
             return $resource->save();
         }
     }
