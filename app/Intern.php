@@ -18,4 +18,8 @@ class Intern extends Model
     	return $this->hasMany(Format::class, 'user_intern_id', 'user_id');
     }
 
+    public function personal_information() {
+        return $this->hasOne(PersonalInformation::class, 'user_id');
+    }
+
 }

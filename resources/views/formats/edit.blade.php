@@ -9,7 +9,7 @@
 {{Form::label('Nombre del paciente')}} : {{Form::text('name',$patient->user->personal_information->name.' '.$patient->user->personal_information->last_name.' '.$patient->user->personal_information->mother_last_name,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-6 col-lg-6">
-{{Form::label('Historia clinica')}} : {{Form::text('clinic_history', null, ['class'=>'form-control'])}}
+{{Form::label('Historia clinica')}} : {{Form::text('clinic_history', $format->medical_history_number, ['class'=>'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-6 col-lg-6">
 {{Form::label('Genero')}} : {{Form::select('gender', ['M'=>'Mujer','H'=>'Hombre'],$patient->user->personal_information->gender, ['class' => 'form-control'])}}
@@ -57,38 +57,38 @@
 {{Form::label('Otro')}} : {{Form::text('service_name', $patient->service_name, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Referido por')}} : {{Form::text('intern_id', 'leonel guadaberto', ['class' => 'form-control'])}}
+{{Form::label('Referido por')}} : {{Form::text('intern_id', $intern->personal_information->fullname() , ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Motivo de consulta')}} :{{Form::text('consultation_reason', null, ['class' => 'form-control'])}}
+{{Form::label('Motivo de consulta')}} :{{Form::text('consultation_reason', $format->consultation_reason, ['class' => 'form-control'])}}
 </div>
 </div>
 <div class="row">
 <h3>Estado General</h3>
 <div class="col-sm-12 col-md-4 col-lg-3">
-{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::select('has_disease',['Si', 'No'],null,['class' => 'form-control'])}}
+{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::select('has_disease',['Si', 'No'],$format->has_disease,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
-{{Form::label('¿Cuál enfermedad?')}} : {{Form::select('general_disease',$medical->pluck('disease_name', 'disease_id'),null,['class' => 'form-control'])}}
+{{Form::label('¿Cuál enfermedad?')}} : {{Form::select('general_disease',$medical->pluck('disease_name', 'disease_id'),$format->general_diseases->disease_name,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-5">
-{{Form::label('Otra')}} : {{Form::text('other_disease', null , ['class' => 'form-control'])}}
+{{Form::label('Otra')}} : {{Form::text('other_disease',$format->other_disease, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-4 col-lg-3">
-{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::select('medical_treatment',['Si', 'No'],null,['class' => 'form-control'])}}
+{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::select('medical_treatment',['Si', 'No'],$format->medical_treatment,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-8 col-lg-9">
-{{Form::label('Terapeutica empleada')}} : {{Form::textArea('therapeutic_used', null , ['class' => 'form-control'])}}
+{{Form::label('Terapeutica empleada')}} : {{Form::textArea('therapeutic_used',$format->therapeutic_used, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Observaciones')}} : {{Form::textArea('observations', null , ['class' => 'form-control'])}}
+{{Form::label('Observaciones')}} : {{Form::textArea('observations',$format->observations, ['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',$dental->pluck('disease_name', 'disease_id'),null,['class' => 'form-control'])}}
+{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',$dental->pluck('disease_name', 'disease_id'),$format->dental_diseases->disease_name,['class' => 'form-control'])}}
 </div>
-<!-- in process -->
+{{-- in process --}} 
 <div class="col-sm-12 col-md-12 col-lg-12">
-{{Form::label('Remisión jerarquizada')}} : {{Form::select('subject_id',$subject->pluck('subject_name', 'subject_id'),null,['class' => 'form-control'])}}
+{{Form::label('Remisión jerarquizada')}} : {{Form::select('subject_id',$subject->pluck('subject_name', 'subject_id'), null ,['class' => 'form-control'])}}
 </div>
 <div class="col-sm-12 col-md-8 col-lg-8">
 {{Form::label('Alumno')}} :
@@ -100,7 +100,7 @@
 </select>
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4">
-{{Form::submit('Agregar', ['class' => 'btn btn-success form-control'])}}
+{{Form::submit('Agregar', ['class' => 'btn btn-success'])}}
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
 <table class="table table-hover table-triped">

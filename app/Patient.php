@@ -21,4 +21,8 @@ class Patient extends Model
     public function format(){
         return $this->hasOne(Format::class, 'user_patient_id', 'user_id');
     }
+    
+    public function personal_information() {
+        return $this->hasOne(PersonalInformation::class, 'user_id');
+    }
 }

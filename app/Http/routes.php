@@ -70,5 +70,11 @@ Route::get('/patients', 'PatientsController@index');
 Route::get('/patients/{patient}/formats/create', 'FormatsController@create');
 Route::post('/patients/{patient}/formats', 'FormatsController@store');
 
+Route::get('/formats', 'FormatsController@index');
+Route::get('/formats/{format}/edit', 'FormatsController@edit');
+Route::patch('/formats/{format}', 'FormatsController@update');
+Route::delete('/formats/{format}', 'FormatsController@destroy');
+Route::get('/formats/{format}', 'FormatsController@show');
+
 Route::get('/home', 'HomeController@index');
 Route::get('/my-profile', 'UsersController@profile');
