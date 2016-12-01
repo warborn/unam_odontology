@@ -95,6 +95,10 @@ class StudentsController extends Controller
             ->with('student', $student);
     }
 
+    public function index_accepted_courses(Student $student) {
+        return response()->json($student->courses()->where('status', 'accepted')->get()->load('subject'));
+    }
+
     public function store_course(Course $course) {
         // $student = Auth::user()->student;
         $student = Student::first();

@@ -47,6 +47,8 @@ Route::get('/teacher/courses', 'TeachersController@index_courses');
 Route::get('/teacher/courses/{course}', 'TeachersController@show_course');
 Route::patch('/teacher/courses/{course}/students/{student}', 'TeachersController@update_student');
 
+
+Route::get('/student/{student}/courses', 'StudentsController@index_accepted_courses');
 Route::get('/student/courses', 'StudentsController@index_courses');
 Route::post('/student/course/{course}', 'StudentsController@store_course');
 Route::delete('/student/course/{course}', 'StudentsController@destroy_course');
@@ -75,6 +77,8 @@ Route::get('/formats/{format}/edit', 'FormatsController@edit');
 Route::patch('/formats/{format}', 'FormatsController@update');
 Route::delete('/formats/{format}', 'FormatsController@destroy');
 Route::get('/formats/{format}', 'FormatsController@show');
+Route::post('/formats/{format}/students', 'FormatsController@store_student');
+Route::delete('/formats/{format}/students/{student}', 'FormatsController@destroy_student');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/my-profile', 'UsersController@profile');

@@ -22,12 +22,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 // Personal Informations Factory
 $factory->define(App\PersonalInformation::class, function(Faker\Generator $faker) {
+	$genders = ['H', 'M'];
 	return [
 		'name' => $faker->firstName,
 		'last_name' => $faker->lastName,
 		'mother_last_name' => $faker->lastName,
 		'email' => $faker->email,
 		'phone' => $faker->phoneNumber,
+		'gender' => $faker->randomElement($genders)
 	];
 });
 

@@ -13,6 +13,7 @@ use App\Address;
 use App\Subject;
 use App\Format;
 use App\Intern;
+use App\Course;
 
 class FormatsController extends Controller
 {
@@ -36,12 +37,12 @@ class FormatsController extends Controller
     {
         $federal = FederalEntity::all();
         $address = Address::all();
-        $medical = Disease::where('type_of_disease', 'general');
-        $dental = Disease::where('type_of_disease', 'odontologica');
+        $general = Disease::where('type_of_disease', 'general')->get();
+        $dental = Disease::where('type_of_disease', 'odontologica')->get();
         $student = Student::all();
-        $patient = Patient::find($patient->user_id);
-        $subject = Subject::all();
-        return View('formats.create')->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('medical', $medical)->with('dental', $dental)->with('student', $student)->with('subject', $subject);
+        $patient = Patient::find($patient->user_id)->first();
+        $courses = Course::all();
+        return View('formats.create')->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('student', $student)->with('courses', $courses);
     }
 
     /**
@@ -63,24 +64,38 @@ class FormatsController extends Controller
         return redirect('formats');
     }
 
+    public function store_student(Request $request, Format $format)
+    {
+        $course = Course::find($request->course_id);
+        $student = Student::find($request->user_id);
+        if(isset($course) && isset($student)) {
+            $format->students()->attach($student->user_id, ['course_id' => $course->course_id]);
+            session()->flash('success', 'El alumno fue asignado correctamente.');
+        } else {
+            session()->flash('danger', 'Hubo un problema al asignar al alumno.');
+        }
+        return redirect()->back();
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($format)
+    public function show(Format $format)
     {
-        $format = Format::find($format);
-        $patient = Patient::find($format->user_patient_id);
-        $intern = Intern::find($format->user_intern_id);
+        $assigned_students = $format->students()->join('courses', 'format_student.course_id', '=', 'courses.course_id')->join('subjects', 'courses.subject_id', '=', 'subjects.subject_id')->select('students.*', 'subjects.subject_name', 'courses.*')->get();
+        $patient = Patient::find($format->user_patient_id)->first();
+        $intern = Intern::find($format->user_intern_id)->first();
         $federal = FederalEntity::all();
         $address = Address::all();
-        $medical = Disease::where('type_of_disease', 'general');
-        $dental = Disease::where('type_of_disease', 'odontologica');
-        $student = Student::all();
-        $subject = Subject::all();
-        return View('formats.show')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('medical', $medical)->with('dental', $dental)->with('student', $student)->with('subject', $subject)->with('intern', $intern);
+        $general = Disease::where('type_of_disease', 'general')->get();
+        $dental = Disease::where('type_of_disease', 'odontologica')->get();
+        $students = Student::whereNotIn('user_id', $assigned_students->map(function($student) { return $student->user_id; }))->get();
+        $students = $students->filter(function($student) { return count($student->courses()->where('status', 'accepted')->get()) > 0; });
+        $courses = Course::all();
+        return View('formats.show')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('students', $students)->with('assigned_students', $assigned_students)->with('intern', $intern);
     }
 
     /**
@@ -91,16 +106,16 @@ class FormatsController extends Controller
      */
     public function edit($format)
     {
-        $format = Format::find($format);
-        $patient = Patient::find($format->user_patient_id);
-        $intern = Intern::find($format->user_intern_id);
+        $format = Format::find($format)->first();
+        $patient = Patient::find($format->user_patient_id)->first();
+        $intern = Intern::find($format->user_intern_id)->first();
         $federal = FederalEntity::all();
         $address = Address::all();
-        $medical = Disease::where('type_of_disease', 'general');
-        $dental = Disease::where('type_of_disease', 'odontologica');
+        $general = Disease::where('type_of_disease', 'general')->get();
+        $dental = Disease::where('type_of_disease', 'odontologica')->get();
         $student = Student::all();
         $subject = Subject::all();
-        return View('formats.edit')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('medical', $medical)->with('dental', $dental)->with('student', $student)->with('subject', $subject)->with('intern', $intern);
+        return View('formats.edit')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('student', $student)->with('subject', $subject)->with('intern', $intern);
     }
 
     /**
@@ -138,6 +153,13 @@ class FormatsController extends Controller
         }
         session()->flash('danger', 'El formato fue eliminado correctamente.');
         return redirect('formats'); 
+    }
+
+    public function destroy_student(Format $format, Student $student)
+    {
+        $format->students()->detach($student->user_id);
+        session()->flash('success', 'El alumno fue eliminado correctamente.');
+        return redirect()->back();
     }
 
     private function makeValidation(Request $request, $resource = null) 

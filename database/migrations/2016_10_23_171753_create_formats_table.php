@@ -23,11 +23,11 @@ class CreateFormatsTable extends Migration
             $table->string('medical_history_number', 8);
             $table->datetime('hour_date_fill');
             $table->string('consultation_reason', 70);
-            $table->tinyinteger('has_disease');
+            $table->boolean('has_disease')->default(false);
             $table->string('general_disease', 20);
             $table->foreign('general_disease')->references('disease_id')->on('diseases')->nullable();
             $table->string('other_disease', 30)->nullable();
-            $table->mediumtext('medical_treatment')->nullable();
+            $table->boolean('medical_treatment')->default(false);
             $table->string('therapeutic_used', 30)->nullable();
             $table->string('observations', 250)->nullable();
             $table->string('referred_by', 50)->nullable();

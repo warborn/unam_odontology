@@ -32,6 +32,7 @@ class Format extends Model
 
     public function students(){
         return $this->belongsToMany(Student::class, 'format_student', 'format_id', 'user_id')
+            ->withPivot('course_id')
             ->withTimestamps();
     }
 
