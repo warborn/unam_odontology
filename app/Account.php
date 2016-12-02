@@ -39,6 +39,49 @@ class Account extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function has_role($role_name) {
+        return $this->roles->pluck('role_name', 'role_id')->contains($role_name);
+    }
+
+    public function is_a($role_name) {
+        switch($role_name) {
+            case 'teacher':
+                return $this->user->teacher;
+                break;
+            case 'student':
+                return $this->user->student;
+                break;
+            case 'intern':
+                return $this->user->intern;
+                break;
+            case 'patient':
+                return $this->user->patient;
+                break;
+            case 'super user':
+            case 'administrator':
+                return $this->user;
+                break;
+        }
+        return false;
+    }
+
+    public function assign_type($role_name) {
+        switch($role_name) {
+            case 'teacher':
+                $this->user->teacher()->save(new Teacher(['user_id' => $this->user_id]));
+                break;
+            case 'student':
+                $this->user->student()->save(new Student(['user_id' => $this->user_id]));
+                break;
+            case 'intern':
+                $this->user->intern()->save(new Intern(['user_id' => $this->user_id]));
+                break;
+            case 'patient':
+                $this->user->patient()->save(new Patient(['user_id' => $this->user_id]));
+                break;
+        }
+    }
+
     public function all_privileges() {
         $disabled_privileges = $this->disabledPrivileges->pluck('privilege_name', 'privilege_id');
         return $this->roles->map(function($role) { 
@@ -58,5 +101,13 @@ class Account extends Model
     public function generatePK() {
         $this->account_id = $this->user_id . $this->clinic_id;
         return $this->account_id;
+    }
+
+    public function scopeFromClinic($query, $clinic) {
+        return $query->where('clinic_id', $clinic->clinic_id);
+    }
+
+    public function scopeFrom($query, $user_id, $clinic_id) {
+        return $query->where('account_id', $user_id . $clinic_id)->first();
     }
 }

@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/catalogs', function() {
 	return view('catalogs.index');
-});
+})->middleware('auth');
 
 Route::resource('groups', 'GroupsController', ['except' => ['create', 'edit']]);
 Route::resource('periods', 'PeriodsController', ['except' => ['create', 'edit']]);

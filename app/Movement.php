@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Movement extends Model
 {
@@ -28,5 +29,12 @@ class Movement extends Model
         $this->receiver_account_id = $receiver->account_id;
         $this->privilege_id = $privilege->privilege_id;
         return $this;
+    }
+
+    public static function register($maker_account, $receiver_account, $privilege) {
+        return Movement::create(['maker_account_id' => $maker_account->account_id, 
+                                 'receiver_account_id' => $receiver_account->account_id, 
+                                 'ip' => request()->ip(), 'privilege_id' => $privilege->privilege_id, 
+                                 'timestamp' => new Carbon()]);
     }
 }

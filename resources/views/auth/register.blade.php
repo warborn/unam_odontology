@@ -154,12 +154,12 @@
 
                         <div class="radio">
                           <label>
-                            <input type="radio" name="gender" value="M" checked>
-                            Masculino
+                            <input type="radio" name="gender" value="H" checked>
+                            Hombre
                           </label>
                           <label>
-                            <input type="radio" name="gender" value="F">
-                            Femenino
+                            <input type="radio" name="gender" value="M">
+                            Mujer
                           </label>
                         </div>
                     </div>

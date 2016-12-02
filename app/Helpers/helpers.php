@@ -29,3 +29,11 @@ function translate_student_status($status) {
 	}
 	return ucwords($new_status);
 }
+
+function clinic() {
+	return App\Clinic::find(session()->get('clinic_id'));
+}
+
+function account() {
+	return App\Account::find(session()->get('account_id'));
+}

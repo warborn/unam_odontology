@@ -8,6 +8,11 @@ use App\Http\Requests;
 use App\Subject;
 class SubjectsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *

@@ -15,7 +15,7 @@ class CreateTeachersTable extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->string('user_id', 20)->primary('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
-            $table->string('RFC', 14);
+            $table->string('RFC', 14)->nullable();
             $table->timestamps();
         });
     }

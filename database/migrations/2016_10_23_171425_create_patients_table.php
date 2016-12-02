@@ -16,7 +16,7 @@ class CreatePatientsTable extends Migration
             $table->string('user_id', 20)->primary('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('age', 2);
-            $table->string('federal_entity_id', 35);
+            $table->string('federal_entity_id', 35)->nullable();
             $table->foreign('federal_entity_id')->references('federal_entity_id')->on('federal_entities');
             $table->string('ocupation', 25);
             $table->string('school_grade', 20);

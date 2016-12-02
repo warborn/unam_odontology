@@ -14,7 +14,8 @@
 // Users Factory
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => $faker->userName,
+        // 'user_id' => $faker->userName,
+    		'user_id' => $faker->unique()->randomElement(['administrador', 'profesor', 'pasante', 'estudiante', 'paciente', 'usuario']),
         'password' => bcrypt('password'),
         'activated' => true,
     ];
@@ -71,7 +72,7 @@ $factory->define(App\Address::class, function(Faker\Generator $faker) {
 $factory->define(App\Clinic::class, function(Faker\Generator $faker) {
 	// $clinics = ['Almaraz', 'Acatlán', 'Cuautitlán', 'Ecatepec', 'Aragón',
 	// 'Iztacala', 'Cuautepec', 'Molinito'];
-	$clinics = ['Almaraz', 'Iztacala'];
+	$clinics = ['Almaraz'];
 
 	return [
 		'clinic_id' => $faker->unique()->randomElement($clinics),

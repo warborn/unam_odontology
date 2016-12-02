@@ -6,10 +6,10 @@
 	<div class="col-lg-10">
 		<h3>Curso: {{$course->info()}}</h3>
 
-		@if(count($teachers) > 0)
+		@if(count($users) > 0)
 		{{ Form::open(['action' => ['CoursesController@store_teacher', $course->course_id], 'class' => 'form-inline']) }}
 		<div class="form-group">
-			{{ Form::select('user_id', $teachers, null, ['class' => 'form-control'] )}}
+			{{ Form::select('user_id', $users, null, ['class' => 'form-control'] )}}
 		</div>
 		{{ Form::submit('Agregar profesor', ['class' => 'btn btn-info'])}}
 		{{Form::close()}}
