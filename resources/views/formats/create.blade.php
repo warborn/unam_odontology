@@ -8,8 +8,13 @@
 		{{Form::label('Nombre del paciente')}} : {{Form::text('name',$patient->user->personal_information->fullname(),['class' => 'form-control', 'disabled'])}}
 	</div>
 
-	<div class="col-sm-12 col-md-6 col-lg-6 form-group">
-		{{Form::label('Historia clinica')}} : {{Form::text('clinic_history', null, ['class'=>'form-control'])}}
+	<div class="col-sm-12 col-md-6 col-lg-6 form-group{{ $errors->has('medical_history_number') ? ' has-error' : '' }}">
+		{{Form::label('No. Historia clinica')}} : {{Form::text('medical_history_number', old('medical_history_number'), ['class'=>'form-control'])}}
+		@if ($errors->has('medical_history_number'))
+      <span class="help-block">
+          <strong>{{ $errors->first('medical_history_number') }}</strong>
+      </span>
+    @endif
 	</div>
 
 	<div class="col-sm-12 col-md-6 col-lg-6 form-group">
@@ -65,60 +70,99 @@
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
-		{{Form::label('Nombre del servicio medico')}} : {{Form::select('service_name',['Seleccione','IMSS', 'ISSSTE', 'POPULAR'],$patient->service_name,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Nombre del servicio medico')}} : {{Form::select('medical_service',['0' => 'Seleccione','IMSS', 'ISSSTE', 'POPULAR'],$patient->medical_service,['class' => 'form-control', 'disabled'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-5 form-group">
-		@if($patient->has_medical_service)
-			{{Form::label('Otro')}} : {{Form::text('service_name', $patient->service_name, ['class' => 'form-control', 'disabled'])}}
-		@else
-			{{Form::label('Otro')}} : {{Form::text('service_name', $patient->service_name, ['class' => 'form-control'])}}
-		@endif
+		{{Form::label('Otro')}} : {{Form::text('other_medical_service', $patient->other_medical_service, ['class' => 'form-control', 'disabled'])}}
 	</div>
 
-	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Referido por')}} : {{Form::text('intern_id', null, ['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group{{ $errors->has('referred_by') ? ' has-error' : '' }}">
+		{{Form::label('Referido por')}} : {{Form::text('referred_by', old('referred_by'), ['class' => 'form-control'])}}
+		@if ($errors->has('referred_by'))
+      <span class="help-block">
+          <strong>{{ $errors->first('referred_by') }}</strong>
+      </span>
+    @endif
 	</div>
 
-	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Motivo de consulta')}} :{{Form::text('consultation_reason', null, ['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group{{ $errors->has('consultation_reason') ? ' has-error' : '' }}">
+		{{Form::label('Motivo de consulta')}} :{{Form::text('consultation_reason', old('consultation_reason'), ['class' => 'form-control'])}}
+		@if ($errors->has('consultation_reason'))
+      <span class="help-block">
+          <strong>{{ $errors->first('consultation_reason') }}</strong>
+      </span>
+    @endif
 	</div>
 </div>
 
 <div class="row">
 	<h3>Estado General</h3>
 	<div class="col-sm-12 col-md-4 col-lg-3 form-group">
-		{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::select('has_disease',['1' => 'Si', '0' => 'No'],null,['class' => 'form-control', 'id' => 'has_disease'])}}
+		{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::select('has_disease',['1' => 'Si', '0' => 'No'],old('has_disease'),['class' => 'form-control', 'id' => 'has_disease'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
 		{{Form::label('¿Cuál enfermedad?')}} :
+		@if(old('has_disease') == '0')
+		<select class="form-control" name="general_disease" class="form-control" id="general_disease" disabled>
+		@else
 		<select class="form-control" name="general_disease" class="form-control" id="general_disease">
+		@endif
 			<option selected disabled>Selecciona una enfermedad</option>
 			@foreach($general as $disease)
-			<option value={{$disease->disease_id}}>{{$disease->disease_name}}</option>
+				@if(old('general_disease') == $disease->disease_id)
+					<option value={{$disease->disease_id}} selected>{{$disease->disease_name}}</option>
+				@else
+					<option value={{$disease->disease_id}}>{{$disease->disease_name}}</option>
+				@endif
 			@endforeach
 		</select>
 	</div>
 
-	<div class="col-sm-12 col-md-4 col-lg-5 form-group">
-		{{Form::label('Otra')}} : {{Form::text('other_disease', null , ['class' => 'form-control', 'id' => 'other_disease'])}}
+	<div class="col-sm-12 col-md-4 col-lg-5 form-group{{ $errors->has('other_disease') ? ' has-error' : '' }}">
+		{{Form::label('Otra')}} : 
+		@if(old('has_disease') == '0')
+		{{Form::text('other_disease', old('other_disease') , ['class' => 'form-control', 'id' => 'other_disease', 'disabled'])}}
+		@else
+		{{Form::text('other_disease', old('other_disease') , ['class' => 'form-control', 'id' => 'other_disease'])}}
+		@endif
+		@if ($errors->has('other_disease'))
+      <span class="help-block">
+          <strong>{{ $errors->first('other_disease') }}</strong>
+      </span>
+    @endif
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-3 form-group">
-		{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::select('medical_treatment',['1' => 'Si', '0' => 'No'],null,['class' => 'form-control', 'id' => 'medical_treatment'])}}
+		{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::select('medical_treatment',['1' => 'Si', '0' => 'No'], old('medical_treatment'),['class' => 'form-control', 'id' => 'medical_treatment'])}}
+	</div>
+	
+	<div class="col-sm-12 col-md-8 col-lg-9 form-group{{ $errors->has('therapeutic_used') ? ' has-error' : '' }}">
+		{{Form::label('Terapeutica empleada')}} : 
+		@if(old('medical_treatment') == '0')
+		{{Form::textArea('therapeutic_used', old('therapeutic_used') , ['class' => 'form-control', 'rows' => 3, 'id' => 'therapeutic_used', 'disabled'])}}
+		@else
+		{{Form::textArea('therapeutic_used', old('therapeutic_used') , ['class' => 'form-control', 'rows' => 3, 'id' => 'therapeutic_used'])}}
+		@endif
+		@if ($errors->has('therapeutic_used'))
+      <span class="help-block">
+          <strong>{{ $errors->first('therapeutic_used') }}</strong>
+      </span>
+    @endif
 	</div>
 
-	<div class="col-sm-12 col-md-8 col-lg-9 form-group">
-		{{Form::label('Terapeutica empleada')}} : {{Form::textArea('therapeutic_used', null , ['class' => 'form-control', 'rows' => 3, 'id' => 'therapeutic_used'])}}
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group{{ $errors->has('observations') ? ' has-error' : '' }}">
+		{{Form::label('Observaciones')}} : {{Form::textArea('observations', old('observations') , ['class' => 'form-control', 'rows' => 4])}}
+		@if ($errors->has('observations'))
+      <span class="help-block">
+          <strong>{{ $errors->first('observations') }}</strong>
+      </span>
+    @endif
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Observaciones')}} : {{Form::textArea('observations', null , ['class' => 'form-control', 'rows' => 4])}}
-	</div>
-
-	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',$dental->pluck('disease_name', 'disease_id'),null,['class' => 'form-control'])}}
+		{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',$dental->pluck('disease_name', 'disease_id'),old('dental_disease'),['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12">

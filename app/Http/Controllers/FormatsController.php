@@ -14,6 +14,8 @@ use App\Subject;
 use App\Format;
 use App\Intern;
 use App\Course;
+use App\Clinic;
+use Carbon\Carbon;
 
 class FormatsController extends Controller
 {
@@ -24,7 +26,7 @@ class FormatsController extends Controller
      */
     public function index()
     {
-        $formats = Format::paginate(15);
+        $formats = Format::with('dentalDisease')->with('intern')->with('patient')->orderBy('created_at', 'DESC')->paginate(15);
         return View('formats.index')->with('formats', $formats);
     }
 
@@ -39,10 +41,9 @@ class FormatsController extends Controller
         $address = Address::all();
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
-        $student = Student::all();
         $patient = Patient::find($patient->user_id)->first();
         $courses = Course::all();
-        return View('formats.create')->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('student', $student)->with('courses', $courses);
+        return View('formats.create')->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('courses', $courses);
     }
 
     /**
@@ -53,14 +54,70 @@ class FormatsController extends Controller
      */
     public function store(Request $request, Patient $patient)
     {
-        try{
-            $this->makeValidation($request);
+        $other_disease_validation = ($request->has_disease && !isset($request->general_disease) ? 'required|' : '');
+        $therapeutic_used_validation = (($request->medical_treatment) ? 'required|' : '');
+        $validator = Validator::make($request->all(), [
+            'medical_history_number' => ['required', 'max:8', 'regex:/^(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9][0-9][0-9]$/'],
+            'has_disease' => 'required|boolean',
+            'medical_treatment' => 'required|boolean',
+            'referred_by' => 'max:50',
+            'consultation_reason' => 'max:70',
+            'therapeutic_used' => $therapeutic_used_validation . 'max:100',
+            'observations' => 'max:250',
+            'dental_disease' => 'required',
+            'other_disease' => $other_disease_validation . 'max:30'
+        ]);
 
-        } catch(\Illuminate\Database\QueryException $e){
-            session()->flash('warning', 'No se guardo el formato error:'.$e->getCode());
-            return redirect('patients/'.$patient.'formats/create');
+        if($validator->fails()) {
+            $federal = FederalEntity::all();
+            $address = Address::all();
+            $general = Disease::where('type_of_disease', 'general')->get();
+            $dental = Disease::where('type_of_disease', 'odontologica')->get();
+            return redirect()->back()->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->withErrors($validator)->withInput($request->all());
         }
-        session()->flash('success', 'El formato se guardo correctamente.');
+
+        $clinic = Clinic::first(); // replace with logged in clinic
+        $intern = Intern::first(); // replace with logged in user
+        $dental_disease = Disease::find($request->dental_disease);
+        $general_disease = null;
+        if($request->has_disease && isset($request->general_disease)) {
+            $general_disease = Disease::find($request->general_disease);
+        }
+
+        if($patient && $dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+            $values = [
+                    'medical_history_number' => $request->medical_history_number, 
+                    'has_disease' => $request->has_disease, 
+                    'medical_treatment' => $request->medical_treatment,
+                    'referred_by' => $request->referred_by,
+                    'consultation_reason' => $request->consultation_reason,
+                    'observations' => $request->observations];
+
+            $format = new Format($values);
+            $format->generatePK();
+            $format->clinic()->associate($clinic);
+            $format->intern()->associate($intern);
+            $format->patient()->associate($patient);
+            $format->dentalDisease()->associate($dental_disease);
+            $format->hour_date_fill = new Carbon();
+            if($request->has_disease) {
+                if($general_disease) {
+                    $format->generalDisease()->associate($general_disease);
+                } else {
+                    $format->other_disease = $request->other_disease;
+                }
+            }
+
+            if($request->medical_treatment) {
+                $format->therapeutic_used = $request->therapeutic_used;
+            }
+
+            $format->save();
+            
+            session()->flash('success', 'El formato se creo correctamente.');
+        } else {
+            session()->flash('danger', 'Hubo un error al crear el formato.');
+        }
         return redirect('formats');
     }
 
@@ -93,9 +150,9 @@ class FormatsController extends Controller
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
         $students = Student::whereNotIn('user_id', $assigned_students->map(function($student) { return $student->user_id; }))->get();
-        $students = $students->filter(function($student) { return count($student->courses()->where('status', 'accepted')->get()) > 0; });
+        $students = $students->filter(function($student) { return $student->courses()->where('status', 'accepted')->count() > 0; });
         $courses = Course::all();
-        return View('formats.show')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('students', $students)->with('assigned_students', $assigned_students)->with('intern', $intern);
+        return View('formats.show')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('students', $students)->with('assigned_students', $assigned_students);
     }
 
     /**
@@ -104,18 +161,13 @@ class FormatsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($format)
+    public function edit(Format $format)
     {
-        $format = Format::find($format)->first();
-        $patient = Patient::find($format->user_patient_id)->first();
-        $intern = Intern::find($format->user_intern_id)->first();
         $federal = FederalEntity::all();
         $address = Address::all();
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
-        $student = Student::all();
-        $subject = Subject::all();
-        return View('formats.edit')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('student', $student)->with('subject', $subject)->with('intern', $intern);
+        return View('formats.edit')->with('format', $format)->with('patient', $format->patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental);
     }
 
     /**
@@ -125,16 +177,76 @@ class FormatsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $format)
+    public function update(Request $request, Format $format)
     {
-        try{
-            $this->makeValidation($request, $format);
-        } catch(\Illuminate\Database\QueryException $e){
-            session()->flash('warning', 'El formato no se pudo modificar');
-            return redirect('formats');
+        $other_disease_validation = ($request->has_disease && !isset($request->general_disease) ? 'required|' : '');
+        $therapeutic_used_validation = (($request->medical_treatment) ? 'required|' : '');
+        $validator = Validator::make($request->all(), [
+            'medical_history_number' => ['required', 'max:8', 'regex:/^(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9][0-9][0-9]$/'],
+            'has_disease' => 'required|boolean',
+            'medical_treatment' => 'required|boolean',
+            'referred_by' => 'max:50',
+            'consultation_reason' => 'max:70',
+            'therapeutic_used' => $therapeutic_used_validation . 'max:100',
+            'observations' => 'max:250',
+            'dental_disease' => 'required',
+            'other_disease' => $other_disease_validation . 'max:30'
+        ]);
+
+        if($validator->fails()) {
+            $federal = FederalEntity::all();
+            $address = Address::all();
+            $general = Disease::where('type_of_disease', 'general')->get();
+            $dental = Disease::where('type_of_disease', 'odontologica')->get();
+            return redirect()->back()->with('format', $format)->with('patient', $format->patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->withErrors($validator);
         }
-        session()->flash('info', 'Se modifico el formato: '.$format->format_id);
-        return redirect('formats');
+
+        $clinic = Clinic::first(); // replace with logged in clinic
+        $intern = Intern::first(); // replace with logged in user
+        $dental_disease = Disease::find($request->dental_disease);
+        $general_disease = null;
+        if($request->has_disease && isset($request->general_disease)) {
+            $general_disease = Disease::find($request->general_disease);
+        }
+
+        if($format->patient && $dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+            $values = [
+                    'medical_history_number' => $request->medical_history_number, 
+                    'has_disease' => $request->has_disease, 
+                    'medical_treatment' => $request->medical_treatment,
+                    'referred_by' => $request->referred_by,
+                    'consultation_reason' => $request->consultation_reason,
+                    'observations' => $request->observations];
+
+            $format->dentalDisease()->associate($dental_disease);
+            $format->hour_date_fill = new Carbon();
+            if($request->has_disease) {
+                if($general_disease) {
+                    $format->generalDisease()->associate($general_disease);
+                    $format->other_disease = null;
+                } else {
+                    $format->general_disease = null;
+                    $format->other_disease = $request->other_disease;
+                }
+            } else {
+                $format->general_disease = null;
+                $format->other_disease = null;
+            }
+
+            if($request->medical_treatment) {
+                $format->therapeutic_used = $request->therapeutic_used;
+            } else {
+                $format->therapeutic_used = null;
+            }
+
+            $format->update($values);
+            
+            session()->flash('success', 'El formato se modifico correctamente.');
+        } else {
+            session()->flash('danger', 'Hubo un error al modificar el formato.');
+        }
+        // return redirect('formats');
+        return redirect()->back();
     }
 
     /**
@@ -143,15 +255,14 @@ class FormatsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($format)
+    public function destroy(Format $format)
     {
         try {
             $format->delete();
+            session()->flash('success', 'El formato fue eliminado correctamente.');
         } catch (\Illuminate\Database\QueryException $e){
             session()->flash('warning', 'El formato no se puede eliminar');
-            return redirect('formats');
         }
-        session()->flash('danger', 'El formato fue eliminado correctamente.');
         return redirect('formats'); 
     }
 
@@ -160,39 +271,5 @@ class FormatsController extends Controller
         $format->students()->detach($student->user_id);
         session()->flash('success', 'El alumno fue eliminado correctamente.');
         return redirect()->back();
-    }
-
-    private function makeValidation(Request $request, $resource = null) 
-    {   
-        
-
-        $values = [
-                    'format_id' => $request->format_id,
-                    'user_intern_id' => $request->user_intern_id,  
-                    'clinic_id' => $request->clinic_id, 
-                    'user_patient_id' => $request->user_patient_id, 
-                    'medical_history_number' => $request->medical_history_number, 
-                    'hour_data_fill' => $request->hour_data_fill, 
-                    'reason_consultation' => $request->reason_consultation, 
-                    'disease' => $request->disease, 
-                    'general_disease' => $request->general_disease, 
-                    'other_disease' => $request->other_disease, 
-                    'medical_treatment' => $request->medical_treatment, 
-                    'therapeutic_used' => $request->therapeutic_used, 
-                    'observations' => $request->observations, 
-                    'referred_by' => $request->referred_by, 
-                    'dental_disease' => $request->dental_disease, 
-                    'format_status' => $request->format_status
-                    ];
-
-        if(isset($resource)) {
-            $resource->update($values);
-            $resource->generatePk();
-            return $resource->update($values);
-        } else {
-            $resource = new Format($values);
-            $resource->generatePK();
-            return $resource->save();
-        }
     }
 }

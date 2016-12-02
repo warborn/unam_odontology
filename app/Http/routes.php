@@ -73,10 +73,10 @@ Route::get('/patients/{patient}/formats/create', 'FormatsController@create');
 Route::post('/patients/{patient}/formats', 'FormatsController@store');
 
 Route::get('/formats', 'FormatsController@index');
+Route::get('/formats/{format}', 'FormatsController@show');
 Route::get('/formats/{format}/edit', 'FormatsController@edit');
 Route::patch('/formats/{format}', 'FormatsController@update');
 Route::delete('/formats/{format}', 'FormatsController@destroy');
-Route::get('/formats/{format}', 'FormatsController@show');
 Route::post('/formats/{format}/students', 'FormatsController@store_student');
 Route::delete('/formats/{format}/students/{student}', 'FormatsController@destroy_student');
 

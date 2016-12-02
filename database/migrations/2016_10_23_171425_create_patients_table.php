@@ -23,7 +23,8 @@ class CreatePatientsTable extends Migration
             $table->string('civil_status', 25);
             $table->string('phone', 16);
             $table->boolean('has_medical_service')->default(false);
-            $table->string('service_name', 25)->nullable();
+            $table->string('medical_service', 25)->nullable();
+            $table->string('other_medical_service', 25)->nullable();
             $table->timestamps();
         });
     }

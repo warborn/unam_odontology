@@ -29,7 +29,8 @@ $factory->define(App\PersonalInformation::class, function(Faker\Generator $faker
 		'mother_last_name' => $faker->lastName,
 		'email' => $faker->email,
 		'phone' => $faker->phoneNumber,
-		'gender' => $faker->randomElement($genders)
+		'gender' => $faker->randomElement($genders),
+		'street' => $faker->streetAddress,
 	];
 });
 
@@ -157,7 +158,7 @@ $factory->define(App\Intern::class, function(Faker\Generator $faker) {
 $factory->define(App\Patient::class, function(Faker\Generator $faker) {
 	$grades = ['kinder', 'primaria', 'medio superior', 'superior', 'posgrado', 'maestria', 'doctorado'];
 	$civil_status = ['soltero', 'casado', 'viudo/a'];
-	$services = ['IMSS', 'ISSTE'];
+	$services = ['IMSS', 'ISSSTE'];
 	$option = [0, 1];
 	$medical_service = $faker->randomElement($option);
 	$service_name = ($medical_service == 1 ? $faker->randomElement($services) : null);
@@ -168,22 +169,20 @@ $factory->define(App\Patient::class, function(Faker\Generator $faker) {
 		'civil_status' => $faker->randomElement($civil_status),
 		'phone' => $faker->phoneNumber,
 		'has_medical_service' => $medical_service,
-		'service_name' => $service_name,
+		'medical_service' => $service_name,
 	];
 });
 
 // Formats Factory
 $factory->define(App\Format::class, function(Faker\Generator $faker) {
-	$status = ['completado', 'no completado'];
-	$option = [0, 1];
+	$status = ['completado', 'pospuesto', 'cancelado'];
 	return [
-		'format_id'=> $faker->unique()->numerify('f###'),
-		'medical_history_number'=> $faker->numerify('ab##cd##'),
+		'format_id'=> $faker->unique()->numerify('F###'),
+		'medical_history_number'=> $faker->unique()->regexify('(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9][0-9][0-9]'),
 		'hour_date_fill'=> $faker->dateTimeThisMonth($max='now'),
 		'consultation_reason'=> $faker->text($maxNbChars = 50),
-		'has_disease'=> $faker->randomElement($option),
-		'other_disease'=> $faker->text($maxNbChars = 30),
-		'medical_treatment'=> $faker->text($maxNbChars = 50),
+		'has_disease'=> 1,
+		'medical_treatment'=> 1,
 		'therapeutic_used'=> $faker->text($maxNbChars = 30) ,
 		'observations'=> $faker->text($maxNbChars = 150),
 		'referred_by'=> $faker->name($gender = null|'male'|'female'),

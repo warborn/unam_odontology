@@ -239,6 +239,7 @@ return [
         'observations' => 'observaciones',
         'referrenced_by' => 'referido por',
         'dental_disease' => 'enfermedad odontológica',
+        'other_disease' => 'otra enfermedad',
         'format_status' => 'estado del formato',
         // Personal Informations
         'user_name' => 'nombre',

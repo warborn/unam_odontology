@@ -44,6 +44,11 @@
         footer {
             margin-top: 100px;
         }
+
+        .alert-dismissible button {
+            margin-top: -3px;
+            font-size: 30px;
+        }
     </style>
 </head>
 <body id="app-layout">

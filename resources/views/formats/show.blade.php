@@ -123,16 +123,16 @@
 		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->phone, ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-3">
-		{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::text('has_medical_service',$patient->has_medical_service,['class' => 'form-control', 'readonly'])}}
+		{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::text('has_medical_service',($patient->has_medical_service ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-4">
-		{{Form::label('Nombre del servicio medico')}} : {{Form::text('service_name',$patient->service_name,['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Nombre del servicio medico')}} : {{Form::text('medical_service',$patient->medical_service,['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-5">
-		{{Form::label('Otro')}} : {{Form::text('service_name', $patient->service_name, ['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Otro')}} : {{Form::text('other_medical_service', $patient->other_medical_service, ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Referido por')}} : {{Form::text('intern_id', $intern->personal_information->fullname() , ['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Referido por')}} : {{Form::text('referred_by', $format->referred_by , ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-12 col-lg-12">
 		{{Form::label('Motivo de consulta')}} :{{Form::text('consultation_reason', $format->consultation_reason, ['class' => 'form-control', 'readonly'])}}
@@ -144,16 +144,20 @@
 	<div class="collapse" id="collapseEstadoGeneral">
 		<h3>Estado General</h3>
 		<div class="col-sm-12 col-md-4 col-lg-3">
-		{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::text('has_disease',$format->has_disease,['class' => 'form-control', 'readonly'])}}
+		{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::text('has_disease',($format->has_disease ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-4">
-		{{Form::label('¿Cuál enfermedad?')}} : {{Form::text('general_disease',$format->general_diseases->disease_name,['class' => 'form-control', 'readonly'])}}
+		@if($format->generalDisease)
+		{{Form::label('¿Cuál enfermedad?')}} : {{Form::text('general_disease',$format->generalDisease->disease_name,['class' => 'form-control', 'readonly'])}}
+		@else
+			{{Form::label('¿Cuál enfermedad?')}} : {{Form::text('general_disease',null,['class' => 'form-control', 'readonly'])}}
+		@endif
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-5">
 		{{Form::label('Otra')}} : {{Form::text('other_disease',$format->other_disease, ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-3">
-		{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::text('medical_treatment',$format->medical_treatment,['class' => 'form-control', 'readonly'])}}
+		{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::text('medical_treatment', ($format->medical_treatment ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-8 col-lg-9">
 		{{Form::label('Terapeutica empleada')}} : {{Form::textArea('therapeutic_used',$format->therapeutic_used, ['class' => 'form-control', 'readonly'])}}
@@ -162,7 +166,7 @@
 		{{Form::label('Observaciones')}} : {{Form::textArea('observations',$format->observations, ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Diagnóstico de presunción')}} : {{Form::text('dental_disease',$format->dental_diseases->disease_name,['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Diagnóstico de presunción')}} : {{Form::text('dental_disease',($format->dentalDisease->disease_name),['class' => 'form-control', 'readonly'])}}
 		</div>
 	</div>
 </div>

@@ -24,16 +24,16 @@ class CreateFormatsTable extends Migration
             $table->datetime('hour_date_fill');
             $table->string('consultation_reason', 70);
             $table->boolean('has_disease')->default(false);
-            $table->string('general_disease', 20);
-            $table->foreign('general_disease')->references('disease_id')->on('diseases')->nullable();
+            $table->string('general_disease', 20)->nullable();
+            $table->foreign('general_disease')->references('disease_id')->on('diseases');
             $table->string('other_disease', 30)->nullable();
             $table->boolean('medical_treatment')->default(false);
-            $table->string('therapeutic_used', 30)->nullable();
+            $table->string('therapeutic_used', 100)->nullable();
             $table->string('observations', 250)->nullable();
             $table->string('referred_by', 50)->nullable();
             $table->string('dental_disease', 20);
             $table->foreign('dental_disease')->references('disease_id')->on('diseases');
-            $table->mediumtext('format_status');
+            $table->string('format_status', 10)->default('completed');
             $table->timestamps();
         });
     }
