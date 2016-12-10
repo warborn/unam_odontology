@@ -12,6 +12,11 @@ use App\Student;
 
 class TeachersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -90,8 +95,8 @@ class TeachersController extends Controller
     }
 
     public function index_courses() {
-        // $teacher = Auth::user()->teacher;
-        $teacher = Teacher::first();
+        $teacher = Auth::user()->teacher;
+        // $teacher = Teacher::first();
         return View('teachers.index_courses')->with('courses',$teacher->courses);
     }
 

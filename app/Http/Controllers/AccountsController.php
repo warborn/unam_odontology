@@ -9,11 +9,17 @@ use Validator;
 use App\Account;
 use App\Role;
 use App\Privilege;
+use App\Movement;
 use App\InactiveAccount;
 
 
 class AccountsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +51,14 @@ class AccountsController extends Controller
     {
         $role = Role::find($request->role_id);
         if(isset($role)) {
-            $account->roles()->attach($role->role_id);
+            if(!$account->has_role($role->role_name)) {
+                $account->roles()->attach($role->role_id);
+                Movement::register(account(), $account, Privilege::first()); // assign role
+            }
+            if(!$account->is_a($role->role_name)) {
+                $account->assign_type($role->role_name);
+                // Movement::register(account(), $account, Privilege::first());  // assign type
+            }
             session()->flash('success', 'El rol fue asignado correctamente.');
         } else {
             session()->flash('danger', 'Hubo un problema al asignar el rol.');
@@ -56,17 +69,20 @@ class AccountsController extends Controller
     public function destroy_role(Account $account, Role $role)
     {
         $account->roles()->detach($role->role_id);
+        Movement::register(account(), $account, Privilege::first());  // remove role
         session()->flash('success', 'El rol fue eliminado correctamente.');
         return redirect()->back();
     }
 
     public function store_disabled_privilege(Account $account, Privilege $privilege) {
         $account->disabledPrivileges()->attach($privilege->privilege_id);
+        Movement::register(account(), $account, Privilege::first());  // disable role
         return redirect()->back();
     }
 
     public function destroy_disabled_privilege(Account $account, Privilege $privilege) {
         $account->disabledPrivileges()->detach($privilege->privilege_id);
+        Movement::register(account(), $account, Privilege::first());  // enable role
         return redirect()->back();
     }
 
@@ -87,12 +103,14 @@ class AccountsController extends Controller
         }
 
         $account->inactiveAccount()->save(new InactiveAccount($request->all()));
+        Movement::register(account(), $account, Privilege::first());  // inactivate account
         session()->flash('success', 'Se ha desactivado esta cuenta correctamente.');
         return redirect()->back();
     }
 
     public function activate(Account $account) {
         $account->inactiveAccount()->delete();
+        Movement::register(account(), $account, Privilege::first());  // activate account
         session()->flash('success', 'Se ha activado esta cuenta correctamente.');
         return redirect()->back();
     }

@@ -38,6 +38,8 @@ class AuthController extends Controller
 
     protected $activationService;
 
+    protected $redirectAfterLogout = 'login';
+
     /**
      * Create a new authentication controller instance.
      *

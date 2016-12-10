@@ -102,13 +102,13 @@
 		{{Form::label('Delegacion o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address->municipality,['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-3 col-lg-3">
-		{{Form::label('Estado')}} : {{Form::text('federal_entity_id',$patient->federalEntity->federal_entity_name,['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Estado')}} : {{Form::text('federal_entity_id',($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null),['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-3 col-lg-3">
 		{{Form::label('Edad')}} : {{Form::text('age',$patient->age,['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-9 col-lg-9">
-		{{Form::label('Lugar de nacimiento')}} : {{Form::text('federal_entity_name',$patient->federalEntity->federal_entity_name, ['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Lugar de nacimiento')}} : {{Form::text('federal_entity_name',($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null), ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-4">
 		{{Form::label('Ocupacion')}} : {{Form::text('ocupation',$patient->ocupation,['class' => 'form-control', 'readonly'] )}}
@@ -120,7 +120,7 @@
 		{{Form::label('Estado civil')}} : {{Form::text('civil_status',$patient->civil_status, ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->phone, ['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->user->personal_information->phone, ['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-4 col-lg-3">
 		{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::text('has_medical_service',($patient->has_medical_service ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}

@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Estado')}} : {{Form::select('federal_entity_id',$federal->pluck('federal_entity_name'),$patient->federalEntity->federal_entity_name,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Estado')}} : {{Form::select('federal_entity_id',$federal->pluck('federal_entity_name'),($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null),['class' => 'form-control', 'disabled'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
@@ -46,7 +46,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-9 col-lg-9 form-group">
-		{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_name',$federal->pluck('federal_entity_name'),$patient->federalEntity->federal_entity_name, ['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_name',$federal->pluck('federal_entity_name'),($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null), ['class' => 'form-control', 'disabled'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
@@ -62,7 +62,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->phone, ['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->user->personal_information->phone, ['class' => 'form-control', 'disabled'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-3 form-group">

@@ -11,6 +11,11 @@ use App\Student;
 
 class StudentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -88,8 +93,8 @@ class StudentsController extends Controller
     }
 
     public function index_courses() {
-        // $student = Auth::user()->student;
-        $student = Student::first();
+        $student = Auth::user()->student;
+
         $courses = Course::with('students')->get();
         return View('students.index_courses')->with('courses', $courses)
             ->with('student', $student);
@@ -100,8 +105,8 @@ class StudentsController extends Controller
     }
 
     public function store_course(Course $course) {
-        // $student = Auth::user()->student;
-        $student = Student::first();
+        $student = Auth::user()->student;
+        // $student = Student::first();
         if(!$course->has_student($student)) {            
             $course->students()->attach($student->user_id);
         }

@@ -9,10 +9,17 @@ use App\Subject;
 use App\Course;
 use App\Teacher;
 use App\Clinic;
+use App\Account;
+use App\Role;
 use App\Http\Requests;
 
 class CoursesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -65,16 +72,16 @@ class CoursesController extends Controller
      */
     public function show(Course $course)
     {
-        $teachers = Teacher::with('personal_information')->get()->map(function($teacher) {
-            return [$teacher->user_id => $teacher->personal_information->fullname()];
+        $users = Account::fromClinic(clinic())->get()->map(function($account) {
+            return [$account->user_id => $account->user->personal_information->fullname()];
         })->flatten(1);
 
-        $teachers = $teachers->diffKeys($course->teachers->map(function($teacher) {
+        $users = $users->diffKeys($course->teachers->map(function($teacher) {
             return [$teacher->user_id => $teacher->personal_information->fullname()];
         })->flatten(1));
 
         $course->load('teachers.personal_information')->load('period')->load('group')->load('subject');
-        return View('courses.show')->with('course', $course)->with('teachers', $teachers);
+        return View('courses.show')->with('course', $course)->with('users', $users);
     }
 
     /**
@@ -131,9 +138,17 @@ class CoursesController extends Controller
 
     public function store_teacher(Request $request, Course $course)
     {
-        $teacher = Teacher::find($request->user_id);
-        if(isset($teacher)) {
-            $course->teachers()->attach($teacher->user_id);
+        $account = Account::from($request->user_id, clinic()->clinic_id);
+
+        if(isset($account)) {
+            if(!$account->has_role('teacher')) {
+                $account->roles()->attach(Role::name('teacher')->role_id); // translate later
+            }
+            if(!$account->is_a('teacher')) {
+                $account->assign_type('teacher');
+            }
+
+            $course->teachers()->attach($account->user_id);
             session()->flash('success', 'El profesor fue asignado correctamente.');
         } else {
             session()->flash('danger', 'Hubo un error al asignar al profesor.');

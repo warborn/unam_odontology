@@ -57,7 +57,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Sexo</label>
 				<div class="col-sm-10">
-					<p class="form-control-static">{{$user->personal_information->gender}}</p>
+					<p class="form-control-static">{{($user->personal_information->gender == 'H' ? 'Hombre' : 'Mujer')}}</p>
 				</div>
 			</div>
 

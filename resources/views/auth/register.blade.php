@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-            <div class="panel-heading">Register</div>
+            <div class="panel-heading">Registrate</div>
             <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                     {{ csrf_field() }}
@@ -154,12 +154,12 @@
 
                         <div class="radio">
                           <label>
-                            <input type="radio" name="gender" value="M" checked>
-                            Masculino
+                            <input type="radio" name="gender" value="H" checked>
+                            Hombre
                           </label>
                           <label>
-                            <input type="radio" name="gender" value="F">
-                            Femenino
+                            <input type="radio" name="gender" value="M">
+                            Mujer
                           </label>
                         </div>
                     </div>

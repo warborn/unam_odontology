@@ -21,4 +21,8 @@ class Role extends Model
     	$this->role_id = $this->getCharsFromWords($this->role_name);
     	return $this->role_id;
     }
+
+    public function scopeName($query, $role_name) {
+        return $this->where('role_name', $role_name)->first();
+    }
 }

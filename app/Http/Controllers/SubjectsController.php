@@ -8,6 +8,11 @@ use App\Http\Requests;
 use App\Subject;
 class SubjectsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +67,7 @@ class SubjectsController extends Controller
     public function destroy(Subject $subject)
     {
         $subject->delete();
-        return response()->json($federal_entity);
+        return response()->json($subject);
     }
 
     private function makeValidation(Request $request, $resource = null) 
