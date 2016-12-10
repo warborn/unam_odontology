@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-12">
 <h1>Solicitud de Alumnos</h1>
-<table class="table table-hover">
+</div>
+</div>
+<div class="table-responsive">
+<table class="table table-hover table-striped">
 	<tr>
 		<th>Nombre del Alumno</th>
 		<th>Asignatura</th>
@@ -32,4 +37,5 @@
 	</tr>
 	@endforeach
 </table>
+</div>
 @endsection

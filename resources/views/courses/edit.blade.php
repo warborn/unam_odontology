@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 @include('shared._alerts')
-
+<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-12">
 {{ Form::open(['action' => ['CoursesController@update', 'course' => $course->course_id], 'method' => 'POST', 'method' => 'PATCH' ]) }}
 	<div class="form-group">
 	{{Form::label('Grupo')}}: 
@@ -11,4 +12,6 @@
 	{{ Form::submit('Modificar curso', ['class' => 'btn btn-info form-control'])}}
 </div>
 {{Form::close() }}
+</div>
+</div>
 @endsection

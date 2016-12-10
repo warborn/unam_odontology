@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<table class="table table-hover">
+<div class="table-responsive">
+<table class="table table-hover table-striped">
 	<thead>
 		<tr>
 			<th>Nombre de Usuario</th>
@@ -23,4 +24,5 @@
 		@endforeach
 	</tbody>
 </table>
+</div>
 @endsection

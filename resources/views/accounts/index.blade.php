@@ -3,9 +3,13 @@
 @section('content')
 @include('shared._alerts')
 
+<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-12">
 <h3>Cuentas</h3>
-
-<table class="table table-hover">
+</div>
+</div>
+<div class="table-responsive">
+<table class="table table-hover table-striped">
 	<thead>
 		<tr>
 			<th>Nombre de usuario</th>
@@ -28,7 +32,9 @@
 				<a href="{{url('accounts/' . $account->account_id)}}" class="btn btn-info">Administrar</a>
 			</td>
 		</tr>
-	</tbody>
 	@endforeach
+	</tbody>
 </table>
+</div>
+
 @endsection

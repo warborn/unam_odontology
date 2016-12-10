@@ -15,7 +15,7 @@
 @endif
 
 <!-- Tabla de profesores en la asignatura -->
-<table class="table table-hover">
+<table class="table table-hover table-striped">
 	<thead>
 		<tr>
 		<th>Privilegio</th>

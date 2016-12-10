@@ -4,7 +4,7 @@
 @include('shared._alerts')
 
 <div class="row">
-	<div class="col-lg-10">
+	<div class="col-sm-12 col-md-12 col-lg-12">
 		<h3>Cuenta: {{$account->user->user_id}}</h3>
 
 		@if(count($roles) > 0)
@@ -18,9 +18,8 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-lg-12">
-		<table class="table table-hover">
+	<div class="table-responsive">
+		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
 					<th>Rol</th>
@@ -38,15 +37,13 @@
 						</form>
 					</td>
 				</tr>
-			</tbody>
 			@endforeach
+			</tbody>
 		</table>
 	</div>
-</div>
 
-<div class="row">
-	<div class="col-lg-12">
-		<table class="table table-hover">
+	<div class="table-responsive">
+		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
 					<th>Privilegio</th>
@@ -69,16 +66,16 @@
 						</form>
 						@endif
 					</td>
-				</tr>
-			</tbody>
+				</tr>			
 			@endforeach
+			</tbody>
 		</table>
 	</div>
-</div>
 
 @if($account->isActive())
+
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-sm-12 col-md-12 col-lg-12">
 		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseDeactiveForm" aria-expanded="false" aria-controls="collapseExample">
 			Desactivar Cuenta
 		</button>
@@ -86,7 +83,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-sm-12 col-md-12 col-lg-12">
 		<div class="collapse" id="collapseDeactiveForm">
 			<div class="well">
 				{{ Form::open(['action' => ['AccountsController@deactivate', $account->account_id]]) }}
@@ -116,7 +113,7 @@
 </div>
 @else
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-sm-12 col-md-12 col-lg-12">
 		<form action="{{url('accounts/' . $account->account_id . '/activate')}}" method="POST">
 			{{ method_field('DELETE') }}
 			<input type="submit" value="Activar" class="btn btn-primary">

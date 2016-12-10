@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Grupos Asignados</h1>
-<table class="table table-hover">
+<div class="row">
+<div class="col-sm-12 col-md-12 col-lg-12">
+<h1>Grupos Asignados</h1>	
+</div>
+</div>
+<div class="table-responsive">
+<table class="table table-hover table-striped">
 	<tr>
 		<th>Asignatura</th>
 		<th>Grupos</th>
@@ -18,4 +23,5 @@
 	</tr>
 	@endforeach
 </table>
+</div>
 @endsection

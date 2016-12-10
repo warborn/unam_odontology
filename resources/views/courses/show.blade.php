@@ -3,7 +3,7 @@
 @include('shared._alerts')
 
 <div class="row">
-	<div class="col-lg-10">
+	<div class="col-sm-12 col-md-12 col-lg-12">
 		<h3>Curso: {{$course->info()}}</h3>
 
 		@if(count($users) > 0)
@@ -17,6 +17,7 @@
 	</div>
 </div>
 
+<div class="table-responsive">
 <table class="table table-hover">
 	<thead>
 		<tr>
@@ -42,4 +43,5 @@
 		@endforeach
 	</tbody>
 </table>
+</div>
 @endsection
