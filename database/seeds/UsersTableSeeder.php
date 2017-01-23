@@ -73,7 +73,7 @@ class UsersTableSeeder extends Seeder
         //     }
         // });
 
-        factory(App\User::class, 6)->create()->each(function($user, $index) 
+        factory(App\User::class, 5)->create()->each(function($user, $index) 
             use ($clinic, $federal_entity, $address) {
             // Set user's personal information
             $personal_information = factory(App\PersonalInformation::class)->make();

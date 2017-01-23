@@ -4,8 +4,16 @@
 <h3>Datos Generales</h3>
 {{ Form::open(['action' => ['FormatsController@update', $format->format_id], 'method' => 'PATCH']) }}
 <div class="row">
-	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Nombre del paciente')}} : {{Form::text('name',$patient->user->personal_information->fullname(),['class' => 'form-control', 'disabled'])}}
+	<div class="col-sm-12 col-md-12 col-lg-4 form-group">
+		{{Form::label('Nombre(s)')}} : {{Form::text('name',$patient->personal_information->name,['class' => 'form-control'])}}
+	</div>
+
+	<div class="col-sm-12 col-md-12 col-lg-4 form-group">
+	{{Form::label('Apellido Paterno')}} : {{Form::text('last_name',$patient->personal_information->last_name,['class' => 'form-control'])}}
+	</div>
+
+	<div class="col-sm-12 col-md-12 col-lg-4 form-group">
+	{{Form::label('Apellido Materno')}} : {{Form::text('mother_last_name',$patient->personal_information->mother_last_name,['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-6 col-lg-6 form-group{{ $errors->has('medical_history_number') ? ' has-error' : '' }}">
@@ -18,63 +26,87 @@
 	</div>
 
 	<div class="col-sm-12 col-md-6 col-lg-6 form-group">
-		{{Form::label('Género')}} : {{Form::select('gender', ['M'=>'Mujer','H'=>'Hombre'],$patient->user->personal_information->gender, ['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Género')}} : {{Form::select('gender', ['M'=>'Mujer','H'=>'Hombre'],$patient->user->personal_information->gender, ['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Dirección')}} : {{Form::text('street',$patient->user->personal_information->street, ['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Dirección')}} : {{Form::text('street',$patient->user->personal_information->street, ['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',$patient->user->personal_information->address->postal_code,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',$patient->user->personal_information->address->postal_code,['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Colonia')}} : {{Form::text('settlement',$patient->user->personal_information->address->settlement,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Colonia')}} : {{Form::text('settlement',$patient->user->personal_information->address->settlement,['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Delegación o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address->municipality,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Delegación o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address->municipality,['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Estado')}} : {{Form::select('federal_entity_id',$federal->pluck('federal_entity_name'),($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null),['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),($patient->federalEntity ? $patient->federalEntity->federal_entity_id : null),['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Edad')}} : {{Form::selectRange('age',1,99,$patient->age,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Edad')}} : {{Form::selectRange('age',1,99,$patient->age,['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-9 col-lg-9 form-group">
-		{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_name',$federal->pluck('federal_entity_name'),($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null), ['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_id',$federal->pluck('federal_entity_name', 'federal_entity_id'),($patient->federalEntity ? $patient->federalEntity->federal_entity_id : null), ['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
-		{{Form::label('Ocupación')}} : {{Form::select('ocupation',['Seleccione','Empleado','Estudiante', 'Otro'],$patient->ocupation,['class' => 'form-control', 'disabled'] )}}
+		{{Form::label('Ocupación')}} : {{Form::select('ocupation',$ocupations,$patient->ocupation,['class' => 'form-control'] )}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
-		{{Form::label('Grado escolar')}} : {{Form::select('school_grade',['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'doctorado'],$patient->school_grade,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Grado escolar')}} : {{Form::select('school_grade',$school_grades,$patient->school_grade,['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
-		{{Form::label('Estado civil')}} : {{Form::select('civil_status',['Solter@', 'Casad@', 'Divorciad@', 'Viud@'],$patient->civil_status, ['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Estado civil')}} : {{Form::select('civil_status',$civil_status,$patient->civil_status, ['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->user->personal_information->phone, ['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->user->personal_information->phone, ['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-3 form-group">
-		{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::select('has_medical_service',['1' => 'Si', '0' => 'No'],$patient->has_medical_service,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::select('has_medical_service',['1' => 'Si', '0' => 'No'],$patient->has_medical_service,['class' => 'form-control', 'id' => 'has_medical_service'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
-		{{Form::label('Nombre del servicio medico')}} : {{Form::select('medical_service',['0' => 'Seleccione', 'IMSS' => 'IMSS', 'ISSSTE' => 'ISSSTE'],$patient->medical_service,['class' => 'form-control', 'disabled'])}}
+		{{Form::label('Nombre del servicio medico')}} : 
+		@if($patient->has_medical_service == '0')
+		<select class="form-control" name="medical_service" class="form-control" id="medical_service" disabled>
+		@else
+		<select class="form-control" name="medical_service" class="form-control" id="medical_service">
+		@endif
+			<option selected disabled>Selecciona un servicio médico</option>
+			@foreach($medical_services as $service)
+				@if($patient->medical_service == $service)
+					<option value={{$service}} selected>{{$service}}</option>
+				@else
+					<option value={{$service}}>{{$service}}</option>
+				@endif
+			@endforeach
+		</select>
 	</div>
 
-	<div class="col-sm-12 col-md-4 col-lg-5 form-group">
-		{{Form::label('Otro')}} : {{Form::text('other_medical_service', $patient->other_medical_service, ['class' => 'form-control', 'disabled'])}}
+	<div class="col-sm-12 col-md-4 col-lg-5 form-group{{ $errors->has('other_medical_service') ? ' has-error' : '' }}">
+		{{Form::label('Otro')}} : 
+		@if($patient->has_medical_service == '0')
+		{{Form::text('other_medical_service', $patient->other_medical_service , ['class' => 'form-control', 'id' => 'other_medical_service', 'disabled'])}}
+		@else
+		{{Form::text('other_medical_service', $patient->other_medical_service , ['class' => 'form-control', 'id' => 'other_medical_service'])}}
+		@endif
+		@if ($errors->has('other_medical_service'))
+      <span class="help-block">
+          <strong>{{ $errors->first('other_medical_service') }}</strong>
+      </span>
+    @endif
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12 form-group{{ $errors->has('referred_by') ? ' has-error' : '' }}">
@@ -107,7 +139,7 @@
 		@if($format->has_disease == '0')
 		<select class="form-control" name="general_disease" class="form-control" id="general_disease" disabled>
 		@else
-		<select class="form-control" name="general_disease" class="form-control" id="general_disease">
+		<select class="form-control" name="general_disease" class="form-control" id="general_disease" >
 		@endif
 			<option selected disabled>Selecciona una enfermedad</option>
 			@foreach($general as $disease)
@@ -171,37 +203,7 @@
 </div>
 {{Form::close() }}
 
-@push('js')
-<script type="text/javascript">
-	 // change disease inputs
-  var $generalDisease = $('#general_disease');
-  var $otherDisease = $('#other_disease');
-	$('#has_disease').on('change', function() { 
-		if(this.value == 0) {
-			$generalDisease.attr('disabled', true)[0].selectedIndex = 0;
-			$otherDisease.attr('disabled', true).val('');
-		} else {
-			$generalDisease.removeAttr('disabled');
-			$otherDisease.removeAttr('disabled');
-		}
-	});
 
-	$generalDisease.on('change', function() {
-		if(this.value) {
-			$otherDisease.attr('disabled', true);
-		} else {
-			$otherDisease.removeAttr('disabled');
-		}
-	});
-
-	$('#medical_treatment').on('change', function(){
-		if(this.value == 0) {
-			$('#therapeutic_used').attr('disabled', true);
-		} else {
-			$('#therapeutic_used').removeAttr('disabled');
-		}
-	});
-</script>
-@endpush
+@include('formats._other_field_js')
 
 @endsection

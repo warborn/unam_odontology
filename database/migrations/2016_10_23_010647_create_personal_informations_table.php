@@ -18,7 +18,7 @@ class CreatePersonalInformationsTable extends Migration
             $table->string('name', 30);
             $table->string('last_name', 20);
             $table->string('mother_last_name', 20);
-            $table->string('email', 80)->unique();
+            $table->string('email', 80)->unique()->nullable();
             $table->string('phone', 16)->nullable();
             $table->string('gender', 1)->nullable();
             $table->string('address_id', 200)->nullable();

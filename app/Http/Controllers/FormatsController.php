@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use Validator;
@@ -12,9 +13,13 @@ use App\Disease;
 use App\Address;
 use App\Subject;
 use App\Format;
+use App\User;
+use App\PersonalInformation;
 use App\Intern;
 use App\Course;
 use App\Clinic;
+use App\Account;
+use App\FormatRegistrationForm;
 use Carbon\Carbon;
 
 class FormatsController extends Controller
@@ -31,7 +36,7 @@ class FormatsController extends Controller
      */
     public function index()
     {
-        $formats = Format::with('dentalDisease')->with('intern')->with('patient')->orderBy('created_at', 'DESC')->paginate(15);
+        $formats = Format::orderBy('created_at', 'DESC')->paginate(15);
         return View('formats.index')->with('formats', $formats);
     }
 
@@ -40,15 +45,20 @@ class FormatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Patient $patient)
+    public function create()
     {
-        $federal = FederalEntity::all();
-        $address = Address::all();
+        // static data for patient information
+        $school_grades = to_associative(['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'Doctorado']);
+        $ocupations = to_associative(['Seleccione','Empleado','Estudiante', 'Otro']);
+        $civil_status = to_associative(['Solter@', 'Casad@', 'Divorciad@', 'Viud@']);
+        $medical_services = to_associative(['IMSS', 'ISSSTE', 'POPULAR']);
+
+        $federal = FederalEntity::first();
+        $address = $federal->addresses->first();
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
-        $patient = Patient::find($patient->user_id)->first();
         $courses = Course::all();
-        return View('formats.create')->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('courses', $courses);
+        return View('formats.create')->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental);
     }
 
     /**
@@ -57,46 +67,64 @@ class FormatsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Patient $patient)
+    public function store(Request $request)
     {
-        $other_disease_validation = ($request->has_disease && !isset($request->general_disease) ? 'required|' : '');
-        $therapeutic_used_validation = (($request->medical_treatment) ? 'required|' : '');
-        $validator = Validator::make($request->all(), [
-            'medical_history_number' => ['required', 'max:8', 'regex:/^(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9][0-9][0-9]$/'],
-            'has_disease' => 'required|boolean',
-            'medical_treatment' => 'required|boolean',
-            'referred_by' => 'max:50',
-            'consultation_reason' => 'max:70',
-            'therapeutic_used' => $therapeutic_used_validation . 'max:100',
-            'observations' => 'max:250',
-            'dental_disease' => 'required',
-            'other_disease' => $other_disease_validation . 'max:30'
-        ]);
+        $form = new FormatRegistrationForm($request);
 
-        if($validator->fails()) {
-            $federal = FederalEntity::all();
-            $address = Address::all();
+        if($form->isInvalid()) {
+            // static data for patient information
+            $school_grades = to_associative(['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'Doctorado']);
+            $ocupations = to_associative(['Seleccione','Empleado','Estudiante', 'Otro']);
+            $civil_status = to_associative(['Solter@', 'Casad@', 'Divorciad@', 'Viud@']);
+            $medical_services = to_associative(['IMSS', 'ISSSTE', 'POPULAR']);
+
+            $federal = FederalEntity::first();
+            $address = $federal->addresses->first();
             $general = Disease::where('type_of_disease', 'general')->get();
             $dental = Disease::where('type_of_disease', 'odontologica')->get();
-            return redirect()->back()->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->withErrors($validator)->withInput($request->all());
+            $courses = Course::all();
+            return View('formats.create')->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->withErrors($form->getValidation())->withInput($request->all());
         }
 
-        $clinic = Clinic::first(); // replace with logged in clinic
-        $intern = Intern::first(); // replace with logged in user
+        $clinic = clinic(); // use clinic registered in session
+        $intern = Intern::first(); // use user registered in session
+
         $dental_disease = Disease::find($request->dental_disease);
         $general_disease = null;
         if($request->has_disease && isset($request->general_disease)) {
             $general_disease = Disease::find($request->general_disease);
         }
 
-        if($patient && $dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+        if($dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+            $address = Address::first();
+
+            // create new user 
+            $user = User::create(['user_id' => uniqid('_PAS_'), 'password' => bcrypt(md5(rand()))]);
+            $personal_information = new PersonalInformation($request->all());
+            $personal_information->address()->associate($address);
+            $user->personal_information()->save($personal_information);
+
+            //     // Set account to user
+            $account = new Account(['user_id' => $user->user_id, 'clinic_id' => clinic()->clinic_id]);
+            $account->generatePK();
+            $user->accounts()->save($account);
+
+            // create new patient
+            $patient = new Patient($request->all());
+            $patient->federal_entity_id = $request->federal_entity_id;
+            $user->patient()->save($patient);
+
             $values = [
                     'medical_history_number' => $request->medical_history_number, 
                     'has_disease' => $request->has_disease, 
                     'medical_treatment' => $request->medical_treatment,
                     'referred_by' => $request->referred_by,
                     'consultation_reason' => $request->consultation_reason,
-                    'observations' => $request->observations];
+                    'observations' => $request->observations,
+                    'has_medical_service' => $request->has_medical_service,
+                    'medical_service' => $request->medical_service,
+                    'other_medical_service' => $request->other_medical_service
+                    ];
 
             $format = new Format($values);
             $format->generatePK();
@@ -151,13 +179,12 @@ class FormatsController extends Controller
         $patient = Patient::find($format->user_patient_id)->first();
         $intern = Intern::find($format->user_intern_id)->first();
         $federal = FederalEntity::all();
-        $address = Address::all();
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
         $students = Student::whereNotIn('user_id', $assigned_students->map(function($student) { return $student->user_id; }))->get();
         $students = $students->filter(function($student) { return $student->courses()->where('status', 'accepted')->count() > 0; });
         $courses = Course::all();
-        return View('formats.show')->with('format', $format)->with('patient', $patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('students', $students)->with('assigned_students', $assigned_students);
+        return View('formats.show')->with('format', $format)->with('patient', $format->patient)->with('federal', $federal)->with('general', $general)->with('dental', $dental)->with('students', $students)->with('assigned_students', $assigned_students);
     }
 
     /**
@@ -168,11 +195,18 @@ class FormatsController extends Controller
      */
     public function edit(Format $format)
     {
-        $federal = FederalEntity::all();
-        $address = Address::all();
+        // static data for patient information
+        $school_grades = to_associative(['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'Doctorado']);
+        $ocupations = to_associative(['Seleccione','Empleado','Estudiante', 'Otro']);
+        $civil_status = to_associative(['Solter@', 'Casad@', 'Divorciad@', 'Viud@']);
+        $medical_services = to_associative(['IMSS', 'ISSSTE', 'POPULAR']);
+
+        $federal = FederalEntity::first();
+        $address = $federal->addresses->first();
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
-        return View('formats.edit')->with('format', $format)->with('patient', $format->patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental);
+        $courses = Course::all();
+        return View('formats.edit')->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('patient', $format->patient)->with('format', $format);
     }
 
     /**
@@ -184,37 +218,38 @@ class FormatsController extends Controller
      */
     public function update(Request $request, Format $format)
     {
-        $other_disease_validation = ($request->has_disease && !isset($request->general_disease) ? 'required|' : '');
-        $therapeutic_used_validation = (($request->medical_treatment) ? 'required|' : '');
-        $validator = Validator::make($request->all(), [
-            'medical_history_number' => ['required', 'max:8', 'regex:/^(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9][0-9][0-9]$/'],
-            'has_disease' => 'required|boolean',
-            'medical_treatment' => 'required|boolean',
-            'referred_by' => 'max:50',
-            'consultation_reason' => 'max:70',
-            'therapeutic_used' => $therapeutic_used_validation . 'max:100',
-            'observations' => 'max:250',
-            'dental_disease' => 'required',
-            'other_disease' => $other_disease_validation . 'max:30'
-        ]);
+        $form = new FormatRegistrationForm($request);
 
-        if($validator->fails()) {
-            $federal = FederalEntity::all();
-            $address = Address::all();
+        if($form->isInvalid()) {
+            // static data for patient information
+            $school_grades = to_associative(['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'Doctorado']);
+            $ocupations = to_associative(['Seleccione','Empleado','Estudiante', 'Otro']);
+            $civil_status = to_associative(['Solter@', 'Casad@', 'Divorciad@', 'Viud@']);
+            $medical_services = to_associative(['IMSS', 'ISSSTE', 'POPULAR']);
+
+            $federal = FederalEntity::first();
+            $address = $federal->addresses->first();
             $general = Disease::where('type_of_disease', 'general')->get();
             $dental = Disease::where('type_of_disease', 'odontologica')->get();
-            return redirect()->back()->with('format', $format)->with('patient', $format->patient)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->withErrors($validator);
+            $courses = Course::all();
+            return View('formats.edit')->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('address', $address)->with('general', $general)->with('dental', $dental)->with('format', $format)->with('patient', $format->patient)->withErrors($form->getValidation())->withInput($request->all());
         }
 
-        $clinic = Clinic::first(); // replace with logged in clinic
-        $intern = Intern::first(); // replace with logged in user
         $dental_disease = Disease::find($request->dental_disease);
         $general_disease = null;
         if($request->has_disease && isset($request->general_disease)) {
             $general_disease = Disease::find($request->general_disease);
         }
 
-        if($format->patient && $dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+        if($dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+            // update user personal information 
+            $patient = $format->patient;
+            $patient->user->personal_information->update($request->all());
+
+            // update patient information
+            $patient->federal_entity_id = $request->federal_entity_id;
+            $patient->update(['age' => $request->age, 'ocupation' => $request->ocupation, 'school_grade' => $request->school_grade, 'civil_status' => $request->civil_status, 'phone' => $request->phone, 'has_medical_service' => $request->has_medical_service, 'medical_service' => $request->medical_service, 'other_medical_service' => $request->other_medical_service]);
+
             $values = [
                     'medical_history_number' => $request->medical_history_number, 
                     'has_disease' => $request->has_disease, 

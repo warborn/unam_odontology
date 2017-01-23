@@ -2,6 +2,11 @@
 @section('content')
 @include('shared._alerts')
 <div class="row">
+	<div class="col-lg-10">
+		<a href="{{url('/formats/create')}}"class="btn btn-success">Agregar Formato</a>
+	</div>
+</div>
+<div class="row">
 	<div class="col-lg-12">
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">

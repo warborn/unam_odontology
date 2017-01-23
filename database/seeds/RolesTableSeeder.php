@@ -11,7 +11,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Role::class, 6)->make()->each(function($role) {
+        factory(App\Role::class, 5)->make()->each(function($role) {
             $role->generatePK();
             $role->save();
         	App\Privilege::all()->each(function($privilege) use ($role){

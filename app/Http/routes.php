@@ -68,11 +68,13 @@ Route::delete('/accounts/{account}/privileges/{privilege}', 'AccountsController@
 Route::post('/accounts/{account}/deactivate', 'AccountsController@deactivate');
 Route::delete('/accounts/{account}/activate', 'AccountsController@activate');
 
-Route::get('/patients', 'PatientsController@index');
-Route::get('/patients/{patient}/formats/create', 'FormatsController@create');
-Route::post('/patients/{patient}/formats', 'FormatsController@store');
+// Route::get('/patients', 'PatientsController@index');
+// Route::get('/patients/{patient}/formats/create', 'FormatsController@create');
+// Route::post('/patients/{patient}/formats', 'FormatsController@store');
 
 Route::get('/formats', 'FormatsController@index');
+Route::get('/formats/create', 'FormatsController@create');
+Route::post('/formats', 'FormatsController@store');
 Route::get('/formats/{format}', 'FormatsController@show');
 Route::get('/formats/{format}/edit', 'FormatsController@edit');
 Route::patch('/formats/{format}', 'FormatsController@update');

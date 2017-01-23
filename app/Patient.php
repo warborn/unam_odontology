@@ -8,7 +8,7 @@ class Patient extends Model
 {
     public $incrementing = false;
     public $primaryKey = 'user_id';
-    protected $fillable=['user_id', 'age', 'federal_entity_id', 'ocupation', 'school_grade', 'civil_status', 'phone', 'service_medical', 'service_name'];
+    protected $fillable=['age', 'ocupation', 'school_grade', 'civil_status', 'phone', 'has_medical_service', 'medical_service', 'other_medical_service'];
 
     public function user() {
     	return $this->belongsTo(User::class, 'user_id');

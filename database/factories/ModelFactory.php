@@ -15,7 +15,7 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         // 'user_id' => $faker->userName,
-    		'user_id' => $faker->unique()->randomElement(['administrador', 'profesor', 'pasante', 'estudiante', 'paciente', 'usuario']),
+    		'user_id' => $faker->unique()->randomElement(['administrador', 'profesor', 'pasante', 'estudiante', 'usuario']),
         'password' => bcrypt('password'),
         'activated' => true,
     ];
@@ -45,7 +45,7 @@ $factory->define(App\Privilege::class, function(Faker\Generator $faker) {
 
 // Roles Factory
 $factory->define(App\Role::class, function(Faker\Generator $faker) {
-	$roles = ['super user', 'administrator', 'teacher', 'intern', 'student', 'patient'];
+	$roles = ['super user', 'administrator', 'teacher', 'intern', 'student'];
 	return [
 		'role_name' => $faker->unique()->randomElement($roles),
 		'role_description' => $faker->sentence,

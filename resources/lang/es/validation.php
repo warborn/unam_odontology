@@ -240,6 +240,7 @@ return [
         'referrenced_by' => 'referido por',
         'dental_disease' => 'enfermedad odontológica',
         'other_disease' => 'otra enfermedad',
+        'other_medical_service' => 'otro servicio médico',
         'format_status' => 'estado del formato',
         // Personal Informations
         'user_name' => 'nombre',
