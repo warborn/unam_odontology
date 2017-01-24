@@ -38,6 +38,10 @@ function account() {
 	return App\Account::find(session()->get('account_id'));
 }
 
+function intern() {
+	return account()->user->intern;
+}
+
 function to_associative($array) {
 	$new_array = [];
 	foreach ($array as $element) {

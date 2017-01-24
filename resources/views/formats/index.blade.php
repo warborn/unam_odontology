@@ -22,7 +22,7 @@
 						<th>Fecha</th>
 						<th>&nbsp;</th>
 						<th>&nbsp;</th>
-						<th>&nbsp;</th>
+						{{-- <th>&nbsp;</th> --}}
 					</tr>
 				</thead>
 				<tbody>
@@ -37,13 +37,15 @@
 						<td>{{$format->format_status}}</td>
 						<td>{{$format->hour_date_fill}}</td>
 						<td><a class="btn btn-success" href="{{ url('/formats/' . $format->format_id) }}">Mostrar</a></td>
+						@if($format->filled_by(intern()))
 						<td><a class="btn btn-info" href="{{ url('/formats/' . $format->format_id. '/edit') }}">Editar</a></td>
-						<td>
+						@endif
+						{{-- <td>
 							<form action="{{ url('/formats/' . $format->format_id) }}" method="POST">
 								{{ method_field('DELETE') }}
 								<input type="submit" value="Eliminar" class="btn btn-danger">
 							</form>
-						</td>
+						</td> --}}
 					</tr>
 					@endforeach
 				</tbody>

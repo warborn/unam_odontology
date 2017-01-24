@@ -44,5 +44,9 @@ class Format extends Model
     public function generatePK() {
         return $this->format_id = 'F' . array_rand(range(1, 999));
     }
+
+    public function filled_by(Intern $intern) {
+        return $this->intern->getKey() == $intern->getKey();
+    }
 }
 

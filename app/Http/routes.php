@@ -31,15 +31,11 @@ Route::resource('federal-entities', 'FederalEntitiesController', ['except' => ['
 Route::resource('addresses', 'AddressesController', ['except' => ['create', 'edit']]);
 Route::resource('clinics', 'ClinicsController', ['except' => ['create', 'edit']]);
 Route::resource('courses', 'CoursesController');
+Route::resource('formats', 'FormatsController', ['except' => 'destroy']);
 
 Route::auth();
 Route::get('user/activation/{token}', 'Auth\AuthController@activate_user')->name('user.activate');
 
-Route::get('/courses', 'CoursesController@index');
-Route::get('/courses/create', 'CoursesController@create');
-Route::post('/courses', 'CoursesController@store');
-Route::patch('/courses/{course}', 'CoursesController@update');
-Route::delete('/courses/{course}', 'CoursesController@destroy');
 Route::post('/courses/{course}/teachers/', 'CoursesController@store_teacher');
 Route::delete('/courses/{course}/teachers/{teacher}', 'CoursesController@destroy_teacher');
 
@@ -68,17 +64,6 @@ Route::delete('/accounts/{account}/privileges/{privilege}', 'AccountsController@
 Route::post('/accounts/{account}/deactivate', 'AccountsController@deactivate');
 Route::delete('/accounts/{account}/activate', 'AccountsController@activate');
 
-// Route::get('/patients', 'PatientsController@index');
-// Route::get('/patients/{patient}/formats/create', 'FormatsController@create');
-// Route::post('/patients/{patient}/formats', 'FormatsController@store');
-
-Route::get('/formats', 'FormatsController@index');
-Route::get('/formats/create', 'FormatsController@create');
-Route::post('/formats', 'FormatsController@store');
-Route::get('/formats/{format}', 'FormatsController@show');
-Route::get('/formats/{format}/edit', 'FormatsController@edit');
-Route::patch('/formats/{format}', 'FormatsController@update');
-Route::delete('/formats/{format}', 'FormatsController@destroy');
 Route::post('/formats/{format}/students', 'FormatsController@store_student');
 Route::delete('/formats/{format}/students/{student}', 'FormatsController@destroy_student');
 

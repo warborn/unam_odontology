@@ -36,6 +36,7 @@ class FormatsController extends Controller
      */
     public function index()
     {
+        $intern = account()->user->intern;
         $formats = Format::orderBy('created_at', 'DESC')->paginate(15);
         return View('formats.index')->with('formats', $formats);
     }
@@ -195,6 +196,9 @@ class FormatsController extends Controller
      */
     public function edit(Format $format)
     {
+        if(!$format->filled_by(intern())) {
+            return redirect()->route('formats.index');
+        }
         // static data for patient information
         $school_grades = to_associative(['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'Doctorado']);
         $ocupations = to_associative(['Seleccione','Empleado','Estudiante', 'Otro']);
@@ -218,6 +222,10 @@ class FormatsController extends Controller
      */
     public function update(Request $request, Format $format)
     {
+        if(!$format->filled_by(intern())) {
+            return redirect()->route('formats.index');
+        }
+        
         $form = new FormatRegistrationForm($request);
 
         if($form->isInvalid()) {
@@ -295,16 +303,16 @@ class FormatsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Format $format)
-    {
-        try {
-            $format->delete();
-            session()->flash('success', 'El formato fue eliminado correctamente.');
-        } catch (\Illuminate\Database\QueryException $e){
-            session()->flash('warning', 'El formato no se puede eliminar');
-        }
-        return redirect('formats'); 
-    }
+    // public function destroy(Format $format)
+    // {
+    //     try {
+    //         $format->delete();
+    //         session()->flash('success', 'El formato fue eliminado correctamente.');
+    //     } catch (\Illuminate\Database\QueryException $e){
+    //         session()->flash('warning', 'El formato no se puede eliminar');
+    //     }
+    //     return redirect('formats'); 
+    // }
 
     public function destroy_student(Format $format, Student $student)
     {
