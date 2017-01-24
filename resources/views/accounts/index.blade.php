@@ -22,6 +22,7 @@
 	</thead>
 	<tbody>
 	@foreach($accounts as $account)
+		@if(!$account->is(account()))
 		<tr>
 			<td>{{$account->user->user_id}}</td>
 			<td>{{$account->user->personal_information->fullname()}}</td>
@@ -29,9 +30,10 @@
 			<td>{{$account->user->personal_information->phone}}</td>
 			<td>{{translate_account_status($account->status())}}</td>
 			<td>
-				<a href="{{url('accounts/' . $account->account_id)}}" class="btn btn-info">Administrar</a>
+				<a href="{{url('accounts/' . $account->user_id)}}" class="btn btn-info">Administrar</a>
 			</td>
 		</tr>
+		@endif
 	@endforeach
 	</tbody>
 </table>

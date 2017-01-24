@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use App\Account;
+use App\User;
 use App\Role;
 use App\Privilege;
 use App\Movement;
@@ -18,6 +19,7 @@ class AccountsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('account', ['except' => ['index']]);
     }
     
     /**
@@ -27,7 +29,7 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $accounts = Account::with('user.personal_information')->get();
+        $accounts = Account::notPatient()->with('user.personal_information')->get();
         return View('accounts.index')->with('accounts', $accounts);
     }
 
@@ -37,8 +39,9 @@ class AccountsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Account $account)
+    public function show(User $user)
     {
+        $account = Account::from($user->user_id, clinic()->clinic_id);
         $roles = Role::pluck('role_name','role_id');
         $roles = $roles->diffKeys($account->roles->pluck('role_name','role_id'));
         $deactivation = ['disabled' => 'deshabilitar', 'deleted' => 'eliminar'];
@@ -47,8 +50,9 @@ class AccountsController extends Controller
         return View('accounts.show')->with('account', $account)->with('roles', $roles)->with('deactivation', $deactivation);
     }
 
-    public function store_role(Request $request, Account $account)
+    public function store_role(Request $request, User $user)
     {
+        $account = Account::from($user->user_id, clinic()->clinic_id);
         $role = Role::find($request->role_id);
         if(isset($role)) {
             if(!$account->has_role($role->role_name)) {
@@ -66,27 +70,31 @@ class AccountsController extends Controller
         return redirect()->back();
     }
 
-    public function destroy_role(Account $account, Role $role)
+    public function destroy_role(User $user, Role $role)
     {
+        $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->roles()->detach($role->role_id);
         Movement::register(account(), $account, Privilege::first());  // remove role
         session()->flash('success', 'El rol fue eliminado correctamente.');
         return redirect()->back();
     }
 
-    public function store_disabled_privilege(Account $account, Privilege $privilege) {
+    public function store_disabled_privilege(User $user, Privilege $privilege) {
+        $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->disabledPrivileges()->attach($privilege->privilege_id);
         Movement::register(account(), $account, Privilege::first());  // disable role
         return redirect()->back();
     }
 
-    public function destroy_disabled_privilege(Account $account, Privilege $privilege) {
+    public function destroy_disabled_privilege(User $user, Privilege $privilege) {
+        $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->disabledPrivileges()->detach($privilege->privilege_id);
         Movement::register(account(), $account, Privilege::first());  // enable role
         return redirect()->back();
     }
 
-    public function deactivate(Request $request, Account $account) {
+    public function deactivate(Request $request, User $user) {
+        $account = Account::from($user->user_id, clinic()->clinic_id);
         $validator = Validator::make($request->all(), [
             'status' => 'required',
             'reason' => 'max:150'
@@ -108,7 +116,8 @@ class AccountsController extends Controller
         return redirect()->back();
     }
 
-    public function activate(Account $account) {
+    public function activate(User $user) {
+        $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->inactiveAccount()->delete();
         Movement::register(account(), $account, Privilege::first());  // activate account
         session()->flash('success', 'Se ha activado esta cuenta correctamente.');

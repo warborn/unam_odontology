@@ -110,4 +110,18 @@ class Account extends Model
     public function scopeFrom($query, $user_id, $clinic_id) {
         return $query->where('account_id', $user_id . $clinic_id)->first();
     }
+
+    public function scopeNotPatient($query) {
+        return $query->where('user_id', 'NOT LIKE', '_PAS_%');
+    }
+
+    public function is(Account $account)
+    {
+        return $this->getKey() == $account->getKey();
+    }
+
+    public function is_patient()
+    {
+        return strpos($this->getKey(), '_PAS_') !== false;
+    }
 }

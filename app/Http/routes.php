@@ -55,14 +55,14 @@ Route::get('/roles/{role}/privileges', 'RolesController@index_privileges');
 Route::post('/roles/{role}/privileges', 'RolesController@store_privilege');
 Route::delete('/roles/{role}/privileges/{privilege}', 'RolesController@destroy_privilege');
 
-Route::get('/accounts', 'AccountsController@index');
-Route::get('/accounts/{account}', 'AccountsController@show');
-Route::post('/accounts/{account}/roles', 'AccountsController@store_role');
-Route::delete('/accounts/{account}/roles/{role}', 'AccountsController@destroy_role');
-Route::post('/accounts/{account}/privileges/{privilege}', 'AccountsController@store_disabled_privilege');
-Route::delete('/accounts/{account}/privileges/{privilege}', 'AccountsController@destroy_disabled_privilege');
-Route::post('/accounts/{account}/deactivate', 'AccountsController@deactivate');
-Route::delete('/accounts/{account}/activate', 'AccountsController@activate');
+Route::get('/accounts', 'AccountsController@index')->name('accounts.index');
+Route::get('/accounts/{user}', 'AccountsController@show');
+Route::post('/accounts/{user}/roles', 'AccountsController@store_role');
+Route::delete('/accounts/{user}/roles/{role}', 'AccountsController@destroy_role');
+Route::post('/accounts/{user}/privileges/{privilege}', 'AccountsController@store_disabled_privilege');
+Route::delete('/accounts/{user}/privileges/{privilege}', 'AccountsController@destroy_disabled_privilege');
+Route::post('/accounts/{user}/deactivate', 'AccountsController@deactivate');
+Route::delete('/accounts/{user}/activate', 'AccountsController@activate');
 
 Route::post('/formats/{format}/students', 'FormatsController@store_student');
 Route::delete('/formats/{format}/students/{student}', 'FormatsController@destroy_student');

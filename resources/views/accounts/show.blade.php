@@ -8,7 +8,7 @@
 		<h3>Cuenta: {{$account->user->user_id}}</h3>
 
 		@if(count($roles) > 0)
-		{{ Form::open(['action' => ['AccountsController@store_role', $account->account_id], 'class' => 'form-inline', ]) }}
+		{{ Form::open(['action' => ['AccountsController@store_role', $account->user_id], 'class' => 'form-inline', ]) }}
 		<div class="form-group">
 			{{ Form::select('role_id', $roles, null, ['class' => 'form-control'] )}}
 			{{ Form::submit('Agregar rol', ['class' => 'btn btn-info form-control'])}}
@@ -31,7 +31,7 @@
 				<tr>
 					<td>{{$role->role_name}}</td>
 					<td>
-						<form action="{{url('accounts/' . $account->account_id . '/roles/' . $role->role_id  )}}" method="POST">
+						<form action="{{url('accounts/' . $account->user_id . '/roles/' . $role->role_id  )}}" method="POST">
 							{{ method_field('DELETE') }}
 							<input type="submit" value="Eliminar" class="btn btn-danger">
 						</form>
@@ -56,11 +56,11 @@
 					<td>{{$privilege['privilege_name']}}</td>
 					<td>
 						@if($privilege['status'] == 'enabled')
-						<form action="{{url('accounts/' . $account->account_id . '/privileges/' . $privilege_id  )}}" method="POST">
+						<form action="{{url('accounts/' . $account->user_id . '/privileges/' . $privilege_id  )}}" method="POST">
 							<input type="submit" value="Deshabilitar" class="btn btn-danger">
 						</form>
 						@elseif($privilege['status'] == 'disabled')
-						<form action="{{url('accounts/' . $account->account_id . '/privileges/' . $privilege_id  )}}" method="POST">
+						<form action="{{url('accounts/' . $account->user_id . '/privileges/' . $privilege_id  )}}" method="POST">
 							{{ method_field('DELETE') }}
 							<input type="submit" value="Habilitar" class="btn btn-primary">
 						</form>
@@ -86,7 +86,7 @@
 	<div class="col-sm-12 col-md-12 col-lg-12">
 		<div class="collapse" id="collapseDeactiveForm">
 			<div class="well">
-				{{ Form::open(['action' => ['AccountsController@deactivate', $account->account_id]]) }}
+				{{ Form::open(['action' => ['AccountsController@deactivate', $account->user_id]]) }}
 				<div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
 					{{ Form::select('status', $deactivation, null, ['class' => 'form-control'] )}}
 					@if ($errors->has('status'))
@@ -114,7 +114,7 @@
 @else
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12">
-		<form action="{{url('accounts/' . $account->account_id . '/activate')}}" method="POST">
+		<form action="{{url('accounts/' . $account->user_id . '/activate')}}" method="POST">
 			{{ method_field('DELETE') }}
 			<input type="submit" value="Activar" class="btn btn-primary">
 		</form>
