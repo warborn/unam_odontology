@@ -35,4 +35,13 @@ class Student extends Model
     public function personal_information() {
         return $this->hasOne(PersonalInformation::class, 'user_id');
     }
+
+    public function scopeActivated($query)
+    {
+        return $query->join('users', 'users.user_id', '=', 'students.user_id')->where('users.activated', true);
+    }
+
+    public function scopeFromClinic($query, $clinic) {
+         return $query->join('accounts', 'accounts.user_id', '=', 'students.user_id')->where('accounts.clinic_id', $clinic->clinic_id);
+    }
 }

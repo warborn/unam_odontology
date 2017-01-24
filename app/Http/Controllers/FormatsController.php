@@ -182,9 +182,8 @@ class FormatsController extends Controller
         $federal = FederalEntity::all();
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
-        $students = Student::whereNotIn('user_id', $assigned_students->map(function($student) { return $student->user_id; }))->get();
+        $students = Student::activated()->fromClinic(clinic())->whereNotIn('user_id', $assigned_students->map(function($student) { return $student->user_id; }))->get();
         $students = $students->filter(function($student) { return $student->courses()->where('status', 'accepted')->count() > 0; });
-        $courses = Course::all();
         return View('formats.show')->with('format', $format)->with('patient', $format->patient)->with('federal', $federal)->with('general', $general)->with('dental', $dental)->with('students', $students)->with('assigned_students', $assigned_students);
     }
 

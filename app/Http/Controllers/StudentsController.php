@@ -95,7 +95,7 @@ class StudentsController extends Controller
     public function index_courses() {
         $student = Auth::user()->student;
 
-        $courses = Course::with('students')->get();
+        $courses = Course::fromClinic(clinic())->with('students')->get();
         return View('students.index_courses')->with('courses', $courses)
             ->with('student', $student);
     }

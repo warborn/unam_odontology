@@ -47,4 +47,8 @@ class Course extends Model
         $this->course_id = $this->group_id . $this->period_id . $this->subject_id;
         return $this->course_id;
     }
+
+    public function scopeFromClinic($query, $clinic) {
+        return $query->where('courses.clinic_id', $clinic->clinic_id);
+    }
 }

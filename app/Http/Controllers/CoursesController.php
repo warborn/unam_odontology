@@ -18,6 +18,7 @@ class CoursesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('course', ['except' => ['index', 'create', 'store']]);
     }
     
     /**
@@ -27,7 +28,7 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('group')->with('period')->with('subject')->Paginate(10);
+        $courses = Course::fromClinic(clinic())->with('group')->with('period')->with('subject')->Paginate(10);
         return View('courses.index')->with('courses',$courses);
     }
 
@@ -72,7 +73,7 @@ class CoursesController extends Controller
      */
     public function show(Course $course)
     {
-        $users = Account::fromClinic(clinic())->get()->map(function($account) {
+        $users = Account::activated()->fromClinic(clinic())->get()->map(function($account) {
             return [$account->user_id => $account->user->personal_information->fullname()];
         })->flatten(1);
 
@@ -90,12 +91,12 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($course)
+    public function edit(Course $course)
     {
         $groups = Group::pluck('group_id', 'group_id');
         $periods = Period::pluck('period_id', 'period_id');
         $subjects = Subject::pluck('subject_name','subject_id');
-        $course = Course::find($course);
+        // $course = Course::fromClinic(clinic())->find($course);
         return View('courses.edit')->with('course', $course)->with('groups', $groups)->with('periods', $periods)->with('subjects', $subjects);
     }
 

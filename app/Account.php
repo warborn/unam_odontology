@@ -104,15 +104,20 @@ class Account extends Model
     }
 
     public function scopeFromClinic($query, $clinic) {
-        return $query->where('clinic_id', $clinic->clinic_id);
+        return $query->where('accounts.clinic_id', $clinic->clinic_id);
     }
 
     public function scopeFrom($query, $user_id, $clinic_id) {
-        return $query->where('account_id', $user_id . $clinic_id)->first();
+        return $query->where('accounts.account_id', $user_id . $clinic_id)->first();
     }
 
     public function scopeNotPatient($query) {
         return $query->where('user_id', 'NOT LIKE', '_PAS_%');
+    }
+
+    public function scopeActivated($query)
+    {
+        return $query->join('users', 'users.user_id', '=', 'accounts.user_id')->where('users.activated', true);
     }
 
     public function is(Account $account)
