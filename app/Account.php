@@ -124,4 +124,12 @@ class Account extends Model
     {
         return strpos($this->getKey(), '_PAS_') !== false;
     }
+
+    public function destroy_disabled_privileges($role) {
+        $privileges = [];
+        foreach ($role->privileges as $privilege) {
+            $privileges[] = $privilege->privilege_id;    
+        }
+        $this->disabledPrivileges()->detach($privileges);
+    }
 }

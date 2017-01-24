@@ -74,6 +74,7 @@ class AccountsController extends Controller
     {
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->roles()->detach($role->role_id);
+        $account->destroy_disabled_privileges($role);
         Movement::register(account(), $account, Privilege::first());  // remove role
         session()->flash('success', 'El rol fue eliminado correctamente.');
         return redirect()->back();
@@ -82,14 +83,14 @@ class AccountsController extends Controller
     public function store_disabled_privilege(User $user, Privilege $privilege) {
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->disabledPrivileges()->attach($privilege->privilege_id);
-        Movement::register(account(), $account, Privilege::first());  // disable role
+        Movement::register(account(), $account, Privilege::first());  // disable privilege
         return redirect()->back();
     }
 
     public function destroy_disabled_privilege(User $user, Privilege $privilege) {
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->disabledPrivileges()->detach($privilege->privilege_id);
-        Movement::register(account(), $account, Privilege::first());  // enable role
+        Movement::register(account(), $account, Privilege::first());  // enable privilege
         return redirect()->back();
     }
 
