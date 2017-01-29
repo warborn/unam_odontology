@@ -2,18 +2,34 @@
 @section('content')
 @include('shared._alerts')
 <h3>Datos Generales</h3>
+{{-- {{dd($errors)}} --}}
 {{ Form::open(['action' => ['FormatsController@store']]) }}
 <div class="row">
-	<div class="col-sm-12 col-md-12 col-lg-4 form-group">
-		{{Form::label('Nombre(s)')}} : {{Form::text('name',null,['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-12 col-lg-4 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+		{{Form::label('Nombre(s)')}} : {{Form::text('name',old('name'),['class' => 'form-control'])}}
+		@if ($errors->has('name'))
+      <span class="help-block">
+          <strong>{{ $errors->first('name') }}</strong>
+      </span>
+    @endif
 	</div>
 
-	<div class="col-sm-12 col-md-12 col-lg-4 form-group">
-	{{Form::label('Apellido Paterno')}} : {{Form::text('last_name',null,['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-12 col-lg-4 form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+		{{Form::label('Apellido Paterno')}} : {{Form::text('last_name',old('last_name'),['class' => 'form-control'])}}
+		@if ($errors->has('last_name'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('last_name') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
-	<div class="col-sm-12 col-md-12 col-lg-4 form-group">
-	{{Form::label('Apellido Materno')}} : {{Form::text('mother_last_name',null,['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-12 col-lg-4 form-group{{ $errors->has('mother_last_name') ? ' has-error' : '' }}">
+	{{Form::label('Apellido Materno')}} : {{Form::text('mother_last_name',old('mother_last_name'),['class' => 'form-control'])}}
+		@if ($errors->has('mother_last_name'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('mother_last_name') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
 	<div class="col-sm-12 col-md-6 col-lg-6 form-group{{ $errors->has('medical_history_number') ? ' has-error' : '' }}">
@@ -29,24 +45,44 @@
 		{{Form::label('Género')}} : {{Form::select('gender', ['M'=>'Mujer','H'=>'Hombre'],old('gender'), ['class' => 'form-control'])}}
 	</div>
 
-	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group{{ $errors->has('street') ? ' has-error' : '' }}">
 		{{Form::label('Dirección')}} : {{Form::text('street',old('street'), ['class' => 'form-control'])}}
+		@if ($errors->has('street'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('street') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',old('postal_code'),['class' => 'form-control'])}}
+		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',old('postal_code'),['class' => 'form-control', 'id' => 'postal-code'])}}
 	</div>
 
-	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Colonia')}} : {{Form::select('settlement',$address->pluck('settlement', 'settlement'),old('settlement'),['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('settlement') ? ' has-error' : '' }}">
+		{{Form::label('Colonia')}} : {{Form::select('settlement',[],old('settlement'),['class' => 'form-control', 'id' => 'settlement'])}}
+		@if ($errors->has('settlement'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('settlement') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
-	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Delegación o Municipio')}} : {{Form::select('municipality',$address->pluck('municipality', 'municipality'),old('municipality'),['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('municipality') ? ' has-error' : '' }}">
+		{{Form::label('Delegación o Municipio')}} : {{Form::select('municipality',[],old('municipality'),['class' => 'form-control', 'id' => 'municipality'])}}
+		@if ($errors->has('municipality'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('municipality') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
-	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),old('federal_entity_id'),['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('state') ? ' has-error' : '' }}">
+		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),old('federal_entity_id'),['class' => 'form-control', 'id' => 'state'])}}
+		@if ($errors->has('state'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('state') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
@@ -69,8 +105,13 @@
 		{{Form::label('Estado civil')}} : {{Form::select('civil_status',$civil_status,old('civil_status'), ['class' => 'form-control'])}}
 	</div>
 
-	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
 		{{Form::label('Telefono')}} : {{Form::text('phone',old('phone'), ['class' => 'form-control'])}}
+		@if ($errors->has('phone'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('phone') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-3 form-group">
@@ -204,5 +245,6 @@
 {{Form::close() }}
 
 @include('formats._other_field_js')
+@include('shared._address_js')
 
 @endsection

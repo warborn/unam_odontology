@@ -36,6 +36,8 @@ Route::resource('formats', 'FormatsController', ['except' => 'destroy']);
 Route::auth();
 Route::get('user/activation/{token}', 'Auth\AuthController@activate_user')->name('user.activate');
 
+Route::get('/addresses/postal-code/{code}', 'AddressesController@index_by_postal_code');
+
 Route::post('/courses/{course}/teachers/', 'CoursesController@store_teacher');
 Route::delete('/courses/{course}/teachers/{teacher}', 'CoursesController@destroy_teacher');
 

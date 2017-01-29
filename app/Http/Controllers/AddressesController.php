@@ -6,11 +6,30 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Address;
+use App\FederalEntity;
 class AddressesController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function index_by_postal_code($code)
+    {
+        $addresses = Address::where('postal_code', $code)->get();
+        $state = $municipality = null;
+        if(count($addresses) > 0) {
+            $state = $addresses[0]->federal_entity_id;
+            $municipality = $addresses[0]->municipality;
+        }
+
+        return response()->json([
+            'states' => FederalEntity::all(),
+            'municipalities' => Address::where('federal_entity_id', $state)->get(),
+            'settlements' => $addresses,
+            'state' => $state,
+            'municipality' => $municipality
+        ]);
     }
     
     /**

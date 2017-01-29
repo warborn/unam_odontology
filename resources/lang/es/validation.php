@@ -226,7 +226,7 @@ return [
         // Addresses
         'postal_code' => 'codigo postal',
         'settlement' => 'colonia',
-        'minicipality' => 'municipio',
+        'municipality' => 'municipio',
         'federal_entity_id' => 'entidad federativa',
         // Formats
         'user_intern_id' => 'pasante',

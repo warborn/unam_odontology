@@ -18,7 +18,10 @@ class FormatRegistrationForm
       'last_name' => 'required|max:20',
       'mother_last_name' => 'required|max:20',
       'phone' => 'alpha_num',
-      'street' => 'string|max:100',
+      'street' => 'required|string|max:100',
+      'state' => 'required',
+      'municipality' => 'required',
+      'settlement' => 'required',
       // patient data
       'age' => 'required|max:2',
       'ocupation' => 'required|max:25',
