@@ -75,8 +75,8 @@ class PeriodsController extends Controller
     private function makeValidation(Request $request, $validations = [], $resource = null) 
     {
         $validator = Validator::make($request->all(), array_merge($validations, [
-            'period_start_date' => 'required',
-            'period_end_date' => 'required'
+            'period_start_date' => 'required|date',
+            'period_end_date' => 'required|date|after:' . $request->period_start_date
         ]));
 
         if($validator->fails()) {
