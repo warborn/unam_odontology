@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/catalogs', function() {
-	return view('catalogs.index');
-})->middleware('auth');
+Route::get('/catalogs', 'CatalogsController@index');
+Route::get('/catalogs/address-js', 'CatalogsController@address_js');
+Route::get('/catalogs/{view}', 'CatalogsController@display');
 
 Route::resource('groups', 'GroupsController', ['except' => ['create', 'edit']]);
 Route::resource('periods', 'PeriodsController', ['except' => ['create', 'edit']]);

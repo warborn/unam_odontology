@@ -10,44 +10,39 @@
 			<div class="modal-body">
 				<div class="well">
 					<form id="clinic-form" class="modal-form">
-						<div class="form-group">
+						<div class="form-group" id="clinic_id">
 							<input type="text" name="clinic_id" placeholder="Nombre" class="form-control">
 						</div>
 
 						<div class="form-group">
-							<input type="text" placeholder="Código postal" class="form-control">
+							<input type="text" name="postal_code" placeholder="Código postal" class="form-control" id="postal-code">
 						</div>
 
 						<div class="form-group">
-							<select class="form-control">
-								<option value="">Estado de México</option>
-								<option value="">Cuidad de México</option>
+							<select class="form-control" name="state" id="state" readonly>
+							</select>
+							<input type="hidden" name="state" />
+						</div>
+
+						<div class="form-group">
+							<select class="form-control" name="municipality" id="municipality" readonly>
 							</select>
 						</div>
 
 						<div class="form-group">
-							<select class="form-control">
-								<option value="">Naucalpan de Juarez</option>
-								<option value="">Cuautitlán Izcalli</option>
+							<select class="form-control" name="settlement" id="settlement">
 							</select>
 						</div>
 
-						<div class="form-group">
-							<select class="form-control">
-								<option value="">Jardines del Molinito</option>
-								<option value="">Xhala</option>
-							</select>
-						</div>
-
-						<div class="form-group">
+						<div class="form-group" id="clinic_email">
 							<input type="email" name="clinic_email" placeholder="Email" class="form-control">
 						</div>
 
-						<div class="form-group">
+						<div class="form-group" id="clinic_phone">
 							<input type="text" name="clinic_phone" placeholder="Teléfono" class="form-control">
 						</div>
 
-						<div class="form-group">
+						<div class="form-group" id="street">
 							<input type="text" name="street" placeholder="Calle" class="form-control">
 						</div>
 

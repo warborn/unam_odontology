@@ -342,33 +342,52 @@ function deleteCatalog(button, success) {
 $("#catalogs-select").on('change', function() { 
 	var selected = this.value;
 	getCatalogs(selected);
-	$('.btn.catalog').hide();
-	$('#' + selected + '-btn').show();
+	$.ajax({
+		url: '/catalogs/' +  selected,
+		type: 'GET',
+		success: function(response) {
+			$('#catalog-container').html(response).fadeIn();
+			setupModals();
+			$.getScript('/catalogs/address-js', function() {
+				console.log('address_js loaded');
+			});
+		},
+		error: function(response) {
+			console.log(response);
+		}
+	});
 });
 
-// add new catalog
-$('.modal-form').submit(function(e) {
-	e.preventDefault();
-	var data = [this, this.id.replace(/-form/, '')];
-	if(this.dataset.action == 'update') { 
-		data.push(this.dataset.id);
-		updateCatalog.apply(null, data);
-	} else {
-		createCatalog.apply(null, data);
-	}
-});
+function setupModals() {
+	// add new catalog
+	$('.modal-form').submit(function(e) {
+		e.preventDefault();
+		var data = [this, this.id.replace(/-form/, '')];
+		if(this.dataset.action == 'update') { 
+			data.push(this.dataset.id);
+			updateCatalog.apply(null, data);
+		} else {
+			createCatalog.apply(null, data);
+		}
+	});
 
-$('.btn.catalog').click(function() {
-		setupFormAction(this, 'create');
-});
+	$('.btn.catalog').click(function() {
+			setupFormAction(this, 'create');
+	});
 
-// reset modal form on close
-$('.modal').on('hidden.bs.modal', function (e) {
-  var $form = $(this).find('.modal-form');
-  $form.removeAttr('data-action');
-  $form[0].reset();
-  removeErrors($form[0]);
-})
+	// reset modal form on close
+	$('.modal').on('hidden.bs.modal', function (e) {
+	  var $form = $(this).find('.modal-form');
+	  $form.removeAttr('data-action');
+	  $form[0].reset();
+	  removeErrors($form[0]);
+	 	if($form[0].id == 'clinic-form') {
+	 		$form.find('select').empty();
+	 	}
+	});
+}
+
+
 
 </script>
 

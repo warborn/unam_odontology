@@ -98,27 +98,28 @@ class AddressesController extends Controller
     private function makeValidation(Request $request, $resource = null) 
     {
         $validator = Validator::make($request->all(), [
-            'address_id' => 'required|unique:addresses|max:200',
             'postal_code' => 'required|max:6',
             'settlement' => 'required|max:70',
-            'municipality' => 'required|max:35',
-            'federal_entity_id' => 'required|max:35'
+            'municipality' => 'required',
+            'state' => 'required'
         ]);
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
+
         $values=[
-            'address_id' => $request->address_id,
-            'postal_code' => $request->postal_code,
-            'settlement' => $request->settlement,
-            'municipality' => $request->municipality,
-            'federal_entity_id' => $request->federal_entity_id
+        'postal_code' => $request->postal_code,
+        'settlement' => $request->settlement,
+        'municipality' => $request->municipality,
+        'federal_entity_id' => $request->state
         ];
         if(isset($resource)) {
             $resource->update($values);
         } else {
-            $resource = Address::create($values);
+            $resource = new Address($values);
+            $resource->generatePK();
+            $resource->save();
         }
 
         return response()->json($resource, 200);

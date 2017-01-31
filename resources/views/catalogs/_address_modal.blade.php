@@ -11,27 +11,20 @@
 				<div class="well">
 					<form id="address-form" class="modal-form">
 						<div class="form-group">
-							<input type="text" name="postal_code"" placeholder="Código postal" class="form-control">
+							<input type="text" name="postal_code" placeholder="Código postal" class="form-control" id="postal-code">
 						</div>
 
 						<div class="form-group">
-							<select name="federal_entity_id" class="form-control">
-								<option value="">Estado de México</option>
-								<option value="">Cuidad de México</option>
+							<input type="text" placeholder="Colonia" name="settlement" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<select name="state" class="form-control" id="state" readonly>
 							</select>
 						</div>
 
 						<div class="form-group">
-							<select name="municipality" class="form-control">
-								<option value="">Naucalpan de Juarez</option>
-								<option value="">Cuautitlán Izcalli</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<select name="settlement" class="form-control">
-								<option value="">Jardines del Molinito</option>
-								<option value="">Xhala</option>
+							<select name="municipality" class="form-control" id="municipality" readonly>
 							</select>
 						</div>
 

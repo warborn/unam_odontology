@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Clinic;
+use App\Address;
 class ClinicsController extends Controller
 {
     public function __construct()
@@ -80,7 +81,10 @@ class ClinicsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'clinic_id' => 'required|unique:clinics|max:25',
-        	'address_id' => 'required|max:200',
+            'state' => 'required',
+            'municipality' => 'required',
+            'settlement' => 'required',
+            'postal_code' => 'required',
         	'clinic_email' => 'required|max:25',
         	'clinic_phone' =>'required|max:16',
         	'street' => 'required|max:100'
@@ -89,17 +93,22 @@ class ClinicsController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
-        $values=[
-        	'clinic_id' => $request->clinic_id,
-        	'address_id' => $request->address_id,
-        	'clinic_email' => $request->clinic_email,
-        	'clinic_phone' =>$request->clinic_phone,
-        	'street' => $request->street
-        ];
-        if(isset($resource)) {
-            $resource->update($values);
-        } else {
-            $resource = Clinic::create($values);
+
+        $address = Address::fromFields($request);
+        if($address) {
+            $values=[
+            'clinic_id' => $request->clinic_id,
+            'address_id' => $address->address_id,
+            'clinic_email' => $request->clinic_email,
+            'clinic_phone' =>$request->clinic_phone,
+            'street' => $request->street
+            ];
+            if(isset($resource)) {
+                $resource->update($values);
+            } else {
+                $resource = Clinic::create($values);
+                $resource->load('address');
+            }
         }
 
         return response()->json($resource, 200);
