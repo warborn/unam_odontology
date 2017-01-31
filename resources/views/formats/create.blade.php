@@ -2,7 +2,6 @@
 @section('content')
 @include('shared._alerts')
 <h3>Datos Generales</h3>
-{{-- {{dd($errors)}} --}}
 {{ Form::open(['action' => ['FormatsController@store']]) }}
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-4 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -54,8 +53,13 @@
 	  @endif
 	</div>
 
-	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('postal_code') ? ' has-error' : '' }}">
 		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',old('postal_code'),['class' => 'form-control', 'id' => 'postal-code'])}}
+		@if ($errors->has('postal_code'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('postal_code') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('settlement') ? ' has-error' : '' }}">
@@ -68,7 +72,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('municipality') ? ' has-error' : '' }}">
-		{{Form::label('Delegación o Municipio')}} : {{Form::select('municipality',[],old('municipality'),['class' => 'form-control', 'id' => 'municipality'])}}
+		{{Form::label('Delegación o Municipio')}} : {{Form::select('municipality',[],old('municipality'),['class' => 'form-control', 'id' => 'municipality', 'disabled'])}}
 		@if ($errors->has('municipality'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('municipality') }}</strong>
@@ -77,7 +81,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),old('federal_entity_id'),['class' => 'form-control', 'id' => 'state'])}}
+		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),old('federal_entity_id'),['class' => 'form-control', 'id' => 'state', 'disabled'])}}
 		@if ($errors->has('state'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('state') }}</strong>

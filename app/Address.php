@@ -16,6 +16,14 @@ class Address extends Model
     	return $this->belongsTo(FederalEntity::class, 'federal_entity_id');
     }
 
+    public function scopeFromFields($query, $request) {
+      return Address::where('federal_entity_id', $request->state)
+              ->where('municipality', $request->municipality)
+              ->where('settlement', $request->settlement)
+              ->where('postal_code', $request->postal_code)
+              ->first();
+    }
+
   	public function generatePK() {
   		$this->address_id = $this->postal_code . '-' . $this->getCharsFromWords($this->settlement);
   		return $this->address_id;

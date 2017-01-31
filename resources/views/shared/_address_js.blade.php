@@ -1,6 +1,12 @@
 @push('js')
 <script>
 
+jQuery(function ($) {        
+  $('form').bind('submit', function () {
+    $(this).find(':input').prop('disabled', false);
+  });
+});
+
 var options = {
 	postalCode: $('#postal-code'),
 	state: $('#state'),
@@ -8,13 +14,15 @@ var options = {
 	settlement: $('#settlement')
 }
 
+if(options.postalCode.val().length == 5) {
+	addressByPostalCode(options, options.postalCode.val());
+}
+
 bindAddressSearch(options);
 
 function bindAddressSearch(options) {
 	options.postalCode.on('change', function() {
-		console.log('changing');
 		if(this.value.length == 5) {
-			console.log('request sended');
 			addressByPostalCode(options, this.value);
 		}
 	});

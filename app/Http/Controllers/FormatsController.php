@@ -93,10 +93,7 @@ class FormatsController extends Controller
         }
 
         // get address_id based on state, municipality and settlement
-        $address = Address::where('federal_entity_id', $request->state)
-                          ->where('municipality', $request->municipality)
-                          ->where('settlement', $request->settlement)
-                          ->first();
+        $address = Address::fromFields($request);
 
         if($address && $dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
 
@@ -204,10 +201,12 @@ class FormatsController extends Controller
         $civil_status = to_associative(['Solter@', 'Casad@', 'Divorciad@', 'Viud@']);
         $medical_services = to_associative(['IMSS', 'ISSSTE', 'POPULAR']);
 
-        $federal = FederalEntity::all();
+        $federal = FederalEntity::find($format->patient->federalEntity->federal_entity_id);
+        $municipality = to_associative([$format->patient->personal_information->address->municipality]);
+        $settlements = Address::where('postal_code', $format->patient->personal_information->address->postal_code);
         $general = Disease::where('type_of_disease', 'general')->get();
         $dental = Disease::where('type_of_disease', 'odontologica')->get();
-        return View('formats.edit')->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('general', $general)->with('dental', $dental)->with('patient', $format->patient)->with('format', $format);
+        return View('formats.edit')->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('municipality', $municipality)->with('settlements', $settlements)->with('general', $general)->with('dental', $dental)->with('patient', $format->patient)->with('format', $format);
     }
 
     /**
@@ -235,7 +234,7 @@ class FormatsController extends Controller
             $federal = FederalEntity::all();
             $general = Disease::where('type_of_disease', 'general')->get();
             $dental = Disease::where('type_of_disease', 'odontologica')->get();
-            return redirect()->route('formats.edit')->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('general', $general)->with('dental', $dental)->with('format', $format)->with('patient', $format->patient)->withErrors($form->getValidation())->withInput($request->all());
+            return redirect()->route('formats.edit', $format)->with('ocupations', $ocupations)->with('school_grades', $school_grades)->with('civil_status', $civil_status)->with('medical_services', $medical_services)->with('federal', $federal)->with('general', $general)->with('dental', $dental)->with('format', $format)->with('patient', $format->patient)->withErrors($form->getValidation())->withInput($request->all());
         }
 
         $dental_disease = Disease::find($request->dental_disease);
@@ -243,11 +242,13 @@ class FormatsController extends Controller
         if($request->has_disease && isset($request->general_disease)) {
             $general_disease = Disease::find($request->general_disease);
         }
+        // dd($request->all());
+        $address = Address::fromFields($request);
 
-        if($dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+        if($address && $dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
             // update user personal information 
             $patient = $format->patient;
-            $patient->user->personal_information->update($request->all());
+            $patient->user->personal_information->update(array_merge(['address_id' => $address->address_id], $request->all()));
 
             // update patient information
             $patient->federal_entity_id = $request->federal_entity_id;

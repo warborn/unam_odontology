@@ -22,6 +22,7 @@ class FormatRegistrationForm
       'state' => 'required',
       'municipality' => 'required',
       'settlement' => 'required',
+      'postal_code' => 'required',
       // patient data
       'age' => 'required|max:2',
       'ocupation' => 'required|max:25',

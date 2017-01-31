@@ -53,12 +53,17 @@
 	  @endif
 	</div>
 
-	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
-		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',$patient->user->personal_information->address->postal_code,['class' => 'form-control'])}}
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('postal_code') ? ' has-error' : '' }}">
+		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',$patient->user->personal_information->address->postal_code,['class' => 'form-control', 'id' => 'postal-code'])}}
+		@if ($errors->has('postal_code'))
+	    <span class="help-block">
+	        <strong>{{ $errors->first('postal_code') }}</strong>
+	    </span>
+	  @endif
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('settlement') ? ' has-error' : '' }}">
-		{{Form::label('Colonia')}} : {{Form::text('settlement',$patient->user->personal_information->address->settlement,['class' => 'form-control'])}}
+		{{Form::label('Colonia')}} : {{Form::select('settlement',$settlements->pluck('settlement', 'settlement'),$patient->user->personal_information->address->settlement,['class' => 'form-control','id' => 'settlement'])}}
 		@if ($errors->has('settlement'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('settlement') }}</strong>
@@ -67,7 +72,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('municipality') ? ' has-error' : '' }}">
-		{{Form::label('Delegación o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address->municipality,['class' => 'form-control'])}}
+		{{Form::label('Delegación o Municipio')}} : {{Form::select('municipality',$municipality, $patient->user->personal_information->address->municipality,['class' => 'form-control', 'id' => 'municipality','disabled'])}}
 		@if ($errors->has('municipality'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('municipality') }}</strong>
@@ -76,7 +81,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),($patient->federalEntity ? $patient->federalEntity->federal_entity_id : null),['class' => 'form-control'])}}
+		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),$patient->federalEntity->federal_entity_id,['class' => 'form-control', 'id' => 'state', 'disabled'])}}
 		@if ($errors->has('state'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('state') }}</strong>
@@ -89,7 +94,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-9 col-lg-9 form-group">
-		{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_id',$federal->pluck('federal_entity_name', 'federal_entity_id'),($patient->federalEntity ? $patient->federalEntity->federal_entity_id : null), ['class' => 'form-control'])}}
+		{{Form::label('Lugar de nacimiento')}} : {{Form::select('federal_entity_id',$federal->pluck('federal_entity_name', 'federal_entity_id'),$patient->federalEntity->federal_entity_id, ['class' => 'form-control'])}}
 	</div>
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
@@ -245,5 +250,6 @@
 
 
 @include('formats._other_field_js')
+@include('shared._address_js')
 
 @endsection
