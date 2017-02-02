@@ -239,7 +239,17 @@
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',$dental->pluck('disease_name', 'disease_id'),old('dental_disease'),['class' => 'form-control'])}}
+		{{Form::label('Diagnóstico de presunción')}} : 
+
+		<select class="form-control" name="dental_disease" class="form-control">
+			@foreach($dental as $disease)
+				@if(old('dental_disease') == $disease->disease_id)
+					<option value="{{$disease->disease_id}}" selected>{{$disease->disease_id}} - {{$disease->disease_name}}</option>
+				@else
+					<option value="{{$disease->disease_id}}">{{$disease->disease_id}} - {{$disease->disease_name}}</option>
+				@endif
+			@endforeach
+		</select>
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12">

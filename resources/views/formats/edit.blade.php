@@ -124,7 +124,7 @@
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
 		{{Form::label('Nombre del servicio medico')}} : 
-		@if($patient->has_medical_service == '0')
+		@if($patient->has_medical_service == '0' && !old('has_medical_service'))
 		<select class="form-control" name="medical_service" class="form-control" id="medical_service" disabled>
 		@else
 		<select class="form-control" name="medical_service" class="form-control" id="medical_service">
@@ -142,7 +142,7 @@
 
 	<div class="col-sm-12 col-md-4 col-lg-5 form-group{{ $errors->has('other_medical_service') ? ' has-error' : '' }}">
 		{{Form::label('Otro')}} : 
-		@if($patient->has_medical_service == '0')
+		@if(($patient->has_medical_service == '0' || $patient->medical_service) && !old('has_medical_service'))
 		{{Form::text('other_medical_service', $patient->other_medical_service , ['class' => 'form-control', 'id' => 'other_medical_service', 'disabled'])}}
 		@else
 		{{Form::text('other_medical_service', $patient->other_medical_service , ['class' => 'form-control', 'id' => 'other_medical_service'])}}
@@ -181,7 +181,7 @@
 
 	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
 		{{Form::label('¿Cuál enfermedad?')}} :
-		@if($format->has_disease == '0')
+		@if($format->has_disease == '0' && !old('has_disease'))
 		<select class="form-control" name="general_disease" class="form-control" id="general_disease" disabled>
 		@else
 		<select class="form-control" name="general_disease" class="form-control" id="general_disease" >
@@ -199,7 +199,7 @@
 
 	<div class="col-sm-12 col-md-4 col-lg-5 form-group{{ $errors->has('other_disease') ? ' has-error' : '' }}">
 		{{Form::label('Otra')}} : 
-		@if($format->has_disease == '0' || isset($format->general_disease))
+		@if(($format->has_disease == '0' || isset($format->general_disease)) && !old('has_disease'))
 		{{Form::text('other_disease', $format->other_disease , ['class' => 'form-control', 'id' => 'other_disease', 'disabled'])}}
 		@else
 		{{Form::text('other_disease', $format->other_disease , ['class' => 'form-control', 'id' => 'other_disease'])}}
@@ -239,7 +239,16 @@
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
-		{{Form::label('Diagnóstico de presunción')}} : {{Form::select('dental_disease',$dental->pluck('disease_name', 'disease_id'),$format->dental_disease,['class' => 'form-control'])}}
+		{{Form::label('Diagnóstico de presunción')}} : 
+		<select class="form-control" name="dental_disease" class="form-control">
+			@foreach($dental as $disease)
+				@if($format->dentalDisease->disease_id == $disease->disease_id)
+					<option value="{{$disease->disease_id}}" selected>{{$disease->disease_id}} - {{$disease->disease_name}}</option>
+				@else
+					<option value="{{$disease->disease_id}}">{{$disease->disease_id}} - {{$disease->disease_name}}</option>
+				@endif
+			@endforeach
+		</select>
 	</div>
 
 	<div class="col-sm-12 col-md-12 col-lg-12">
