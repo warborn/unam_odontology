@@ -16,7 +16,7 @@ class CreateAddressesTable extends Migration
             $table->string('address_id', 200)->primary('address_id');
             $table->string('postal_code', 6);
             $table->string('settlement', 70);
-            $table->string('municipality', 35);
+            $table->string('municipality', 70);
             $table->string('federal_entity_id', 35);
             $table->foreign('federal_entity_id')->references('federal_entity_id')->on('federal_entities');
             $table->timestamps();

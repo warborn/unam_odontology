@@ -11,6 +11,13 @@ class DiseasesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Disease::class, 10)->create();
+        // factory(App\Disease::class, 10)->create();
+
+        $keys = ['disease_id', 'disease_name', 'type_of_disease'];
+        $results = getRowsFromCsv('diseases.csv', $keys);
+
+        foreach ($results as $row) {
+            $entity = App\Disease::create($row);
+        }
     }
 }

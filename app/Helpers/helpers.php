@@ -1,5 +1,14 @@
 <?php
 
+use League\Csv\Reader;
+
+function getRowsFromCsv($filename, $keys, $delimiter = "\t")
+{
+    $reader = Reader::createFromPath(base_path().'/database/seeds/csv/' . $filename);
+    $reader->setDelimiter($delimiter);
+    return $results = $reader->fetchAssoc($keys);
+}
+
 function translate_status($status) {
 	$new_status = $status == null ? 'no registrado' : $status;
 	switch($status) {

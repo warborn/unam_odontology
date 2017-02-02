@@ -1,0 +1,587 @@
+A18	Tuberculosis de otros órganos	odontologica
+A18.0	Tuberculosis de huesos y articulaciones	odontologica
+A18.00	Huesos maxilares 	odontologica
+A18.2	Linfadenopatía periférica tuberculosa	odontologica
+A18.2X 	Región facial y cervical 	odontologica
+A18.8	Tuberculosis de otros órganos especificados	odontologica
+A18.8X	Boca	odontologica
+A21	Tularemia	odontologica
+A21.0	Tuleramia ulceroglandular	odontologica
+A21.0X	Tularemia, Manifestaciones bucales	odontologica
+A21.8	Otras formas de tuleramia	odontologica
+A21.8X	Otras formas de tuleramia, Manifestaciones bucales	odontologica
+A22	Carbunco (ántrax)	odontologica
+A22.8	Otras formas de carbunco	odontologica
+A22.8X	Otras formas de carbunco, Manifestaciones bucales	odontologica
+A23	Brucelosis	odontologica
+A23.0	Brucelosis debida a Brucella melitensis	odontologica
+A23.0X 	Brucelosis debida a Brucella melitensis, Manifestaciones bucales	odontologica
+A24	Muermo y melioidosis	odontologica
+A24.3	Otras melioidosis	odontologica
+A24.3X 	Otras melioidosis, Manifestaciones bucales	odontologica
+A28 	Otras enfermedades zoonóticas bacterianas, no clasificadas en otra parte 	odontologica
+A28.1 	Enfermedad por rasguño de gato	odontologica
+A28.10	Enfermedad por rasguño de gato, Manifestaciones bucales	odontologica
+A8.11	Linfadenopatia cervical	odontologica
+A30	Lepra (Henfermedad de Hansen)	odontologica
+A30.VX	Manifestaciones bucales	odontologica
+A31	Infecciones debidas a otras micobacterias	odontologica
+A31.8	Otras infecciones por micobacterias                                                                                	odontologica
+A31.80	Lesiones bucales producidas por Mycobacterium intracellulare	odontologica
+A31.81	Lesiones bucales producidas por Mycobacterium chelonei	odontologica
+A31.88	Lesiones bucales producidas por otras micobacterias no especificadas	odontologica
+A35	Otros tetanos	odontologica
+A35.XX	Manifestaciones bucales	odontologica
+A36	Differia	odontologica
+A36.VX	Manifestaciones bucales	odontologica
+A37	Tos ferina (tos convulsiva)	odontologica
+A37.VX	Manifestaciones bucales	odontologica
+A38	Escarlatina Excluye:Gingivoestomatitis estreptocócica (K05.00)	odontologica
+A38.XX	Manifestaciones bucales	odontologica
+A39	Infeccion meningocócica	odontologica
+A39.VX	Manifestaciones bucales	odontologica
+A42	Actinomicosis	odontologica
+A42.2	Actinomicosis cervicofacial	odontologica
+A42.2X	Manifestaciones bucales	odontologica
+A43	Nocardiosis	odontologica
+A43.8	Otras formas de nocardiosis	odontologica
+A43.8X	Manifestaciones bucales	odontologica
+A50	Sifilis congénita	odontologica
+A50.0	Sifilis congenita precoz, sintomática	odontologica
+A50.0X	Manchas de la mucosa bucal	odontologica
+A50.5	Otras formas de sífilis congénita tardia, sintomática	odontologica
+A50.50	Surcos o estrías peribucales de Parrot	odontologica
+A50.51	Incisivos de Huntchinson	odontologica
+A50.52	Molares de mora o moriformes	odontologica
+A50.58	Otras Manifestaciones bucales especificadas	odontologica
+A50.59	Otras formas de sífilis congénita tardia, sintomática, Manifestaciones bucales, no especificadas	odontologica
+A51	Sifilis tardia	odontologica
+A52.7	Otras Sífilis tardias sintomaticas	odontologica
+A52.70	Goma de tejidos bucales	odontologica
+A52.71	Perforación palatina producida por sifilis	odontologica
+A52.72	Glositis sifilítica	odontologica
+A52.73	Osteomielitis sifilítica del maxilar	odontologica
+A52.78	Otras Sífilis tardias sintomaticas, Otras Manifestaciones bucales especificadas	odontologica
+A52.79	Manifestaciones bucales, no especificadas	odontologica
+A54 	Infeccion gonocócica	odontologica
+A54.4	Infección gonocócica del sistema osteomuscular	odontologica
+A54.4X	Infecciones gonocócicas de la articulación temporomandibular	odontologica
+A54.8	Otras infecciones gonocócicas	odontologica
+A54.8X	Estomatitis gonocócica	odontologica
+A55	Linfogranuloma (venereo) por clamidias	odontologica
+A55.XX	Manifestaciones bucales	odontologica
+A58	Granuloma inguinal	odontologica
+A58.XX	Manifestaciones bucales	odontologica
+A65	Sifilis no Venérea Incluye: bejel	odontologica
+A65.XX	Sifilis no Venérea, Manifestaciones bucales	odontologica
+A66	Frambesia	odontologica
+A66.4	Goma y úlceras de frambesia	odontologica
+A66.4X 	Goma y úlceras de frambesia, Manifestaciones bucales	odontologica
+A66.6	Lesiones frambésicas de los hueso y de las articulaciones 	odontologica
+A66.6X	Lesiones frambésicas de los hueso y de las articulaciones, Manifestaciones bucales	odontologica
+A66.7	Otras manifestaciones de frambesia	odontologica
+A66.7X	Otras manifestaciones de frambesia, Manifestaciones bucales	odontologica
+A69	Otras infecciones causadas por espiroquetas	odontologica
+A69.0	Estomatitis ulcerativa necrotizante: Cancrum oris, Estomatitis gangrenosa, Gangrena fusoespiroquética, Noma	odontologica
+A69.1	Otras manifestaciones de Vincent	odontologica
+A69.10	Gingivitis Ulcerativa necrotizante aguda (gingivitis fusoespiroquetica) (gingivitis de vicent)	odontologica
+A69.11	Angina de Vincent	odontologica
+A75	Tifus	odontologica
+A75.VX	Tifus, Manifestaciones bucales	odontologica
+A77	Fiebre maculosa [rickettsiosis trasmitida por garrapatas]	odontologica
+A77.VX	Fiebre maculosa [rickettsiosis trasmitida por garrapatas], Manifestaciones bucales	odontologica
+A93	Otras fiebres virales transmitidas por artrópodos, no clasificados en otra parte	odontologica
+A93.8	Otras fiebres virales especificadas transmitidas por artrópodos	odontologica
+A93.8X	Estomatitis vesicular viral (fiebre de Indiana)	odontologica
+B00	Infecciones herpéticas (herpes simple)	odontologica
+B00.0	Ezcema herpético	odontologica
+B00.0.X	Erupcion variceliforme de kaposi, manifestaciones bucales	odontologica
+B00.1	Dermatitis vesicular Herpetica	odontologica
+B00.10	herpes simple facial	odontologica
+B00.11	herpes simple labial	odontologica
+B00.2	Gingivioestomatitis y faringoamigadalitis herpetica	odontologica
+B00.8X	Gingivioestomatitis herpética	odontologica
+B00.8	Otras formas de infecciones herpéticas	odontologica
+B00.8X2	Panadizo herpético	odontologica
+B01	Varicela	odontologica
+B01.8	Varicela con otras complicaciones 	odontologica
+B01.8X3	Varicela con otras complicaciones, Manifestaciones bucales	odontologica
+B02 	Herpes Zoster	odontologica
+B02.2	Herpes zostercon otros compromisos del sistema nervioso	odontologica
+B02.20	Neuralgia postherpética del trigémino	odontologica
+B02.21	Neuralgia postherpética de otros pares craneales 	odontologica
+B02.8	Herpes zoster con otras complicaciones	odontologica
+B02.8X4	Herpes zoster con otras complicaciones, Manifestaciones bucales	odontologica
+B03	Viruela 	odontologica
+B05	Sarampión	odontologica
+B05.8	Sarampión con otras complicaciones	odontologica
+B05.8X5	Sarampión con otras complicaciones, Manifestaciones bucales, Manchas de Koplik	odontologica
+B06	Rubéola (sarampión alemán)	odontologica
+B06.8	Rubéola con otras complicaciones	odontologica
+B06.8X6	Rubéola con otras complicaciones, Manifestaciones bucales	odontologica
+B07	Verrugas víricas	odontologica
+B07.X0	Verrugas bucal vulgar	odontologica
+B07.X1	Condiloma acuminado bucal	odontologica
+B07.X2	Hiperplasia epitelial focal	odontologica
+B07.X8	Verrugas víricas, Otras manifestaciones bucales especificadas	odontologica
+B07.X9	Verrugas víricas, Manifestaciones bucales, no especificadas	odontologica
+B08	Otras infecciones víricas caracterizadas por lesiones de la piel y de las membranas mucosas, no clasificadas en otra parte	odontologica
+B08.0	Otras infecciones debidas a ortopoxvirus	odontologica
+B08.01	Manifestaciones bucales de vaccinia	odontologica
+B08.08	Manifestaciones de otras infecciones por ortopoxvirus	odontologica
+B08.1	Molusco contagioso	odontologica
+B08.1X	Molusco contagioso, Manifestaciones bucales	odontologica
+B08.3	Eritema infeccioso [quinta enfermedad]	odontologica
+B08.3X	Eritema infeccioso [quinta enfermedad], Manifestaciones bucales	odontologica
+B08.4	Estomatitis vesicular enteroviral con exantema Incluye: enfermedad de boca-mano-pie	odontologica
+B08.4X	Estomatitis vesicular enteroviral 	odontologica
+B08.5	Faringitis vesicular enterovírica, Herpangina	odontologica
+B08.8	Otras infecciones virales especificadas, caracterizadas por lesiones de la piel y de las membranas mucosas Incluye: estomatitis epizoótica	odontologica
+B08.8X	Manifestaciones bucales de la enfermedad de boca-pie	odontologica
+K00	Trastornos del desarrollo y de la erupción de los dientes	odontologica
+K00.0	Anodoncia	odontologica
+K00.00	Anodoncia parcial [hipodoncia][oligodoncia]	odontologica
+K00.01	Anodoncia total	odontologica
+K00.09	Anodoncia, sin especificar	odontologica
+K00.1	Dientes supernumerarios Incluye: dientes suplementarios	odontologica
+K00.10	Dientes supernumerarios Regiones caninas e incisivas Mesiodens	odontologica
+K00.11	Dientes supernumerarios Regiones premolar	odontologica
+K00.12	Dientes supernumerarios Región molar: Cuarto molar, Distomolar, Paramolar	odontologica
+K00.19	Dientes supernumerarios, sin especificar	odontologica
+K00.2	Anomalías del tamaño y de la forma del diente	odontologica
+K00.20	Macrodoncia	odontologica
+K00.21	Microdoncia	odontologica
+K00.22	Concrescencia	odontologica
+K00.23	Fusión y gemación: Esquizodoncia, Sinodoncia	odontologica
+K00.24	Diente evaginado [tubérculo oclusal]	odontologica
+K00.25	"Diente invaginado [""dens in dente""][odontoma dilatado] y anomalías de incisivos"	odontologica
+K00.26	Premolarización	odontologica
+K00.27	Tubérculo anormal y perlas del esmalte [adamantinoma]	odontologica
+K00.28	Taurodoncia	odontologica
+K00.29	Otras anomalías del tamaño y de la forma del diente y anomalías no especificadas	odontologica
+K00.3	Dientes moteados	odontologica
+K00.30	Moteado endémico del esmalte [flourosis dental]	odontologica
+K00.31	Moteado no endémico del esmalte (opacidades no fluóricas del esmalte)	odontologica
+K00.39	Diente moteado, no especificado	odontologica
+K00.4	Alteraciones en la formación dentaria	odontologica
+K00.40	Hipoplasia del esmalte	odontologica
+K00.41	Hipoplasia del esmalte (prenatal)	odontologica
+K00.42	Hipoplasia del esmalte (neonatal)	odontologica
+K00.43	Aplasia o hipoplasia del cemento	odontologica
+K00.44	Dilaceración	odontologica
+K00.45	Odontodisplasia [odontodisplasia regional]	odontologica
+K00.46	Diente de Turner	odontologica
+K00.48	Otras alteraciones especificadas de la formación dentaria	odontologica
+K00.49	Alteraciones de la formación dentaria, no especificadas	odontologica
+K00.5	Alteraciones hereditarias de la estructura dentaria, no clasificadas en otra parte	odontologica
+K00.50	Amelogénesis imperfecta	odontologica
+K00.51	Dentinogénesis imperfecta	odontologica
+K00.52	Odontogénesis imperfecta	odontologica
+K00.58	Otras Alteraciones hereditarias de la estructura dentaria	odontologica
+K00.59	Alteraciones hereditarias de la estructura dentaria, no especificadas	odontologica
+K00.6	Alteraciones en la erupción dentaria	odontologica
+K00.60	Diente natal	odontologica
+K00.61	Diente neonatal	odontologica
+K00.62	Erupción prematura [dentición precoz]	odontologica
+K00.63	Persistencia o retención de dientes primarios [deciduos]	odontologica
+K00.64	Erupción tardía o retardada	odontologica
+K00.65	Pérdida prematura de dientes primarios [deciduos]	odontologica
+K00.68	Otras alteraciones especificadas de la erupción dentaria	odontologica
+K00.69	Alteraciones de la erupción dentaria, no especificada	odontologica
+K00.7	Síndrome de la erupción dentaria	odontologica
+K00.8	Otros trastornos del desarrollo de los dientes	odontologica
+K00.80	Cambios de coloración durante la formación dentaria debidos a incompatibilidad del grupo sanguíneo	odontologica
+K00.81	Cambios de coloración durante la formación dentaria debidos a malformaciones del sistema biliar	odontologica
+K00.82	Cambios de coloración durante la formación dentaria debidos a porfiria	odontologica
+K00.83	Cambios de coloración durante la formación dentaria debidos a tetraciclinas	odontologica
+K00.88	Otras alteraciones especificadas del desarrollo dentario	odontologica
+K00.9	Trastornos del desarrollo de los dientes, no especificado	odontologica
+K01	Dientes incluidos e impactados	odontologica
+K01.0	Dientes incluidos	odontologica
+K01.1	Dientes impactados	odontologica
+K01.10	Dientes impactados Incisivo superior	odontologica
+K01.11	Dientes impactados Incisivo inferior	odontologica
+K01.12	Dientes impactados Canino superior	odontologica
+K01.13	Dientes impactados Canino inferior	odontologica
+K01.14	Dientes impactados Premolar superior	odontologica
+K01.15	Dientes impactados Premolar inferior	odontologica
+K01.16	Dientes impactados Molar superior	odontologica
+K01.17	Dientes impactados Molar inferior	odontologica
+K01.18	Dientes impactados Diente supernumerario	odontologica
+K01.19	Diente impactado, sin especificar	odontologica
+K02	Caries dental	odontologica
+K02.0	Caries limitada al esmalte	odontologica
+K02.1	Caries de la dentina	odontologica
+K02.2	Caries del cemento	odontologica
+K02.3	Caries dentaria detenida	odontologica
+K02.4	Odontoclasia	odontologica
+K02.8	Otras caries dentales especificadas	odontologica
+K02.9	Caries dental, no especificada	odontologica
+K03	Otras enfermedades de los tejidos duros de los dientes	odontologica
+K03.0	Atrición excesiva de los dientes	odontologica
+K03.00	Atrición excesiva Oclusal	odontologica
+K03.01	Atrición excesiva Proximal	odontologica
+K03.08	Otra atrición dentaria especificada	odontologica
+K03.09	Atrición dentaria, sin especificar	odontologica
+K03.1	Abrasión de los dientes	odontologica
+K03.10	Abrasión de los dientes Por pastas dentífricas y cepillado	odontologica
+K03.11	Abrasión de los dientes Habitual	odontologica
+K03.12	Abrasión de los dientes Ocupacional	odontologica
+K03.13	Abrasión de los dientes Tradicional	odontologica
+K03.18	Otra abrasión dentaria especificada	odontologica
+K03.19	Abrasión dentaria, sin especificar	odontologica
+K03.2	Erosión de los dientes	odontologica
+K03.20	Erosión de los dientes Ocupacional	odontologica
+K03.21	Erosión de los dientes Debida a vómitos o regurgitaciones persistentes	odontologica
+K03.22	Erosión de los dientes Debida a la dieta	odontologica
+K03.23	Erosión de los dientes Debida a drogas y medicamentos	odontologica
+K03.24	Erosión de los dientes Idiopáticas	odontologica
+K03.28	Otra erosión dentaria especificada	odontologica
+K03.29	Erosión dentaria, sin especificar	odontologica
+K03.3	Reabsorción patológica de los dientes	odontologica
+K03.30	Reabsorción patológica de los dientes Externa	odontologica
+K03.31	Reabsorción patológica de los dientes Interna [granuloma interno][mancha rosada]	odontologica
+K03.39	Reabsorción patológica de los dientes, sin especificar	odontologica
+K03.4	Hipercementosis	odontologica
+K03.5	Anquilosis dental	odontologica
+K03.6	Depósitos [acreciones] en los dientes	odontologica
+K03.60	Película pigmentada	odontologica
+K03.61	Tabáquicos o debidos al hábito del tabaco	odontologica
+K03.62	Depósitos [acreciones] en los dientes Debidos al hábito de mascar betel	odontologica
+K03.63	Otros depósitos blandos densos	odontologica
+K03.64	Cálculos supragingivales	odontologica
+K03.65	Cálculos subgingivales	odontologica
+K03.66	Placa dental o placa bacteriana	odontologica
+K03.68	Otros depósitos especificados sobre los dientes	odontologica
+K03.69	Depósitos sobre los dientes, sin especificar	odontologica
+K03.7	Cambios posteruptivos del color de los tejidos dentales duros	odontologica
+K03.70	Cambios posteruptivos del color de los tejidos dentales duros Debidos a metales o compuestos metálicos	odontologica
+K03.71	Cambios posteruptivos del color de los tejidos dentales duros Debidos a hemorragia pulpar	odontologica
+K03.72	Cambios posteruptivos del color de los tejidos dentales duros Debidos a hábitos masticatorios	odontologica
+K03.78	Cambios posteruptivos del color de los tejidos dentales duros Otros cambios de coloración especificados	odontologica
+K03.74	Cambios posteruptivos del color de los tejidos dentales duros Cambio de coloración, no especificado	odontologica
+K03.8	Otras enfermedades especificadas de los tejidos duros de los dientes	odontologica
+K03.80	Sensibilidad dentinaria	odontologica
+K03.81	Cambios en el esmalte debidos a la radiación	odontologica
+K03.88	Otras enfermedades especificadas de los tejidos duros dentarios	odontologica
+K03.9	Enfermedades no especificadas de los tejidos dentales duros	odontologica
+K04	Enfermedades de la pulpa y de los tejidos periapicales	odontologica
+K04.0	Pulpitis	odontologica
+K04.00	Pulpitis Inicial (hiperemia)	odontologica
+K04.01	Pulpitis Aguda	odontologica
+K04.02	Pulpitis Supurativa [absceso pulpar]	odontologica
+K04.03	Pulpitis Crónica	odontologica
+K04.04	Pulpitis Crónica, ulcerosa	odontologica
+K04.05	Pulpitis Crónica, hiperplásica [pólipo pulpar]	odontologica
+K04.08	Otras pulpitis especificadas	odontologica
+K04.09	Pulpitis, sin especificar	odontologica
+K04.1	Necrosis de la pulpa	odontologica
+K04.2	Degeneración de la pulpa	odontologica
+K04.3	Formación anormal de tejido duro en la pulpa	odontologica
+K04.3X	Dentina secundaria o irregular	odontologica
+K04.4	Periodontitis apical aguda originada en la pulpa	odontologica
+K04.5	Periodontitis apical crónica	odontologica
+K04.6	Absceso periapical con fístula	odontologica
+K04.60	Absceso periapical con Fístula hacia antro maxilar	odontologica
+K04.61	Absceso periapical con Fístula hacia fosas nasales	odontologica
+K04.62	Absceso periapical con Fístula hacia cavidad bucal	odontologica
+K04.63	Absceso periapical con Fístula hacia piel	odontologica
+K04.69	Absceso periapical con fístula, sin especificar	odontologica
+K04.7	Absceso periapical sin fístula	odontologica
+K04.8	Quiste radicular	odontologica
+K04.80	Quiste radicular Apical y lateral	odontologica
+K04.81	Quiste radicular Residual	odontologica
+K04.82	Quiste radicular Paradental inflamatorio	odontologica
+K04.89	Quiste radicular, no especificado	odontologica
+K04.9	Otras enfermedades y las no especificadas de la pulpa y del tejido periapical	odontologica
+K05	Gingivitis y enfermedades periodontales	odontologica
+K05.0	Gingivitis aguda	odontologica
+K05.00	Gingivoestomatitis estreptocócica aguda	odontologica
+K05.08	Otra gingivitis aguda especificada	odontologica
+K05.09	Gingivitis aguda, sin especificar	odontologica
+K05.1	Gingivitis crónica	odontologica
+K05.10	Gingivitis crónica Marginal simple	odontologica
+K05.11	Gingivitis crónica Hiperplásica	odontologica
+K05.12	Gingivitis crónica Ulcerativa	odontologica
+K05.13	Gingivitis crónica Descamativa	odontologica
+K05.18	Otra gingivitis crónica especificada	odontologica
+K05.19	Gingivitis crónica, sin especificar	odontologica
+K05.2	Periodontitis aguda	odontologica
+K05.20	Absceso periodontal [absceso paradontal] de origen gingival sin fístula	odontologica
+K05.21	Absceso periodontal [absceso periodontal [absceso paradontal] de origen gingival con fístula	odontologica
+K05.22	Pericoronaritis aguda	odontologica
+K05.28	Otra periodontitis aguda especificada	odontologica
+K05.29	Periodontitis aguda, no especificada	odontologica
+K05.3	Periodontitis crónica	odontologica
+K05.30	Periodontitis crónica Simple	odontologica
+K05.31	Periodontitis crónica Compleja	odontologica
+K05.32	Pericoronaritis crónica	odontologica
+K05.33	Folículo engrosado	odontologica
+K05.38	Otra periodontitis crónica especificada	odontologica
+K05.39	Periodontitis crónica, no especificada	odontologica
+K05.4	Periodontosis	odontologica
+K05.5	Otras enfermedades periodontales	odontologica
+K06	Otros trastornos de la encía y de la zona edéntula	odontologica
+K06.0	Retracción gingival	odontologica
+K06.00	Retracción gingival Localizada	odontologica
+K06.01	Retracción gingival Generalizada	odontologica
+K06.09	Recesión gingival, no especificada	odontologica
+K06.1	Hiperplasia gingival	odontologica
+K06.10	Fibromatosis gingival	odontologica
+K06.18	Otro agrandamiento gingival especificado	odontologica
+K06.19	Agrandamiento gingival, no especificado	odontologica
+K06.2	Lesiones de la encía y de la zona edéntula asociadas con traumatismos	odontologica
+K06.20	Lesiones de la encía y de la zona edéntula asociadas con traumatismos Debidas a una oclusión traumática	odontologica
+K06.21	Lesiones de la encía y de la zona edéntula asociadas con traumatismos Debidas al cepillado dentario	odontologica
+K06.22	Queratosis friccional [funcional]	odontologica
+K06.23	Hiperplasia irritativa [hiperplasia protésica]	odontologica
+K06.28	Otras lesiones especificadas de la gingiva y del reborde alveolar desdentado asociada con trauma oclusal	odontologica
+K06.29	Lesión no especificada de la gingiva y de reborde alveolar desdentado asociada con trauma	odontologica
+K06.8	Otros trastornos especificados de la encía y de la zona edéntula	odontologica
+K06.80	Quiste gingival del adulto	odontologica
+K06.81	Granuloma periférico de células gigantes [épulis de células gigantes]	odontologica
+K06.82	Épulis fibroso	odontologica
+K06.83	Granuloma piógeno de gingiva y reborde alveolar desdentado	odontologica
+K06.84	Reborde fláccido	odontologica
+K06.88	Otros trastornos especificados de la encía y de la zona edéntula Otros	odontologica
+K06.9	Trastorno no especificado de la encía y de la zona edéntula	odontologica
+K07	Anomalías dentofaciales de la encía y de la zona edéntula	odontologica
+K07.0	Anomalías evidentes del tamaño de los maxilares	odontologica
+K07.00	Macrognacia maxilar [hiperplasia maxilar]	odontologica
+K07.01	Macrognacia mandibular [hiperplasia mandibular]	odontologica
+K07.02	Macrognacia, ambos maxilares	odontologica
+K07.03	Microgancia maxilar [hipoplasia maxilar]	odontologica
+K07.04	Microgancia mandibular [hipoplasia mandibular]	odontologica
+K07.05	Micrognacia, ambos maxilares	odontologica
+K07.08	Otras anomalías especificadas del tamaño de los maxilares	odontologica
+K07.09	Anomalías del tamaño de los maxilares, no especificada	odontologica
+K07.1	Anomalías de la región maxilobasilar	odontologica
+K07.10	Asimetrías	odontologica
+K07.11	Prognatismo mandibular	odontologica
+K07.12	Prognatismo maxilar	odontologica
+K07.13	Retrognatismo mandibular	odontologica
+K07.14	Retrognatismo maxilar	odontologica
+K07.18	Otras anomalías especificadas de la relación maxilar-base de cráneo	odontologica
+K07.19	Anomalías de la relación maxilar-base del cráneo, no específicada	odontologica
+K07.2	Anomalías de la relación entre los arcos dentarios	odontologica
+K07.20	Distoclusión	odontologica
+K07.21	Mesioclusión	odontologica
+K07.22	"Resalte [sobremordida horizontal u ""overjet""] excesivo"	odontologica
+K07.23	"Sobremordida [vertical u ""overbite""] excesiva"	odontologica
+K07.24	Mordida abierta	odontologica
+K07.25	Mordida cruzada (anterior, posterior)	odontologica
+K07.26	Desciación de la línea media	odontologica
+K07.27	Oclusión posterior lingual de los dientes mandibulares	odontologica
+K07.28	Anomalías especificadas de la relación de los arcos dentarios	odontologica
+K07.29	Anomalías de la relación de los arcos dentarios, no especificada	odontologica
+K07.3	Anomalías de la posición del diente	odontologica
+K07.30	Apiñamiento	odontologica
+K07.31	Desplazamiento	odontologica
+K07.32	Rotación	odontologica
+K07.33	Espaciamiento	odontologica
+K07.34	Transposición	odontologica
+K07.35	Dientes retenidos o impactados en posición anormal	odontologica
+K07.38	Otras anomalías especificadas de la posición dentaria	odontologica
+K07.39	Anomalías de la posición dentaria, no especificada	odontologica
+K07.4	Maloclusión de tipo no especificado	odontologica
+K07.5	Anomalías dentofaciales funcionales	odontologica
+K07.50	Cierra mandibular anormal	odontologica
+K07.51	Maloclusión debida a deglución anormal o atípica	odontologica
+K07.54	Maloclusión debida a respiración bucal	odontologica
+K07.55	Maloclusión debida a hábitos linguales, labiales o de succión del pulgar	odontologica
+K07.58	Otras anomalías funcionales dentofaciales especificadas	odontologica
+K07.59	Anomalías funcional dentofacial, no especificada	odontologica
+K07.6	Trastornos de la articulación temporomaxilar	odontologica
+K07.60	Síndrome de disfunción dolorosa de la articulación temporomandibular [síndrome de Costen]	odontologica
+K07.61	Chasquido y crujido del maxilar	odontologica
+K07.62	Luxación y subluxación recurrente de la articulación temporomandibular	odontologica
+K07.63	Dolor en la articulación temporomandibular, no clasificado en otra categoría	odontologica
+K07.64	Rigidez de la articulación temporomandibular, no clasificada en otra categoría	odontologica
+K07.65	Osteofito de la articulación temporomandibular	odontologica
+K07.68	Otras alteraciones especificadas de la articulación temporomandibular	odontologica
+K07.69	Alteración de la articulación temporomandibular, no especificada	odontologica
+K08	Otros trastornos de los dientes y de sus estructuras de sostén	odontologica
+K08.0	Exfoliación de los dientes debidas a causas sistémicas	odontologica
+K08.0X	Exfoliación dentaria (atribuible a enfermedades de los tejidos circundantes, incluso causas sistémicas, p.e.: Acrodinia (T56.1), hipofosfatasia (E83.3)	odontologica
+K08.1	Pérdida de dientes debida a accidente, extracción o enfermedad periodontal local	odontologica
+K08.2	Atrofia del reborde alveolar desdentado	odontologica
+K08.3	Raíz dental retenida	odontologica
+K08.8	Otras afecciones especificadas de los dientes y de sus estructuras de sostén	odontologica
+K08.80	"Dolor dentario SAI  (""sin otra indicación"")"	odontologica
+K08.81	Proceso alveolar irregular	odontologica
+K08.82	Agrandamiento del reborde alveolar SAI	odontologica
+K08.88	Otras afecciones especificadas de los dientes y de sus estructuras de sostén Otros	odontologica
+K08.9	Trastornos de los dientes y de sus estructuras de sostén, no especificado	odontologica
+K09	Quistes de la región bucal, no clasificados en otra parte	odontologica
+K09.0	Quistes originados por el desarrollo de los dientes	odontologica
+K09.00	Quiste originado por Erupción	odontologica
+K09.01	Quiste Gingival	odontologica
+K09.02	Queratoquiste o quiste primordial	odontologica
+K09.03	Quiste Folícular o dentígero	odontologica
+K09.04	Quiste lateral periodóntico	odontologica
+K09.08	Otros quistes odontogénicos especificados originados por el desarrollo de los dientes	odontologica
+K09.09	Quiste odontogénico originado por el desarrollo de los dientes, sin especificar	odontologica
+K09.1	Quistes de las fisuras (no odontogénicos)	odontologica
+K09.10	Quiste de la fisura Globulomaxilar	odontologica
+K09.11	Quiste de la fisura Mediopalatino	odontologica
+K09.12	Quiste de la fisura Nasopalatino [del canal incisivo]	odontologica
+K09.13	Quste de la fisura De la papila palatina	odontologica
+K09.18	Otros quistes especificados de la región bucal, originados por el desarrollo de los dientes	odontologica
+K09.19	Quiste de la región bucal originado por el desarrollo de los dientes, sin especificar	odontologica
+K09.2	Otros quistes de los maxilares	odontologica
+K09.20	Quiste óseo aneurismático	odontologica
+K09.21	Quiste óseo solitario [traumático][hemorrágico]	odontologica
+K09.22	Quiste maxilares de origen epitelial no identificables como odontogénicos o no odontogénicos	odontologica
+K09.28	Otros quistes maxilares especificados	odontologica
+K09.29	Quiste maxilar, no especificado	odontologica
+K09.8	Otros quistes de la región bucal, no clasificados en otra parte	odontologica
+K09.80	Quiste dermoide	odontologica
+K09.81	Quiste epidermoide	odontologica
+K09.82	Quiste gingival del recién nacido	odontologica
+K09.83	Quiste palatino del recién nacido 	odontologica
+K09.84	Quiste nasoalveolar o nasolabial	odontologica
+K09.85	Quiste linfoepitelial	odontologica
+K09.88	Otros quistes especificados de la región bucal 	odontologica
+K09.9	Quiste de la región bucal, sin otra especificación	odontologica
+K10	Otras enfermedades de los maxilares	odontologica
+K10.0	Trastornos del desarrollo de los maxilares	odontologica
+K10.00	Torus mandibularis	odontologica
+K10.01	Torus palatinus	odontologica
+K10.02	Quiste óseo latente	odontologica
+K10.08	Otras alteraciones especificadas del desarrollo de los maxilares	odontologica
+K10.09	Alteración del desarrollo de los maxilares, no especificada	odontologica
+K10.2	Afecciones inflamatorias de los maxilares	odontologica
+K10.20	Osteítis del maxilar	odontologica
+K10.21	Osteomielitis del maxilar	odontologica
+K10.22	Periostitis maxilar	odontologica
+K10.23	Periostitis maxilar crónica	odontologica
+K10.24	Osteomielitis neonatal del maxilar [maxilitis neonatal]	odontologica
+K10.25	Afecciones inflamatorias de los maxilares Secuestro	odontologica
+K10.26	Osteorradionecrosis	odontologica
+K10.28	Otras afecciones inflamatorias especificadas de los maxilares	odontologica
+K10.29	Afección inflamatoria de los maxilares, no especificada	odontologica
+K10.3	Alveolitis del maxilar	odontologica
+K10.8	Otras enfermedades especificadas de los maxilares	odontologica
+K10.80	Querubismo	odontologica
+K10.81	Hiperplasia condilar unilateral de la mandíbula	odontologica
+K10.82	Hipoplasia condilar unilateral de la mandíbula	odontologica
+K10.83	Displasia fibrosa de la mandíbula	odontologica
+K10.88	Otras enfermedades especificadas de los maxilares	odontologica
+K10.9	Enfermedad de los maxilares, no especificadas	odontologica
+K11	Enfermedades de las glándulas salivales	odontologica
+K11.0	Atrofia de glándula salival	odontologica
+K11.1	Hipertrofia de glándula salival	odontologica
+K11.2	Sialadenitis	odontologica
+K11.3	Absceso de gláncula salival	odontologica
+K11.4	Fístula de glándula salival	odontologica
+K11.5	Sialolitiasis	odontologica
+K11.6	Mucocele de glándulas salival	odontologica
+K11.60	Quiste de retención mucosa	odontologica
+K11.61	Quiste de extravasación mucosa	odontologica
+K11.69	Mucocele de glándula salival, no especificado	odontologica
+K11.7	Alteraciones de la secreción mucosa	odontologica
+K11.70	Hiposecreción	odontologica
+K11.71	Xerostomía	odontologica
+K11.72	Hipersecreción [ptialismo]	odontologica
+K11.78	Otras alteraciones especificadas de la secreción salival	odontologica
+K11.79	Alteración de la secreción salival, no especificada	odontologica
+K11.8	Otras enfermedades de las glándulas salivales	odontologica
+K11.80	Lesión linfoepitelial benigna de glándulas salival	odontologica
+K11.81	Enfermedad de Mikulicz	odontologica
+K11.82	Estenosis del conducto salival	odontologica
+K11.83	Sialectasia	odontologica
+K11.84	Sialosis	odontologica
+K11.85	Sialometaplasia necrotizante	odontologica
+K11.88	Otras enfermedades especificadas de las glándulas salivales	odontologica
+K11.9	Enfermedad de glándula salival, no especificada	odontologica
+K12	Estomatitis y lesiones afines	odontologica
+K12.0	Estomatitis alftosa recurrente	odontologica
+K12.00	Afta de Mikulicz	odontologica
+K12.01	Periadenitis mucosa necrótica recurrente	odontologica
+K12.02	Estomatitis herpetiforme [erupción herpetiforme]	odontologica
+K12.03	Afta o aftosis de Bednar	odontologica
+K12.04	Úlcera traumática	odontologica
+K12.08	Otras aftas bucales recurrentes especificadas	odontologica
+K12.09	Afta bucal recurrente, no especificada	odontologica
+K12.1	Otras formas de estomatitis	odontologica
+K12.10	Estomatitis artifacta	odontologica
+K12.11	Estomatitis geográfica	odontologica
+K12.12	Estomatitis protésica	odontologica
+K12.13	Hiperplasia papilar palatina	odontologica
+K12.14	Estomatitis de contacto	odontologica
+K12.18	Otras aftas bucales recurrentes especificadas	odontologica
+K12.19	Aftas bucal recurrente, no especificada	odontologica
+K12.2	Celulitis y absceso de boca	odontologica
+K13	Otras enfermedades de los labios y de la mucosa bucal	odontologica
+K13.0	Enfermedades de los labios	odontologica
+K13.00	Queilitis angular	odontologica
+K13.01	Queilitis glandular apostematosa	odontologica
+K13.02	Queilitis exfoliativa	odontologica
+K13.03	Queilitis SAI	odontologica
+K13.04	Queilodinia	odontologica
+K13.08	Otras enfermedades especificadas de los labios	odontologica
+K13.09	Enfermedad de los labios, no especificada	odontologica
+K13.1	Mordedura del labio y de la mejilla	odontologica
+K13.2	Leucoplasia y otras alteraciones del epitelio bucal, incluida la lengua	odontologica
+K13.20	Leucoplasia idiopática	odontologica
+K13.21	Leucoplasia asociada a tabaco	odontologica
+K13.22	Eritroplasia	odontologica
+K13.23	Leucoedemma	odontologica
+K13.24	Paladar del fumador [leucoqueratosis nicotínica palatica] [estomatitis nicotínica]	odontologica
+K13.28	Leucoplasia y otras alteraciones del epitelio bucal, incluida la lengua, Otras	odontologica
+K13.29	Leucoplasia y otras alteraciones del epitelio bucal, incluida la lengua, No especificada	odontologica
+K13.3	Leucoplasia pilosa	odontologica
+K13.4	Granulomas lesiones semejantes de la mucosa bucal	odontologica
+K13.40	Granuloma piógeno	odontologica
+K13.41	Granuloma eosinófilo de la mucosa bucal	odontologica
+K13.42	Xantoma verrugoso [histiocitosis Y]	odontologica
+K13.48	Otros granulamas y lesiones semejantes a granulomas especificados de la mucosa bucal	odontologica
+K13.49	Granuloma y lesión semejante a granuloma de la mucosa bucal, sin especificar	odontologica
+K13.5	Fibrosis de la submucosa bucal	odontologica
+K13.6	Hiperplasia irritativa de la mucosa bucal	odontologica
+K13.7	Otras lesiones y las no especificadas de la mucosa bucal	odontologica
+K13.70	Pigmentación melánica excesiva	odontologica
+K13.71	Fístula bucal	odontologica
+K13.72	Tatuaje intencional	odontologica
+K13.73	Mucinosis focal bucal	odontologica
+K13.78	Otras lesiones especificadas de la mucosa bucal: Línea alba	odontologica
+K13.79	Lesión de la mucosa bucal, no especificada	odontologica
+K14	Enfermedades de la lengua	odontologica
+K14.0	Glositis	odontologica
+K14.00	Absceso de la lengua	odontologica
+K14.01	Ulceración traumática de la lengua	odontologica
+K14.08	Otras glositis especificadas	odontologica
+K14.09	Glositis, no especificada	odontologica
+K14.1	Lengua geográfica	odontologica
+K14.2	Glositis romboidea mediana	odontologica
+K14.3	Hipertrofia de las papilas linguales	odontologica
+K14.30	Lengua cubierta	odontologica
+K14.31	Lengua vellosa	odontologica
+K14.32	Hipertrofia de las papilas foliadas	odontologica
+K14.38	Otras hipertrofias de papilas linguales especificadas	odontologica
+K14.39	Hipertrofia de papilas lingual, no especificada	odontologica
+K14.4	Atrofia de las papilas linguales	odontologica
+K14.40	Atrofia de las papilas linguales Debida a hábitos de limpieza	odontologica
+K14.41	Atrofia de las papilas linguales Debida a trastornos sistémicos	odontologica
+K14.42	Glositis atrófica SAI	odontologica
+K14.48	Otras atrofias especificadas de las papilas linguales	odontologica
+K14.49	Atrofia de las papilas linguales, no especificada	odontologica
+K14.5	Lengua plegada	odontologica
+K14.6	Glosidinia	odontologica
+K14.60	Glosopirosis [ardor lingual]	odontologica
+K14.61	Glosodina [lengua dolorosa]	odontologica
+K14.68	Otros glosodinias especificadas	odontologica
+K14.69	Glosodinia, no especificada	odontologica
+K14.8	Otras enfermedades de la lengua	odontologica
+K14.80	Lengua dentada [lengua indentata]	odontologica
+K14.81	Hipertrofia de la lengua	odontologica
+K14.82	Atrofia lingual	odontologica
+K14.88	Otras enfermedades especificadas de la lengua	odontologica
+K14.9	Enfermedad de la lengua, no especificada	odontologica
+GeneralFiebre	Fiebre	general
+GeneralGripe	Gripe	general
+GeneralDiarrea	Diarrea	general
+GeneralDepresión	Depresión	general
+GeneralEstreñimiento	Estreñimiento	general
+GeneralColitis	Colitis	general
+GeneralHemorroides	Hemorroides	general

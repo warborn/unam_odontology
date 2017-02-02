@@ -25,7 +25,7 @@ class AddressesController extends Controller
 
         return response()->json([
             'states' => FederalEntity::all(),
-            'municipalities' => Address::where('federal_entity_id', $state)->get(),
+            'municipalities' => Address::where('federal_entity_id', $state)->where('postal_code', $code)->get(),
             'settlements' => $addresses,
             'state' => $state,
             'municipality' => $municipality

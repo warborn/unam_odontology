@@ -18,5 +18,35 @@ class FederalEntitiesTableSeeder extends Seeder
                 $address->generatePK();
             }));
         });
+
+        // $keys = ['federal_entity_name'];
+        // $results = getRowsFromCsv('federal_entities.csv', $keys);
+
+        // foreach ($results as $row) {
+        //     $entity = new App\FederalEntity($row);
+        //     $entity->generatePK();
+        //     $entity->save();
+        // }
+
+        // $keys = ['postal_code', 'settlement', 'municipality'];
+        // $results = getRowsFromCsv('addresses_mexico.csv', $keys, "|");
+
+        // foreach ($results as $row) {
+        //     // $values = ['postpal_code' => $row['postal_code'], 'settlement' => $row['settlement']];
+        //     $entity = App\Address::firstOrNew($row);
+        //     $entity->generatePK();
+        //     $entity->federal_entity_id = 'ETDDMX';
+        //     $entity->save();
+        // }
+
+        // $results = getRowsFromCsv('addresses_df.csv', $keys, "|");
+
+        // foreach ($results as $row) {
+        //     $entity = App\Address::firstOrNew($row);
+        //     $entity->generatePK();
+        //     $entity->federal_entity_id = 'DTFE';
+        //     $entity->save();
+        // }
+
     }
 }
