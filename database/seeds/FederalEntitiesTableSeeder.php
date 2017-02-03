@@ -32,10 +32,9 @@ class FederalEntitiesTableSeeder extends Seeder
         // $results = getRowsFromCsv('addresses_mexico.csv', $keys, "|");
 
         // foreach ($results as $row) {
-        //     // $values = ['postpal_code' => $row['postal_code'], 'settlement' => $row['settlement']];
         //     $entity = App\Address::firstOrNew($row);
         //     $entity->generatePK();
-        //     $entity->federal_entity_id = 'ETDDMX';
+        //     $entity->federal_entity_id = 'ETAMXI';
         //     $entity->save();
         // }
 
@@ -44,7 +43,7 @@ class FederalEntitiesTableSeeder extends Seeder
         // foreach ($results as $row) {
         //     $entity = App\Address::firstOrNew($row);
         //     $entity->generatePK();
-        //     $entity->federal_entity_id = 'DTFE';
+        //     $entity->federal_entity_id = 'DTRFER';
         //     $entity->save();
         // }
 

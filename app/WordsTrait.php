@@ -11,36 +11,42 @@ trait WordsTrait {
 		return strtr($str, $translated_chars);
 	}
 
-	public function removeInvalidCharacters($str, $more_chars = false) {
+	public function removeInvalidCharacters($str) {
 		// Replace all characters by a space except for letters, numbers and spaces
 		$str = preg_replace('/[^a-z\s\d]/i', ' ', $str);
 		// Remove intermediate one character word
-		if(!$more_chars)
-			$str = preg_replace('/\s[a-z]\s/i', ' ', $str);
+		$str = preg_replace('/\s[aoyu]\s/', ' ', $str);
+		// Remove spanish word "de" from string
+		$str = preg_replace('/\sde\s/i', ' ', $str);
 		// Replace spaces by a space
 		$str = preg_replace('/\s+/', ' ', $str);
 		return trim($str);
 	}
 
-	public function getCharsFromWords($str, $more_chars = false) {
+	public function getCharsFromWords($str, $number_chars = 2)
+	{
 		$str = $this->removeAccentedChars($str);
-		$str = $this->removeInvalidCharacters($str, $more_chars);
+		$str = $this->removeInvalidCharacters($str);
 		$words = explode(' ', $str);
+		if(count($words) == 1) return strtoupper($words[0]);
 		$new_str = '';
 		foreach ($words as $word) {
 			if(strlen($word) > 1 && !$this->is_roman_number($word)) {
 				$new_str .= $word[0];
-				if($more_chars) {
-					$new_str .= substr($word, (int)round((strlen($word) / 2) - 1, 2)) . $word[strlen($word) - 1];
+				if($number_chars < 4) { 
+					$new_str .= $this->middleChars($word, $number_chars - 1);
 				} else {
-					$new_str .= $word[(int)round((strlen($word) / 2) - 1)];
+					$new_str .= $this->middleChars($word, $number_chars - 2) . $word[strlen($word) - 1];
 				}
 			} else {
 				$new_str .= $word;
 			}
 		}
-		
 		return strtoupper($new_str);
+	}
+
+	public function middleChars($str, $length) {
+		return substr($str, (int)round((strlen($str) / 2) - 1), $length);
 	}
 
 	public function is_roman_number($string) {

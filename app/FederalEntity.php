@@ -17,7 +17,7 @@ class FederalEntity extends Model
     }
 
     public function generatePK() {
-    	$this->federal_entity_id = $this->getCharsFromWords($this->federal_entity_name);
+    	$this->federal_entity_id = $this->getCharsFromWords($this->federal_entity_name, 3);
     	return $this->federal_entity_id;
     }
 }

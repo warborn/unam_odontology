@@ -11,9 +11,18 @@ class PrivilegesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Privilege::class, 8)->make()->each(function($privilege) {
-        	$privilege->generatePK();
-        	$privilege->save();
-        });
+        // factory(App\Privilege::class, 8)->make()->each(function($privilege) {
+        // 	$privilege->generatePK();
+        // 	$privilege->save();
+        // });
+
+        $keys = ['privilege_name'];
+        $results = getRowsFromCsv('privileges.csv', $keys);
+
+        foreach ($results as $row) {
+            $entity = new App\Privilege($row);
+            $entity->generatePK();
+            $entity->save();
+        }
     }
 }

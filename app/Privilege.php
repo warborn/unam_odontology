@@ -13,7 +13,7 @@ class Privilege extends Model
     protected $fillable = ['privilege_name'];
 
     public function generatePK() {
-    	$this->privilege_id = $this->getCharsFromWords($this->privilege_name);
+    	$this->privilege_id = $this->getCharsFromWords($this->privilege_name , 3);
     	return $this->privilege_id;
     }
 }

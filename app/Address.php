@@ -25,7 +25,7 @@ class Address extends Model
     }
 
   	public function generatePK() {
-  		$this->address_id = $this->postal_code . '-' . $this->getCharsFromWords($this->settlement, true);
+  		$this->address_id = $this->postal_code . '-' . $this->getCharsFromWords($this->settlement, 4);
   		return $this->address_id;
   	}
 }
