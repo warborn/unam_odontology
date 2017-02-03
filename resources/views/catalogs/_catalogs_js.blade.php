@@ -1,3 +1,4 @@
+
 @push('js')
 
 <script>
@@ -140,6 +141,10 @@ function createCatalogRow(catalog, entity) {
 	var $row = $('<tr>');
 	var html = null;
 	var buttons = [htmlButton(entity, catalog, 'update', 'Modificar'), htmlButton(entity, catalog, 'delete', 'Eliminar')];
+	if(catalog == 'role') {
+		var rolePrivilegesUrl = '/roles/' + entity.role_id + '/privileges';
+		buttons.splice(1, 0, '<a class="btn btn-primary" href="' + rolePrivilegesUrl + '">Privilegios</a>');
+	}
 	var $columns = getColumns(catalog, entity).concat(buttons)
 		.map(function(element) {
 			return createColumn(element, 'td');
@@ -338,12 +343,16 @@ function deleteCatalog(button, success) {
 
 // events
 
-// get catalogs
-$("#catalogs-select").on('change', function() { 
-	var selected = this.value;
-	getCatalogs(selected);
+if(window.location.hash) {
+	var catalog = window.location.hash.substr(1);
+	$('#catalogs-select option[value="' + catalog + '"]').attr("selected", "selected");
+	setupCatalogsListBinding(catalog);
+}
+
+function setupCatalogsListBinding(catalog) {
+	getCatalogs(catalog);
 	$.ajax({
-		url: '/catalogs/' +  selected,
+		url: '/catalogs/' +  catalog,
 		type: 'GET',
 		success: function(response) {
 			$('#catalog-container').html(response).fadeIn();
@@ -356,6 +365,12 @@ $("#catalogs-select").on('change', function() {
 			console.log(response);
 		}
 	});
+} 
+// get catalogs
+$("#catalogs-select").on('change', function() { 
+	var selected = this.value;
+	window.location.hash = selected;
+	setupCatalogsListBinding(selected);
 });
 
 function setupModals() {
