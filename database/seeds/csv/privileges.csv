@@ -23,7 +23,6 @@ Consultar Asignaturas
 Consultar Clínicas
 Consultar Direcciónes
 Consultar Entidades Federativas
-Consultar Pacientes
 Consultar Periodos Escolares
 Consultar Privilegios
 Consultar Roles
@@ -51,6 +50,8 @@ Consultar Cursos
 Modificar Curso
 Asignar Profesor a Curso
 Baja de Profesor de Curso
+Asignar Estudiante a Formato
+Baja de Estudiante de Formato
 Habilitar Privilegio
 Deshabilitar Privilegio
 Listar Cursos Asignados
@@ -59,12 +60,10 @@ Solicitar Curso
 Gestionar Solicitudes de Curso
 Asignar Privilegio a Rol
 Asignar Rol Administrador a Cuenta
-Asignar Rol Alumno a Cuenta
-Asignar Rol Paciente a Cuenta
+Asignar Rol Estudiante a Cuenta
 Asignar Rol Pasante a Cuenta
 Asignar Rol Profesor a Cuenta
 Baja de Rol Administrador a Cuenta
-Baja de Rol Alumno a Cuenta
-Baja de Rol Paciente a Cuenta
+Baja de Rol Estudiante a Cuenta
 Baja de Rol Pasante a Cuenta
 Baja de Rol Profesor a Cuenta

@@ -15,5 +15,12 @@ class RolesTableSeeder extends Seeder
             $role->generatePK();
             $role->save();
         });
+
+        $keys = ['role_id', 'privilege_id'];
+        $results = getRowsFromCsv('privilege_role.csv', $keys, "|");
+
+        foreach ($results as $row) {
+            DB::table('privilege_role')->insert($row);
+        }
     }
 }

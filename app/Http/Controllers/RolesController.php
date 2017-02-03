@@ -28,7 +28,7 @@ class RolesController extends Controller
 
     public function index_privileges(Role $role)
     {
-        $privileges = Privilege::pluck('privilege_name','privilege_id');
+        $privileges = Privilege::orderBy('privilege_name')->pluck('privilege_name','privilege_id');
         $privileges = $privileges->diffKeys($role->privileges->pluck('privilege_name','privilege_id'));
         return View('roles.index_privileges')->with('role', $role)->with('privileges', $privileges);
     }

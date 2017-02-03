@@ -14,7 +14,7 @@ class Role extends Model
 
     public function privileges() {
     	return $this->belongsToMany(Privilege::class, 'privilege_role', 'role_id', 'privilege_id')
-    		->withTimestamps();
+    		->withTimestamps()->orderBy('privilege_name');
     }
 
     public function generatePK() {
