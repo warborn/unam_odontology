@@ -115,6 +115,12 @@ class Account extends Model
         });
     }
 
+    // Check if account has an enabled privilege based on the action name in form of controller.action, i.e. formats.index
+    public function allow_action($action_name)
+    {
+        return $this->has_privilege(config('constants.' . $action_name));
+    }
+
     public function disabledPrivileges() {
     	return $this->belongsToMany(Privilege::class, 'disabled_privileges', 'account_id', 'privilege_id')
             ->withTimestamps();

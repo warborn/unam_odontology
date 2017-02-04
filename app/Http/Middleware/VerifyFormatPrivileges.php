@@ -18,16 +18,7 @@ class VerifyFormatPrivileges
         $currentAction = parseActionName($request->route()->getActionName());
         $account = account();
 
-        $actions = ['index'           => 'CULFMA',
-                    'create'          => 'ALTFMA',
-                    'store'           => 'ALTFMA',
-                    'show'            => 'CULFMA',
-                    'edit'            => 'MFIFMA',
-                    'update'          => 'MFIFMA',
-                    'store_student'   => 'AGNEDIFMA',
-                    'destroy_student' => 'BAJEDIFMA'];
-
-        if(!$account->has_privilege($actions[$currentAction])) {
+        if(!$account->has_privilege(config('constants.formats.' . $currentAction))) {
             return redirect()->route('home');
         }
 

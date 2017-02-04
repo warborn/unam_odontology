@@ -145,7 +145,7 @@ class CoursesController extends Controller
             if(!$account->has_role('teacher')) {
                 $account->roles()->attach(Role::name('teacher')->role_id); // translate later
             }
-            if(!$account->is_a('teacher')) {
+            if(!$account->has_profile('teacher')) {
                 $account->assign_type('teacher');
             }
 

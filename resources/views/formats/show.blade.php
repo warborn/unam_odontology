@@ -4,7 +4,7 @@
 <!-- in process -->
 <div class="row">
 
-	@if(count($students) > 0)
+	@if(account()->allow_action('formats.store_student') && count($students) > 0)
 	<div class="remission">
 		{{ Form::open(['action' => ['FormatsController@store_student', $format->format_id]]) }}
 		<div class="col-sm-12 col-md-4 col-lg-4 form-group">
@@ -52,12 +52,14 @@
 					<td>
 						{{$student->group_id}}
 					</td>
+					@if(account()->allow_action('formats.destroy_student'))
 					<td>
 						<form action="{{url('formats/' . $format->format_id . '/students/' . $student->user_id  )}}" method="POST">
 							{{ method_field('DELETE') }}
 							<input type="submit" value="Eliminar" class="btn btn-danger">
 						</form>
 					</td>
+					@endif
 				</tr>
 				@endforeach
 			</tbody>

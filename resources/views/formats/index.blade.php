@@ -1,11 +1,13 @@
 @extends('layouts.app')
 @section('content')
 @include('shared._alerts')
+@if(account()->allow_action('formats.create'))
 <div class="row">
 	<div class="col-lg-10">
 		<a href="{{url('/formats/create')}}"class="btn btn-success">Agregar Formato</a>
 	</div>
 </div>
+@endif
 <div class="row">
 	<div class="col-lg-12">
 		<div class="table-responsive">
@@ -37,7 +39,7 @@
 						<td>{{$format->format_status}}</td>
 						<td>{{$format->hour_date_fill}}</td>
 						<td><a class="btn btn-success" href="{{ url('/formats/' . $format->format_id) }}">Mostrar</a></td>
-						@if($format->filled_by(intern()))
+						@if(account()->allow_action('formats.edit') && $format->filled_by(intern()) )
 						<td><a class="btn btn-info" href="{{ url('/formats/' . $format->format_id. '/edit') }}">Editar</a></td>
 						@endif
 						{{-- <td>
