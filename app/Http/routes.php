@@ -13,10 +13,6 @@
 
 Route::singularResourceParameters();
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/catalogs', 'CatalogsController@index');
 Route::get('/catalogs/address-js', 'CatalogsController@address_js');
 Route::get('/catalogs/{view}', 'CatalogsController@display');
@@ -69,6 +65,6 @@ Route::delete('/accounts/{user}/activate', 'AccountsController@activate');
 Route::post('/formats/{format}/students', 'FormatsController@store_student');
 Route::delete('/formats/{format}/students/{student}', 'FormatsController@destroy_student');
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/my-profile', 'UsersController@profile');
 Route::patch('/password', 'UsersController@update_password');

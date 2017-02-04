@@ -51,5 +51,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'account' => \App\Http\Middleware\CheckAccountOwner::class,
         'course' => \App\Http\Middleware\CheckCoursesClinic::class,
+        'privileges.format' => \App\Http\Middleware\VerifyFormatPrivileges::class,
     ];
 }

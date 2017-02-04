@@ -58,3 +58,7 @@ function to_associative($array) {
 	}
 	return $new_array;
 }
+
+function parseActionName($str) {
+	return explode('@',$str)[1];
+}

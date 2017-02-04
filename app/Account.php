@@ -43,7 +43,7 @@ class Account extends Model
         return $this->roles->pluck('role_name', 'role_id')->contains($role_name);
     }
 
-    public function is_a($role_name) {
+    public function has_profile($role_name) {
         switch($role_name) {
             case 'teacher':
                 return $this->user->teacher;
@@ -65,7 +65,8 @@ class Account extends Model
         return false;
     }
 
-    public function assign_type($role_name) {
+    // assign profile to user based on role
+    public function assign_profile($role_name) {
         switch($role_name) {
             case 'teacher':
                 $this->user->teacher()->save(new Teacher(['user_id' => $this->user_id]));
@@ -75,9 +76,6 @@ class Account extends Model
                 break;
             case 'intern':
                 $this->user->intern()->save(new Intern(['user_id' => $this->user_id]));
-                break;
-            case 'patient':
-                $this->user->patient()->save(new Patient(['user_id' => $this->user_id]));
                 break;
         }
     }
@@ -91,6 +89,30 @@ class Account extends Model
                 return ['privilege_name' => $privilege_name, 'status' => $status];
             })->toArray();
 
+    }
+
+    // Return all the privileges for an account excluding the disabled ones
+    public function enabledPrivileges() 
+    {
+        return $this->join('account_role', 'account_role.account_id', '=', 'accounts.account_id')
+                    ->join('roles', 'roles.role_id', '=', 'account_role.role_id')
+                    ->join('privilege_role', 'privilege_role.role_id', '=', 'roles.role_id')
+                    ->join('privileges', 'privileges.privilege_id', '=', 'privilege_role.privilege_id')
+                    ->select('privileges.*')->where('accounts.account_id', '=', $this->account_id)->whereNotIn('privileges.privilege_id', function($query) {
+                        $query->select('privilege_id')
+                              ->from('disabled_privileges')
+                              ->where('account_id', '=', $this->account_id);
+                    })->get();
+    }
+
+    // Check if the account has an enabled privilege by name
+    public function has_privilege($privilege_id)
+    {
+        return $this->enabledPrivileges()->map(function($privilege) {
+            return $privilege->privilege_id;
+        })->contains(function($key, $value) use($privilege_id){
+            return $value === $privilege_id;
+        });
     }
 
     public function disabledPrivileges() {

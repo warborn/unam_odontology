@@ -52,16 +52,16 @@ class AccountsController extends Controller
 
     public function store_role(Request $request, User $user)
     {
+        // Get account based on selected user and logged in clinic
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $role = Role::find($request->role_id);
         if(isset($role)) {
             if(!$account->has_role($role->role_name)) {
                 $account->roles()->attach($role->role_id);
-                Movement::register(account(), $account, Privilege::first()); // assign role
+                Movement::register(account(), $account, Privilege::first()); // assign role movement
             }
-            if(!$account->is_a($role->role_name)) {
-                $account->assign_type($role->role_name);
-                // Movement::register(account(), $account, Privilege::first());  // assign type
+            if(!$account->has_profile($role->role_name)) {
+                $account->assign_profile($role->role_name);
             }
             session()->flash('success', 'El rol fue asignado correctamente.');
         } else {
