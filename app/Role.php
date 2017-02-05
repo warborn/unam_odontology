@@ -18,7 +18,7 @@ class Role extends Model
     }
 
     public function generatePK() {
-    	$this->role_id = $this->getCharsFromWords($this->role_name);
+    	$this->role_id = $this->getCharsFromWords($this->role_name, 3);
     	return $this->role_id;
     }
 

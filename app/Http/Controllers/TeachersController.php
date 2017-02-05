@@ -96,11 +96,10 @@ class TeachersController extends Controller
 
     public function index_courses() {
         $teacher = Auth::user()->teacher;
-        // $teacher = Teacher::first();
         return View('teachers.index_courses')->with('courses',$teacher->courses);
     }
 
-    public function update_student(Request $request, Course $course, Student $student) {
+    public function update_student_status(Request $request, Course $course, Student $student) {
         if($request->status == 'accepted' || $request->status == 'rejected') {
             if($course->has_student($student)) {            
                 $course->students()->updateExistingPivot($student->user_id, ['status' => $request->status]);

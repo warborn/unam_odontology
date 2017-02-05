@@ -13,12 +13,13 @@
 
 // Users Factory
 $factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        // 'user_id' => $faker->userName,
-    		'user_id' => $faker->unique()->randomElement(['administrador', 'profesor', 'pasante', 'estudiante', 'usuario']),
-        'password' => bcrypt('password'),
-        'activated' => true,
-    ];
+	$usernames = ['super usuario', 'administrador', 'profesor', 'pasante', 'estudiante'];
+  return [
+      // 'user_id' => $faker->userName,
+  		'user_id' => $faker->unique()->randomElement($usernames),
+      'password' => bcrypt('password'),
+      'activated' => true,
+  ];
 });
 
 // Personal Informations Factory
@@ -45,7 +46,7 @@ $factory->define(App\Privilege::class, function(Faker\Generator $faker) {
 
 // Roles Factory
 $factory->define(App\Role::class, function(Faker\Generator $faker) {
-	$roles = ['super user', 'administrator', 'teacher', 'intern', 'student'];
+	$roles = ['super usuario', 'administrador', 'profesor', 'pasante', 'estudiante'];
 	return [
 		'role_name' => $faker->unique()->randomElement($roles),
 		'role_description' => $faker->sentence,
@@ -157,15 +158,16 @@ $factory->define(App\Intern::class, function(Faker\Generator $faker) {
 
 // Patients Factory
 $factory->define(App\Patient::class, function(Faker\Generator $faker) {
-	$grades = ['kinder', 'primaria', 'medio superior', 'superior', 'posgrado', 'maestria', 'doctorado'];
-	$civil_status = ['soltero', 'casado', 'viudo/a'];
-	$services = ['IMSS', 'ISSSTE'];
+	$grades = ['Kinder','Primaria', 'Secundaria', 'Preparatoria', 'Universidad', 'Maestria', 'Doctorado'];
+	$civil_status = ['Solter@', 'Casad@', 'Divorciad@', 'Viud@'];
+	$ocupations = ['Empleado','Estudiante', 'Otro'];
+	$services = ['IMSS', 'ISSSTE', 'POPULAR'];
 	$option = [0, 1];
 	$medical_service = $faker->randomElement($option);
 	$service_name = ($medical_service == 1 ? $faker->randomElement($services) : null);
 	return [
 		'age' => $faker->numberBetween(1, 100),
-		'ocupation' => $faker->jobTitle,
+		'ocupation' => $faker->randomElement($ocupations),
 		'school_grade' => $faker->randomElement($grades),
 		'civil_status' => $faker->randomElement($civil_status),
 		'phone' => $faker->phoneNumber,

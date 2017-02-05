@@ -35,16 +35,16 @@
 						@foreach( Auth::user()->accounts as $account)
 						@if($account->clinic_id == clinic()->clinic_id )
 						@foreach( $account->roles as $role)
-						@if( $role->role_name == 'administrator')
+						@if($account->has_role('administrator'))
 						<li><a href="{{ url('/catalogs') }}"><i class="fa fa-btn glyphicon glyphicon-th-list"></i>Catalogos</a></li>
 						<li><a href="{{ url('/accounts') }}"><i class="fa fa-btn glyphicon glyphicon-list"></i>Cuentas</a></li>
 						<li><a href="{{ url('/courses') }}"><i class="fa fa-btn glyphicon glyphicon-book"></i>Cursos</a></li>
 						<li><a href="{{ url('/movements') }}"><i class="fa fa-btn fa-sign-out glyphicon glyphicon-list-alt"></i>Movimientos</a></li>
-						@elseif( $role->role_name == 'intern')
+						@elseif($account->has_role('intern'))
 						<li><a href="{{ url('/formats') }}"><i class="fa fa-btn glyphicon glyphicon-file"></i>Formatos</a></li>
-						@elseif( $role->role_name == 'teacher')
+						@elseif($account->has_role('teacher'))
 						<li><a href="{{ url('/teacher/courses')}}"><i class="fa fa-btn glyphicon glyphicon-check"></i>Cursos asignados</a></li>
-						@elseif( $role->role_name == 'student')
+						@elseif($account->has_role('student'))
 						<li><a href="{{ url('/student/courses') }}"><i class="fa fa-btn glyphicon glyphicon-edit"></i>Lista de cursos</a></li>
 						@endif
 						

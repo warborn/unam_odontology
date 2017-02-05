@@ -39,7 +39,7 @@ Route::delete('/courses/{course}/teachers/{teacher}', 'CoursesController@destroy
 
 Route::get('/teacher/courses', 'TeachersController@index_courses');
 Route::get('/teacher/courses/{course}', 'TeachersController@show_course');
-Route::patch('/teacher/courses/{course}/students/{student}', 'TeachersController@update_student');
+Route::patch('/teacher/courses/{course}/students/{student}', 'TeachersController@update_student_status');
 
 
 Route::get('/student/{student}/courses', 'StudentsController@index_accepted_courses');

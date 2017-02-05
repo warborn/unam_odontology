@@ -17,6 +17,7 @@ class CoursesSeeder extends Seeder
         $courses->each(function($course) use ($students, $teachers) {
         	$students->each(function($student) use ($course) {
         		$student->courses()->attach($course->course_id);
+                $course->students()->updateExistingPivot($student->user_id, ['status' => 'accepted']);
         	});
 
         	$teachers->each(function($teacher) use ($course) {

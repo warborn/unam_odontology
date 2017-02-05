@@ -39,26 +39,29 @@ class Account extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function has_role($role_name) {
-        return $this->roles->pluck('role_name', 'role_id')->contains($role_name);
+    public function has_role($role_alias) {
+        $role_id = $this->get_role_id($role_alias);
+        return $this->roles->pluck('role_id', 'role_name')->contains($role_id);
     }
 
-    public function has_profile($role_name) {
-        switch($role_name) {
-            case 'teacher':
+    public function get_role_id($role_alias) {
+        return config('constants.id.' . $role_alias);
+    }
+
+    public function has_profile($role_alias) {
+        $role_id = $this->get_role_id($role_alias);
+        switch($role_id) {
+            case get_role_id('teacher'):
                 return $this->user->teacher;
                 break;
-            case 'student':
+            case $this->get_role_id('student'):
                 return $this->user->student;
                 break;
-            case 'intern':
+            case $this->get_role_id('intern'):
                 return $this->user->intern;
                 break;
-            case 'patient':
-                return $this->user->patient;
-                break;
-            case 'super user':
-            case 'administrator':
+            case $this->get_role_id('super_user'):
+            case $this->get_role_id('administrator'):
                 return $this->user;
                 break;
         }
@@ -66,15 +69,15 @@ class Account extends Model
     }
 
     // assign profile to user based on role
-    public function assign_profile($role_name) {
-        switch($role_name) {
-            case 'teacher':
+    public function assign_profile($role_id) {
+        switch($role_id) {
+            case $this->get_role_id('teacher'):
                 $this->user->teacher()->save(new Teacher(['user_id' => $this->user_id]));
                 break;
-            case 'student':
+            case $this->get_role_id('student'):
                 $this->user->student()->save(new Student(['user_id' => $this->user_id]));
                 break;
-            case 'intern':
+            case $this->get_role_id('intern'):
                 $this->user->intern()->save(new Intern(['user_id' => $this->user_id]));
                 break;
         }

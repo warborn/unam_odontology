@@ -14,6 +14,7 @@ class FederalEntitiesTableSeeder extends Seeder
         factory(App\FederalEntity::class, 3)->make()->each(function($entity) {
             $entity->generatePK();
             $entity->save();
+            $entity = $entity->fresh();
         	$entity->addresses()->saveMany(factory(App\Address::class, 5)->make()->each(function($address) {
                 $address->generatePK();
             }));

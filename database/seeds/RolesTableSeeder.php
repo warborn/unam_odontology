@@ -11,10 +11,18 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Role::class, 5)->make()->each(function($role) {
-            $role->generatePK();
-            $role->save();
-        });
+        // factory(App\Role::class, 5)->make()->each(function($role) {
+        //     $role->generatePK();
+        //     $role->save();
+        // });
+
+        $keys = ['role_name', 'role_description'];
+        $results = getRowsFromCsv('roles.csv', $keys, "|");
+        foreach ($results as $row) {
+            $entity = new App\Role($row);
+            $entity->generatePK();
+            $entity->save();
+        }
 
         $keys = ['role_id', 'privilege_id'];
         $results = getRowsFromCsv('privilege_role.csv', $keys, "|");
