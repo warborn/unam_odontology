@@ -25,6 +25,11 @@ class Authenticate
             }
         }
 
+        if(!account()->isActive()) {
+            auth()->logout();
+            return redirect('/login')->with('warning', 'Tu cuenta para esta clínica ha sido desactivada.');
+        }
+
         return $next($request);
     }
 }
