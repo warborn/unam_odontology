@@ -39,8 +39,16 @@ class Account extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function has_role($role_alias) {
-        $role_id = $this->get_role_id($role_alias);
+    public function get_role_id_from($role_value) 
+    {
+        if(is_object($role_value)) {
+            return $role_value->role_id;
+        }
+        return $this->get_role_id($role_value);
+    }
+
+    public function has_role($role_value) {
+        $role_id = $this->get_role_id_from($role_value);
         return $this->roles->pluck('role_id', 'role_name')->contains($role_id);
     }
 
@@ -48,10 +56,10 @@ class Account extends Model
         return config('constants.id.' . $role_alias);
     }
 
-    public function has_profile($role_alias) {
-        $role_id = $this->get_role_id($role_alias);
+    public function has_profile($role_value) {
+        $role_id = $this->get_role_id_from($role_value);
         switch($role_id) {
-            case get_role_id('teacher'):
+            case $this->get_role_id('teacher'):
                 return $this->user->teacher;
                 break;
             case $this->get_role_id('student'):
@@ -69,7 +77,8 @@ class Account extends Model
     }
 
     // assign profile to user based on role
-    public function assign_profile($role_id) {
+    public function assign_profile($role_value) {
+        $role_id = $this->get_role_id_from($role_value);
         switch($role_id) {
             case $this->get_role_id('teacher'):
                 $this->user->teacher()->save(new Teacher(['user_id' => $this->user_id]));

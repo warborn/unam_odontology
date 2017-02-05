@@ -15,7 +15,6 @@ class FormatsTableSeeder extends Seeder
        $course = App\Course::first();
        $intern = App\Intern::first();
        $clinic = App\Clinic::first();
-       $patient = App\Patient::first();
        $address = App\Address::first();
        $medical_disease = App\Disease::where('type_of_disease', '=', 'general')->first();
        $dental_disease = App\Disease::where('type_of_disease', '=', 'odontologica')->first();

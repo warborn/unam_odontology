@@ -10,7 +10,7 @@ class Subject extends Model
 
     public $incrementing = false;
     public $primaryKey = 'subject_id';
-    protected $fillable = ['subject_name', 'semester'];
+    protected $fillable = ['subject_id', 'subject_name', 'semester'];
 
     public function generatePK() {
     	$this->subject_id = $this->getCharsFromWords($this->subject_name);

@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             $role = App\Role::where('role_name', '=', $user->user_id)->first();
             if($role) {
                 $this->setRoleToAccount($account, $role);
-                $account->assign_profile($role->role_id);
+                $account->assign_profile($role);
             }
         });
     }

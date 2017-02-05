@@ -59,6 +59,8 @@ function to_associative($array) {
 	return $new_array;
 }
 
-function parseActionName($str) {
-	return explode('@',$str)[1];
+function parseCurrentRoute($request) {
+	list($controller, $action) = explode('@', $request->route()->getActionName());
+	$controller = preg_replace('/.*\\\/', '', $controller);
+	return [$controller, $action];
 }

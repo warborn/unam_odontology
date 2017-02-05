@@ -15,10 +15,27 @@ class VerifyPrivileges
      */
     public function handle($request, Closure $next, $role)
     {
-        $currentAction = parseActionName($request->route()->getActionName());
+        list($controller, $action) = parseCurrentRoute($request);
         $account = account();
-        
-        if(!$account->has_privilege(config('constants.' . $role . '.' . $currentAction))) {
+
+        // Map controller name to role and profile that needs to have the account in order to work
+        $roles = [
+            'TeachersController' => 'teacher',
+            'StudentsController' => 'student',
+            'FormatsController' => 'intern'
+        ];
+
+        $current_role = $roles[$controller];
+        if(isset($current_role)) {
+            // Redirect if user request create/store actions from formats controller and doesn't have an intern profile
+            // or doesn't have intern, teacher or student profile at all
+            if(($current_role == 'intern' && in_array($action, ['create', 'store']) && !$account->has_profile($current_role)) || 
+                !$account->has_profile($current_role)) {
+                return redirect()->route('home');
+            }
+        }
+
+        if(!$account->has_privilege(config('constants.' . $role . '.' . $action))) {
             return redirect()->route('home');
         }
 

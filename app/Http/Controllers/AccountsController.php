@@ -56,12 +56,12 @@ class AccountsController extends Controller
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $role = Role::find($request->role_id);
         if(isset($role)) {
-            if(!$account->has_role($role->role_id)) {
+            if(!$account->has_role($role)) {
                 $account->roles()->attach($role->role_id);
                 Movement::register(account(), $account, Privilege::first()); // assign role movement
             }
-            if(!$account->has_profile($role->role_id)) {
-                $account->assign_profile($role->role_id);
+            if(!$account->has_profile($role)) {
+                $account->assign_profile($role);
             }
             session()->flash('success', 'El rol fue asignado correctamente.');
         } else {
