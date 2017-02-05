@@ -16,8 +16,8 @@ return [
 	],
 	// Teacher privileges
 	'teachers' => [
-		'index_courses' => 'LSTCRSANA',
-		'show_courses'  => 'LSTCRSANA',
+		'index_courses' => 'CULCRSANA',
+		'show_course'  => 'CULCRSANA',
 		'update_student_status' => 'GIOSITCRS'
 	],
 

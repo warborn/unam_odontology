@@ -15,6 +15,7 @@ class TeachersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:teachers');
     }
     
     /**
@@ -54,9 +55,9 @@ class TeachersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show_course($id)
+    public function show_course(Course $course)
     {
-        $course = Course::with('students')->find($id);
+        $course = $course->load('students');
         return View('teachers.show_course')->with('course', $course);
     }
 

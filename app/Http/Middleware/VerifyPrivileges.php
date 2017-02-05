@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class VerifyFormatPrivileges
+class VerifyPrivileges
 {
     /**
      * Handle an incoming request.
@@ -13,12 +13,12 @@ class VerifyFormatPrivileges
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
         $currentAction = parseActionName($request->route()->getActionName());
         $account = account();
-
-        if(!$account->has_privilege(config('constants.formats.' . $currentAction))) {
+        
+        if(!$account->has_privilege(config('constants.' . $role . '.' . $currentAction))) {
             return redirect()->route('home');
         }
 

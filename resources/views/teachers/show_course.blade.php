@@ -26,13 +26,15 @@
 		<td>{{$course->period->period_id}}</td>
 		<td>{{$course->subject->semester}}</td>
 		<td>{{translate_status($student->course_status($course))}}</td>
-		@if($student->course_status($course) == 'accepted')
-			@include('teachers._reject_button')
-		@elseif($student->course_status($course) == 'rejected')
-			@include('teachers._accept_button')
-		@else
-			@include('teachers._accept_button')
-			@include('teachers._reject_button')
+		@if(account()->allow_action('teachers.update_student_status'))
+			@if($student->course_status($course) == 'accepted')
+				@include('teachers._reject_button')
+			@elseif($student->course_status($course) == 'rejected')
+				@include('teachers._accept_button')
+			@else
+				@include('teachers._accept_button')
+				@include('teachers._reject_button')
+			@endif
 		@endif
 	</tr>
 	@endforeach
