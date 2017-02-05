@@ -14,6 +14,7 @@ class StudentsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:students');
     }
     
     /**
@@ -106,7 +107,6 @@ class StudentsController extends Controller
 
     public function store_course(Course $course) {
         $student = Auth::user()->student;
-        // $student = Student::first();
         if(!$course->has_student($student)) {            
             $course->students()->attach($student->user_id);
         }
@@ -114,8 +114,7 @@ class StudentsController extends Controller
     }
 
     public function destroy_course(Course $course) {
-        // $student = Auth::user()->student;
-        $student = Student::first();
+        $student = Auth::user()->student;
         if($course->has_student($student)) {
             $course->students()->detach($student->user_id);
         }

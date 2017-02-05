@@ -20,6 +20,13 @@ return [
 		'show_course'  => 'CULCRSANA',
 		'update_student_status' => 'GIOSITCRS'
 	],
+	// Student privileges
+	'students' => [
+		'index_courses' => 'CULCRSAER',
+		'store_course' => 'SCICRS',
+		'destroy_course' => 'SCICRS',
+		'update_course_request' => 'SCICRS'
+	],
 
 
 	// Role ids

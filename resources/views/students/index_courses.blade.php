@@ -22,19 +22,21 @@
 			<td>{{$course->period->period_id}}</td>
 			<td>{{$course->subject->semester}}</td>
 			<td>{{translate_status($student->course_status($course))}}</td>
-			@if($student->course_status($course) != 'accepted')
-			<td>
-				<form action="{{url('student/course/' . $course->course_id )}}" method="POST">
-					@if ($course->has_student($student))
-					{{ method_field('DELETE') }}
-					<input type="submit" value="Cancelar" class="btn btn-danger">
-					@else
-					<input type="submit" value="Alta" class="btn btn-primary">
-					@endif
-				</form>
-			</td>
-			@else
-			<td></td>
+			@if(account()->allow_action('students.update_course_request'))
+				@if($student->course_status($course) != 'accepted')
+				<td>
+					<form action="{{url('student/course/' . $course->course_id )}}" method="POST">
+						@if ($course->has_student($student))
+						{{ method_field('DELETE') }}
+						<input type="submit" value="Cancelar" class="btn btn-danger">
+						@else
+						<input type="submit" value="Alta" class="btn btn-primary">
+						@endif
+					</form>
+				</td>
+				@else
+				<td></td>
+				@endif
 			@endif
 		</tr>
 		@endforeach
