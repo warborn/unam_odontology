@@ -25,8 +25,8 @@ class VerifyPrivileges
             'FormatsController' => 'intern'
         ];
 
-        $current_role = $roles[$controller];
-        if(isset($current_role)) {
+        if(isset($roles[$controller])) {
+            $current_role = $roles[$controller];
             // Redirect if user request create/store actions from formats controller and doesn't have an intern profile
             // or doesn't have intern, teacher or student profile at all
             if(($current_role == 'intern' && in_array($action, ['create', 'store']) && !$account->has_profile($current_role)) || 

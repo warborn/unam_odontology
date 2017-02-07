@@ -98,7 +98,7 @@ class Account extends Model
                 return $role->privileges->pluck('privilege_name', 'privilege_id'); 
             })->flatten(1)->map(function($privilege_name, $key) use ($disabled_privileges) {
                 $status = $disabled_privileges->has($key) == true ? 'disabled' : 'enabled';
-                return ['privilege_name' => $privilege_name, 'status' => $status];
+                return ['privilege_id' => $key, 'privilege_name' => $privilege_name, 'status' => $status];
             })->toArray();
 
     }
@@ -124,6 +124,14 @@ class Account extends Model
             return $privilege->privilege_id;
         })->contains(function($key, $value) use($privilege_id){
             return $value === $privilege_id;
+        });
+    }
+
+    // Get the roles an account can assign or eliminate from another account
+    public function enabled_role_privileges($type) 
+    {
+        return Role::all()->filter(function($role) use ($type) {
+            return $this->allow_role_action($type, $role);
         });
     }
 
@@ -176,5 +184,17 @@ class Account extends Model
             $privileges[] = $privilege->privilege_id;    
         }
         $this->disabledPrivileges()->detach($privileges);
+    }
+
+    // Check if account has privilege to assisn or eliminate role from another account
+    public function allow_role_action($type, $role) 
+    {
+        $role_constants = [$this->get_role_id('super_user') => 'super_user',
+            $this->get_role_id('administrator') => 'administrator',
+            $this->get_role_id('teacher') => 'teacher',
+            $this->get_role_id('intern') => 'intern',
+            $this->get_role_id('student') => 'student'];
+
+        return $this->allow_action($type . '.' . $role_constants[$role->role_id]);
     }
 }

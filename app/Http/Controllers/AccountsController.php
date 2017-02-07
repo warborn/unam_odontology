@@ -19,6 +19,7 @@ class AccountsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:accounts');
         $this->middleware('account', ['except' => ['index']]);
     }
     
@@ -42,7 +43,8 @@ class AccountsController extends Controller
     public function show(User $user)
     {
         $account = Account::from($user->user_id, clinic()->clinic_id);
-        $roles = Role::pluck('role_name','role_id');
+        $roles = account()->enabled_role_privileges('role.store')->pluck('role_name','role_id');
+        // $roles = Role::pluck('role_name','role_id');
         $roles = $roles->diffKeys($account->roles->pluck('role_name','role_id'));
         $deactivation = ['disabled' => 'deshabilitar', 'deleted' => 'eliminar'];
 
@@ -55,7 +57,8 @@ class AccountsController extends Controller
         // Get account based on selected user and logged in clinic
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $role = Role::find($request->role_id);
-        if(isset($role)) {
+
+        if(isset($role) && account()->allow_role_action('role.store', $role)) {
             if(!$account->has_role($role)) {
                 $account->roles()->attach($role->role_id);
                 Movement::register(account(), $account, Privilege::first()); // assign role movement
@@ -73,10 +76,14 @@ class AccountsController extends Controller
     public function destroy_role(User $user, Role $role)
     {
         $account = Account::from($user->user_id, clinic()->clinic_id);
-        $account->roles()->detach($role->role_id);
-        $account->destroy_disabled_privileges($role);
-        Movement::register(account(), $account, Privilege::first());  // remove role
-        session()->flash('success', 'El rol fue eliminado correctamente.');
+        if(isset($role) && account()->allow_role_action('role.destroy', $role)) {
+            $account->roles()->detach($role->role_id);
+            $account->destroy_disabled_privileges($role);
+            Movement::register(account(), $account, Privilege::first());  // remove role
+            session()->flash('success', 'El rol fue eliminado correctamente.');
+        } else {
+            session()->flash('danger', 'Hubo un problema al eliminar el rol.');
+        }
         return redirect()->back();
     }
 

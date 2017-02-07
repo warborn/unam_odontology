@@ -12,6 +12,7 @@ class MovementsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:movements');
     }
     
     public function index() {
