@@ -18,6 +18,7 @@ class CoursesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:courses');
         $this->middleware('course', ['except' => ['index', 'create', 'store']]);
     }
     

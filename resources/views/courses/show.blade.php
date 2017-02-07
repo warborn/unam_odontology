@@ -2,6 +2,7 @@
 @section('content')
 @include('shared._alerts')
 
+@if(account()->allow_action('courses.store_teacher'))
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12">
 		<h3>Curso: {{$course->info()}}</h3>
@@ -16,6 +17,7 @@
 		@endif
 	</div>
 </div>
+@endif
 
 <div class="table-responsive">
 <table class="table table-hover">
@@ -34,11 +36,13 @@
 			<td>{{$teacher->personal_information->last_name}}</td>
 			<td>{{$teacher->personal_information->mother_last_name}}</td>
 			<td>
+			@if(account()->allow_action('courses.destroy_teacher'))
 			<form action="{{ url('/courses/' . $course->course_id . '/teachers/' . $teacher->user_id) }}" method="POST">
 					{{ method_field('DELETE') }}
 					<input type="submit" value="Eliminar" class="btn btn-danger">
 			  </form>
 			</td>
+			@endif
 		</tr>
 		@endforeach
 	</tbody>
