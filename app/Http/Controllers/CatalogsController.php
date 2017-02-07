@@ -11,11 +11,12 @@ class CatalogsController extends Controller
     public function __construct() 
     {
       $this->middleware('auth');
+      $this->middleware('privileges:catalogs');
     }
 
     public function index() 
     {
-			return view('catalogs.index');
+		return view('catalogs.index');
     }
 
     public function display($view) 

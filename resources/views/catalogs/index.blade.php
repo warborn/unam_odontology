@@ -5,7 +5,6 @@
 <form>
 	<div class="form-group">
 		<select id="catalogs-select" class="form-control">
-			<option disabled selected></option>
 			<option value="group">Grupos</option>
 			<option value="period">Periodos</option>
 			<option value="subject">Asignaturas</option>

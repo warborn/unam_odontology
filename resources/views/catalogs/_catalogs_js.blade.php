@@ -342,6 +342,7 @@ function deleteCatalog(button, success) {
 }
 
 // events
+window.location.hash = window.location.hash || '#group';
 
 if(window.location.hash) {
 	var catalog = window.location.hash.substr(1);
@@ -358,11 +359,10 @@ function setupCatalogsListBinding(catalog) {
 			$('#catalog-container').html(response).fadeIn();
 			setupModals();
 			$.getScript('/catalogs/address-js', function() {
-				console.log('address_js loaded');
 			});
 		},
 		error: function(response) {
-			console.log(response);
+			console.log(response.responseText);
 		}
 	});
 } 

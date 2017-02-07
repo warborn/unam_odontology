@@ -35,7 +35,7 @@
 						@foreach( Auth::user()->accounts as $account)
 						@if($account->clinic_id == clinic()->clinic_id )
 						@foreach( $account->roles as $role)
-						@if($account->has_role('administrator'))
+						@if($account->has_role('administrator') || $account->has_role('super_user'))
 						<li><a href="{{ url('/catalogs') }}"><i class="fa fa-btn glyphicon glyphicon-th-list"></i>Catalogos</a></li>
 						<li><a href="{{ url('/accounts') }}"><i class="fa fa-btn glyphicon glyphicon-list"></i>Cuentas</a></li>
 						<li><a href="{{ url('/courses') }}"><i class="fa fa-btn glyphicon glyphicon-book"></i>Cursos</a></li>

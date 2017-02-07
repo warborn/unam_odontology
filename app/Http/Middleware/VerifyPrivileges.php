@@ -36,7 +36,11 @@ class VerifyPrivileges
         }
 
         if(!$account->has_privilege(config('constants.' . $role . '.' . $action))) {
-            return redirect()->route('home');
+            if ($request->ajax() || $request->wantsJson()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()->route('home');
+            }
         }
 
         return $next($request);

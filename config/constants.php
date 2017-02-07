@@ -30,38 +30,62 @@ return [
 		'store_teacher'   => 'AGNPFECRS',
 		'destroy_teacher' => 'BAJPFECRS',
 	],
-	'subjects'  => [
-		'create'  => '',
+	// Catalogs privileges
+	'catalogs' => [
+		'index' => 'CULCLO',
+		'display' => 'CULCLO',
+		'address_js' => 'CULCLO'
+	],
+	'groups' => [
+		'index'   => 'CULGUP',
+		'store'   => 'ALTGUP',
+		'show'    => 'CULGUP',
+		'update'  => 'MFIGUP',
+		'destroy' => 'BAJGUP'
+	],
+	'periods' => [
+		'index'   => '',
 		'store'   => '',
 		'show'    => '',
-		'edit'    => '',
+		'update'  => '',
+		'destroy' => ''
+	],
+	'subjects'  => [
+		'index'   => '',
+		'store'   => '',
+		'show'    => '',
 		'update'  => '',
 		'destroy' => ''
 	],
 	'diseases'  => [
-		'create'  => '',
+		'index'   => '',
 		'store'   => '',
 		'show'    => '',
-		'edit'    => '',
 		'update'  => '',
 		'destroy' => ''
 	],
-	'groups' => [
-		'create'  => '',
+	'clinics'  => [
+		'index'   => '',
 		'store'   => '',
 		'show'    => '',
-		'edit'    => '',
 		'update'  => '',
 		'destroy' => ''
 	],
-	'periods' => [
-		'create'  => '',
+	'addresses'  => [
+		'index'   => '',
 		'store'   => '',
 		'show'    => '',
-		'edit'    => '',
 		'update'  => '',
 		'destroy' => ''
 	],
+	'federal-entities'  => [
+		'index'   => '',
+		'store'   => '',
+		'show'    => '',
+		'update'  => '',
+		'destroy' => ''
+	],
+	
 
 	// Format privileges
 	'formats' => [
