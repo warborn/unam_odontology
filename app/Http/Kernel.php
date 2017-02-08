@@ -52,5 +52,6 @@ class Kernel extends HttpKernel
         'account' => \App\Http\Middleware\CheckAccountOwner::class,
         'course' => \App\Http\Middleware\CheckCoursesClinic::class,
         'privileges' => \App\Http\Middleware\VerifyPrivileges::class,
+        'privileges.catalogs' => \App\Http\Middleware\AddCatalogPrivilegesToResponse::class
     ];
 }

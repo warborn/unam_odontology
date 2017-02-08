@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-primary catalog" id="period-btn">Agregar Periodo</button>
+<button type="button" class="btn btn-primary catalog" id="periods-btn">Agregar Periodo</button>
 
-<div class="modal fade" id="period-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="periods-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form id="period-form" class="modal-form">
+					<form id="periods-form" class="modal-form">
 						<div class="form-group" id="period_id">
 							<input type="text" name="period_id" placeholder="Periodo" class="form-control">
 						</div>
@@ -41,18 +41,3 @@
 		</div>
 	</div>
 </div>
-
-@push('js')
-<script type="text/javascript">
-  $(function () {
-      $('#datetimepicker1').datetimepicker({
-      	locale: 'es',
-      	format: 'YYYY-MM-DD'
-      });
-      $('#datetimepicker2').datetimepicker({
-      	locale: 'es',
-      	format: 'YYYY-MM-DD'
-      });
-  });
-</script>
-@endpush

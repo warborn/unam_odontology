@@ -42,12 +42,12 @@ function handleFormErrors($formGroups, error) {
 
 // pluralize catalogs name
 function mapCatalogName(name) {
-	var plurals = {'group': 'groups', 'period': 'periods', 
-	 'subject': 'subjects', 'privilege': 'privileges', 
-	 'role': 'roles', 'federal-entity': 'federal-entities',
-	 'disease': 'diseases', 'address': 'addresses', 
-	 'clinic': 'clinics'};
-	 return plurals[name];
+	var plurals = {'groups': 'group', 'periods': 'period', 
+                        'subjects': 'subject', 'privileges': 'privilege', 
+                        'roles': 'role', 'federal-entities': 'federal-entity',
+                        'diseases': 'diseases', 'addresses': 'address', 
+                        'clinics': 'clinic'};
+	return plurals[name];
 }
 
 // tanslate catalogs properties
@@ -95,32 +95,32 @@ function generateHTMLString(array) {
 function getColumns(catalog, entity) {
 	var columns = null;
 	switch(catalog) {
-		case 'group':
+		case 'groups':
 			columns = [entity.group_id];
 		break;
-		case 'period':
+		case 'periods':
 			columns = [entity.period_id, entity.period_start_date, 
 					entity.period_end_date];
 		break;
-		case 'subject':
+		case 'subjects':
 			columns = [entity.subject_id, entity.subject_name, entity.semester + '°'];
 		break;
-		case 'privilege':
+		case 'privileges':
 			columns = [entity.privilege_id, entity.privilege_name];
 		break;
-		case 'role':
+		case 'roles':
 			columns = [entity.role_id, entity.role_name, entity.role_description];
 		break;
-		case 'federal-entity':
+		case 'federal-entities':
 			columns = [entity.federal_entity_id, entity.federal_entity_name];
 		break;
-		case 'disease':
+		case 'diseases':
 			columns = [entity.disease_id, entity.disease_name, entity.type_of_disease];
 		break;
-		case 'address':
+		case 'addresses':
 			columns = [entity.address_id, entity.postal_code, entity.settlement, entity.municipality, entity.federal_entity_id];
 		break;
-		case 'clinic':
+		case 'clinics':
 			columns = [entity.clinic_id, entity.address_id, entity.clinic_email, entity.clinic_phone, entity.street];
 			columns.push([entity.address.settlement, entity.address.municipality, entity.address.federal_entity_id, entity.address.postal_code].join(' '));
 		break;
@@ -132,16 +132,22 @@ function getColumns(catalog, entity) {
 function htmlButton(entity, catalog, type, content) {
 	var btnType = type == 'update' ? 'info' : 'danger';
 	return '<button class="btn btn-' + btnType + ' ' + type + 
-				 '" data-id="' +  entity[catalog.replace(/-/g, '_') + '_id'] + 
+				 '" data-id="' +  entity[mapCatalogName(catalog).replace(/-/g, '_') + '_id'] + 
 				 '" data-entity="' + catalog + '">' + content + '</button>';
 }
 
 // create a new catalog row for a table
-function createCatalogRow(catalog, entity) {
+function createCatalogRow(catalog, entity, privileges) {
 	var $row = $('<tr>');
 	var html = null;
-	var buttons = [htmlButton(entity, catalog, 'update', 'Modificar'), htmlButton(entity, catalog, 'delete', 'Eliminar')];
-	if(catalog == 'role') {
+	var buttons = [];
+
+	// Add update and delete buttons based on the enabled privileges for each catalog
+	if(!privileges || privileges.update) buttons.push(htmlButton(entity, catalog, 'update', 'Modificar'));
+	if(!privileges || privileges.destroy) buttons.push(htmlButton(entity, catalog, 'delete', 'Eliminar'));
+
+	// If current catalog is role, add a button to manage the privilege for each role
+	if(catalog == 'roles') {
 		var rolePrivilegesUrl = '/roles/' + entity.role_id + '/privileges';
 		buttons.splice(1, 0, '<a class="btn btn-primary" href="' + rolePrivilegesUrl + '">Privilegios</a>');
 	}
@@ -162,9 +168,9 @@ function addTableHeaders($tableHeaderRow, columns) {
 }
 
 // add table columns from array of objects
-function addTableColumns($tableBody, catalog, resources) {
-	resources.forEach(function(resource) {
-		var $tr = createCatalogRow(catalog, resource);
+function addTableColumns($tableBody, catalog, response) {
+	response.data.forEach(function(resource) {
+		var $tr = createCatalogRow(catalog, resource, response.privileges);
 		$tableBody.append($tr);
 	});
 	return $tableBody;
@@ -202,6 +208,7 @@ function attachUpdateEvent(elements, callback) {
 		var $form = $modal.find('.modal-form');
 		$form.attr('data-action', 'update');
 		$form.attr('data-id', id);
+		console.log(id);
 		showCatalog(catalog, id, function(response) {
 			var excluded = ['created_at', 'updated_at'];
 			var entity = response;
@@ -223,7 +230,7 @@ function attachDeleteEvent(elements, callback) {
 
 // send AJAX request
 function sendAJAX(options, catalog, id) {
-	options['url'] = '/' + mapCatalogName(catalog) + (id ? '/' + id : '');
+	options['url'] = '/' + catalog + (id ? '/' + id : '');
 	$.ajax(options);
 }
 
@@ -235,32 +242,41 @@ function setupFormAction(button, action) {
 	$modal.find('.modal-form').attr('data-action', action);
 }
 
-// send ajax request for index actionand insert results into the DOM
+// send ajax request for index action and insert results into the DOM
 function getCatalogs(catalog) {
+	// Response have data property corresponding to an array of catalogs
+	// and a privileges property corresponding to an array of enabled privileges for
+	// the current catalog
 	var success = function(response) {
 		// clear table header and body
 		$tableHeaderRow.html('');
 		$tableBody.html('');
-		object = response[0];
+		object = response.data[0];
 		if(object) {
 			var excluded = ['created_at', 'updated_at'];
 			var keys = excludeProperties(excluded, object).map(function(str) { 
 					translated = translateProperty(str) || str;
 					return translated.split('_').map(capitalize).join(' ');
 			});
-
-			addTableHeaders($tableHeaderRow, keys.concat(['&nbsp;', '&nbsp;']));
+			
+			$actionColumns = [response.privileges.update, response.privileges.destroy]
+				.filter(function(value) { return value; })
+				.map(function(value) { return '&nbsp'; });
+			addTableHeaders($tableHeaderRow, keys.concat($actionColumns));
 			addTableColumns($tableBody, catalog, response);
 
-			attachUpdateEvent($('.btn.update'));
-			attachDeleteEvent($('.btn.delete'), deleteAlert);
+			if(response.privileges.update) {
+				attachUpdateEvent($('.btn.update'));
+			}
+			if(response.privileges.destroy) {
+				attachDeleteEvent($('.btn.delete'), deleteAlert);
+			}
 		}
 	}
 
 	var error = function(error) {
 		console.log(error.responseText);
 	}
-
 	var options = { method: 'GET', dataType: 'JSON', success: success, error: error };
 	sendAJAX(options, catalog);
 }
@@ -341,8 +357,11 @@ function deleteCatalog(button, success) {
 	sendAJAX(options, catalog, id);
 }
 
+
+var accounts = {!! json_encode(account()->all_privileges()) !!}
+
 // events
-window.location.hash = window.location.hash || '#group';
+window.location.hash = window.location.hash || '#groups';
 
 if(window.location.hash) {
 	var catalog = window.location.hash.substr(1);
@@ -353,13 +372,18 @@ if(window.location.hash) {
 function setupCatalogsListBinding(catalog) {
 	getCatalogs(catalog);
 	$.ajax({
-		url: '/catalogs/' +  catalog,
+		url: '/catalogs/' + catalog,
 		type: 'GET',
 		success: function(response) {
 			$('#catalog-container').html(response).fadeIn();
 			setupModals();
-			$.getScript('/catalogs/address-js', function() {
-			});
+			if(catalog == 'addresses') {	
+				$.getScript('/catalogs/address-js', function() {
+				});
+			} else if(catalog == 'periods') {
+				$.getScript('/catalogs/datetimepicker-js', function() {
+				});
+			}
 		},
 		error: function(response) {
 			console.log(response.responseText);
@@ -401,8 +425,6 @@ function setupModals() {
 	 	}
 	});
 }
-
-
 
 </script>
 

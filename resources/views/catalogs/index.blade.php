@@ -5,15 +5,11 @@
 <form>
 	<div class="form-group">
 		<select id="catalogs-select" class="form-control">
-			<option value="group">Grupos</option>
-			<option value="period">Periodos</option>
-			<option value="subject">Asignaturas</option>
-			<option value="privilege">Privilegios</option>
-			<option value="role">Roles</option>
-			<option value="federal-entity">Entidades federativas</option>
-			<option value="disease">Enfermedades</option>
-			<option value="address">Direcciones</option>
-			<option value="clinic">Clinicas</option>
+		@foreach($catalogs as $key => $catalog)
+			@if($catalog['enabled'])
+			<option value="{{$key}}">{{$catalog['body']}}</option>
+			@endif
+		@endforeach
 		</select>
 	</div>
 </form>

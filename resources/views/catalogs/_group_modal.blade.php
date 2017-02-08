@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-primary catalog" id="group-btn">Agregar Grupo</button>
+<button type="button" class="btn btn-primary catalog" id="groups-btn">Agregar Grupo</button>
 
-<div class="modal fade" id="group-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="groups-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form id="group-form" class="modal-form">
+					<form id="groups-form" class="modal-form">
 						<div class="form-group" id="group_id">
 							<input type="text" name="group_id" placeholder="Grupo" class="form-control">
 						</div>

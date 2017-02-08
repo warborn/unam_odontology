@@ -5,7 +5,7 @@
 return [
 	// Account privileges
 	'accounts' => [
-		'index'    									 => 'CULCNT',
+		'index'    					 => 'CULCNT',
 		'show'                       => 'CULCNT',
 		'store_role'                 => 'AGNROLCEN',
 		'destroy_role'               => 'BAJROLCEN',
@@ -34,7 +34,8 @@ return [
 	'catalogs' => [
 		'index' => 'CULCLO',
 		'display' => 'CULCLO',
-		'address_js' => 'CULCLO'
+		'address_js' => 'CULCLO',
+		'datetimepicker_js' => 'CULCLO'
 	],
 	'groups' => [
 		'index'   => 'CULGUP',
@@ -44,11 +45,11 @@ return [
 		'destroy' => 'BAJGUP'
 	],
 	'periods' => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'   => 'CULPIOELA',
+		'store'   => 'ALTPIOEOL',
+		'show'    => 'CULPIOELA',
+		'update'  => 'MFIPIOEOL',
+		'destroy' => 'BAJPIOEOL'
 	],
 	'subjects'  => [
 		'index'   => '',
@@ -79,6 +80,20 @@ return [
 		'destroy' => ''
 	],
 	'federal-entities'  => [
+		'index'   => '',
+		'store'   => '',
+		'show'    => '',
+		'update'  => '',
+		'destroy' => ''
+	],
+	'roles'  => [
+		'index'   => '',
+		'store'   => '',
+		'show'    => '',
+		'update'  => '',
+		'destroy' => ''
+	],
+	'privileges'  => [
 		'index'   => '',
 		'store'   => '',
 		'show'    => '',

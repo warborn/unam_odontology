@@ -13,6 +13,7 @@ class GroupsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('privileges:groups');
+        $this->middleware('privileges.catalogs:groups', ['only' => 'index']);
     }
     
     /**

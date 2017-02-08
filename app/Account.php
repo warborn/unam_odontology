@@ -197,4 +197,12 @@ class Account extends Model
 
         return $this->allow_action($type . '.' . $role_constants[$role->role_id]);
     }
+
+    public function get_catalog_privileges($catalog_name) 
+    {
+        return collect(config('constants.' . $catalog_name))
+              ->filter(function($privilege_id, $action) use($catalog_name) { 
+                    return $this->allow_action($catalog_name . '.' . $action); 
+        })->toArray();
+    }
 }

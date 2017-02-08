@@ -29,9 +29,18 @@ class VerifyPrivileges
             $current_role = $roles[$controller];
             // Redirect if user request create/store actions from formats controller and doesn't have an intern profile
             // or doesn't have intern, teacher or student profile at all
-            if(($current_role == 'intern' && in_array($action, ['create', 'store']) && !$account->has_profile($current_role)) || 
-                !$account->has_profile($current_role)) {
-                return redirect()->route('home');
+            if($current_role != 'student' && $action == 'index_accepted_courses') {
+                if(($current_role == 'intern' && in_array($action, ['create', 'store']) && !$account->has_profile($current_role)) || 
+                    !$account->has_profile($current_role)) {
+                    return redirect()->route('home');
+                }
+            }
+        }
+
+        if($role == 'catalogs' && $action == 'display') {
+            $view_name = $request->route('view');
+            if(!$account->has_privilege(config('constants.' . $view_name . '.store'))) {
+                return response('Unauthorized.', 401);
             }
         }
 

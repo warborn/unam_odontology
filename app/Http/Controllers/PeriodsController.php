@@ -11,6 +11,8 @@ class PeriodsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:periods');
+        $this->middleware('privileges.catalogs:periods', ['only' => 'index']);
     }
     
     /**

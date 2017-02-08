@@ -15,6 +15,7 @@ Route::singularResourceParameters();
 
 Route::get('/catalogs', 'CatalogsController@index');
 Route::get('/catalogs/address-js', 'CatalogsController@address_js');
+Route::get('/catalogs/datetimepicker-js', 'CatalogsController@datetimepicker_js');
 Route::get('/catalogs/{view}', 'CatalogsController@display');
 
 Route::resource('groups', 'GroupsController', ['except' => ['create', 'edit']]);
