@@ -54,7 +54,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('postal_code') ? ' has-error' : '' }}">
-		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',old('postal_code'),['class' => 'form-control', 'id' => 'postal-code'])}}
+		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',old('postal_code'),['class' => 'form-control', 'id' => 'postal-code-input'])}}
 		@if ($errors->has('postal_code'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('postal_code') }}</strong>
@@ -63,7 +63,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('settlement') ? ' has-error' : '' }}">
-		{{Form::label('Colonia')}} : {{Form::select('settlement',[],old('settlement'),['class' => 'form-control', 'id' => 'settlement'])}}
+		{{Form::label('Colonia')}} : {{Form::select('settlement',[],old('settlement'),['class' => 'form-control', 'id' => 'settlement-input'])}}
 		@if ($errors->has('settlement'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('settlement') }}</strong>
@@ -72,7 +72,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('municipality') ? ' has-error' : '' }}">
-		{{Form::label('Delegación o Municipio')}} : {{Form::select('municipality',[],old('municipality'),['class' => 'form-control', 'id' => 'municipality', 'disabled'])}}
+		{{Form::label('Delegación o Municipio')}} : {{Form::select('municipality',[],old('municipality'),['class' => 'form-control', 'id' => 'municipality-input', 'disabled'])}}
 		@if ($errors->has('municipality'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('municipality') }}</strong>
@@ -81,7 +81,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-3 col-lg-3 form-group{{ $errors->has('state') ? ' has-error' : '' }}">
-		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),old('federal_entity_id'),['class' => 'form-control', 'id' => 'state', 'disabled'])}}
+		{{Form::label('Estado')}} : {{Form::select('state',$federal->pluck('federal_entity_name', 'federal_entity_id'),old('federal_entity_id'),['class' => 'form-control', 'id' => 'state-input', 'disabled'])}}
 		@if ($errors->has('state'))
 	    <span class="help-block">
 	        <strong>{{ $errors->first('state') }}</strong>
@@ -259,6 +259,6 @@
 {{Form::close() }}
 
 @include('formats._other_field_js')
-@include('shared._address_js')
+@include('shared._address_js_script')
 
 @endsection

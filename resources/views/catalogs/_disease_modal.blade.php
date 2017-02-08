@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-primary catalog" id="disease-btn">Agregar Enfermedad</button>
+<button type="button" class="btn btn-primary catalog" id="diseases-btn">Agregar Enfermedad</button>
 
-<div class="modal fade" id="disease-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="diseases-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form id="disease-form" class="modal-form">
+					<form id="diseases-form" class="modal-form">
 						<div class="form-group" id="disease_id">
 							<input type="text" name="disease_id" placeholder="Clave" class="form-control">
 						</div>

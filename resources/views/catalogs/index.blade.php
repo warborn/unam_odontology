@@ -5,6 +5,7 @@
 <form>
 	<div class="form-group">
 		<select id="catalogs-select" class="form-control">
+		<option selected="true" disabled="disabled">Selecciona un catálogo</option>
 		@foreach($catalogs as $key => $catalog)
 			@if($catalog['enabled'])
 			<option value="{{$key}}">{{$catalog['body']}}</option>

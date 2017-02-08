@@ -5,6 +5,15 @@
 $tableHeaderRow = $('#table-header-row');
 $tableBody = $('#table-content');
 
+function flatInnerObject(object, innerObject) {
+	for(var property in object[innerObject]) {
+		if(object[innerObject].hasOwnProperty(property)) {
+			object[property] = object[innerObject][property];
+		}
+	}
+	return object;;
+}
+
 // show delete sweetalert, trigger delete catalog action
 function deleteAlert(button) {
 	swal({
@@ -18,7 +27,7 @@ function deleteAlert(button) {
 		},
 		function(){
 			deleteCatalog(button, function(response) {
-				$('.delete[data-id=' +  button.dataset.id + ']').parent().parent().remove();
+				$('.delete[data-id="' +  button.dataset.id + '"]').parent().parent().remove();
 		  		swal("Eliminado!", "El registro se ha eliminado exitosamente.", "success");
 			});
 	});
@@ -45,7 +54,7 @@ function mapCatalogName(name) {
 	var plurals = {'groups': 'group', 'periods': 'period', 
                         'subjects': 'subject', 'privileges': 'privilege', 
                         'roles': 'role', 'federal-entities': 'federal-entity',
-                        'diseases': 'diseases', 'addresses': 'address', 
+                        'diseases': 'disease', 'addresses': 'address', 
                         'clinics': 'clinic'};
 	return plurals[name];
 }
@@ -209,12 +218,18 @@ function attachUpdateEvent(elements, callback) {
 		$form.attr('data-action', 'update');
 		$form.attr('data-id', id);
 		showCatalog(catalog, id, function(response) {
+			if(catalog == 'clinics') {
+				response = flatInnerObject(response, 'address');
+			}
 			var excluded = ['created_at', 'updated_at'];
 			var entity = response;
 			var keys = excludeProperties(excluded, entity);;
 			keys.forEach(function(key) {
 				$('#' + catalog + '-form [name=' + key + ']').val(entity[key]);
 			});
+			if(catalog == 'clinics') {
+				addressByPostalCode(options, options.postalCode.val(), response.settlement);
+			}
 		});
 	});
 }
@@ -318,9 +333,8 @@ function updateCatalog(form, catalog, id) {
 	var $formGroups = removeErrors(form);
 
 	var success = function(response) {
-		console.log(response);
 		var $newtr = createCatalogRow(catalog, response);
-		var $oldtr = $($('[data-id=' + id + ']')[0]).parent().parent();
+		var $oldtr = $($('[data-id="' + id + '"]')[0]).parent().parent();
 		$oldtr.replaceWith('<tr data-state="new">' + generateHTMLString([$newtr]) + '</tr>');
 		$('#' + catalog + '-modal').modal('hide');
 		swal("¡Se ha modificado el registro!", null, "success");
@@ -360,7 +374,7 @@ function deleteCatalog(button, success) {
 var accounts = {!! json_encode(account()->all_privileges()) !!}
 
 // events
-window.location.hash = window.location.hash || '#groups';
+// window.location.hash = window.location.hash || '#groups';
 
 if(window.location.hash) {
 	var catalog = window.location.hash.substr(1);
@@ -376,7 +390,7 @@ function setupCatalogsListBinding(catalog) {
 		success: function(response) {
 			$('#catalog-container').html(response).fadeIn();
 			setupModals();
-			if(catalog == 'addresses') {	
+			if(catalog == 'addresses' || catalog == 'clinics') {	
 				$.getScript('/catalogs/address-js', function() {
 				});
 			} else if(catalog == 'periods') {
@@ -419,7 +433,7 @@ function setupModals() {
 	  $form.removeAttr('data-action');
 	  $form[0].reset();
 	  removeErrors($form[0]);
-	 	if($form[0].id == 'clinic-form') {
+	 	if($form[0].id == 'clinics-form' || $form[0].id == 'addresses-form') {
 	 		$form.find('select').empty();
 	 	}
 	});

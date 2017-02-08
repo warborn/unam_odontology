@@ -104,7 +104,7 @@
 		{{Form::label('Delegacion o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address->municipality,['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-3 col-lg-3">
-		{{Form::label('Estado')}} : {{Form::text('federal_entity_id',($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null),['class' => 'form-control', 'readonly'])}}
+		{{Form::label('Estado')}} : {{Form::text('federal_entity_id',($patient->personal_information->address ? $patient->personal_information->address->federal_entity_id : null),['class' => 'form-control', 'readonly'])}}
 		</div>
 		<div class="col-sm-12 col-md-3 col-lg-3">
 		{{Form::label('Edad')}} : {{Form::text('age',$patient->age,['class' => 'form-control', 'readonly'])}}

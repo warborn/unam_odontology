@@ -228,6 +228,7 @@ return [
         'postal_code' => 'codigo postal',
         'settlement' => 'colonia',
         'municipality' => 'municipio',
+        'state' => 'estado',
         'federal_entity_id' => 'entidad federativa',
         // Formats
         'user_intern_id' => 'pasante',

@@ -12,6 +12,8 @@ class ClinicsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:clinics');
+        $this->middleware('privileges.catalogs:clinics', ['only' => 'index']);
     }
     
     /**
@@ -33,7 +35,8 @@ class ClinicsController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        $validations = ['clinic_id' => 'required|unique:clinics|max:25'];
+        return $this->makeValidation($request, $validations);
     }
 
     /**
@@ -44,7 +47,7 @@ class ClinicsController extends Controller
      */
     public function show(Clinic $clinic)
     {
-        return response()->json($clinic);
+        return response()->json($clinic->load('address'));
     }
 
     /**
@@ -56,7 +59,8 @@ class ClinicsController extends Controller
      */
     public function update(Request $request,Clinic $clinic)
     {
-        return $this->makeValidation($request, $clinic);
+        $validations = ['clinic_id' => "required|unique:clinics,clinic_id,{$clinic->clinic_id},clinic_id|max:25"];
+        return $this->makeValidation($request, $validations, $clinic);
     }
 
     /**
@@ -77,10 +81,9 @@ class ClinicsController extends Controller
         }
     }
 
-    private function makeValidation(Request $request, $resource = null) 
+    private function makeValidation(Request $request, $validations, $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
-            'clinic_id' => 'required|unique:clinics|max:25',
+        $validator = Validator::make($request->all(), array_merge($validations, [
             'state' => 'required',
             'municipality' => 'required',
             'settlement' => 'required',
@@ -88,7 +91,7 @@ class ClinicsController extends Controller
         	'clinic_email' => 'required|max:25',
         	'clinic_phone' =>'required|max:16',
         	'street' => 'required|max:100'
-        ]);
+        ]));
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
@@ -111,6 +114,6 @@ class ClinicsController extends Controller
             }
         }
 
-        return response()->json($resource, 200);
+        return response()->json($resource->load('address'), 200);
     }
 }

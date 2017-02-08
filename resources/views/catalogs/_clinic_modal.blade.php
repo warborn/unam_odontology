@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-primary catalog" id="clinic-btn">Agregar Clinica</button>
+<button type="button" class="btn btn-primary catalog" id="clinics-btn">Agregar Clinica</button>
 
-<div class="modal fade" id="clinic-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="clinics-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,28 +9,31 @@
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form id="clinic-form" class="modal-form">
+					<form id="clinics-form" class="modal-form">
 						<div class="form-group" id="clinic_id">
 							<input type="text" name="clinic_id" placeholder="Nombre" class="form-control">
 						</div>
 
-						<div class="form-group">
-							<input type="text" name="postal_code" placeholder="Código postal" class="form-control" id="postal-code">
+						<div class="form-group" id="postal_code">
+							<input type="text" name="postal_code" placeholder="Código postal" class="form-control" id="postal-code-input">
 						</div>
 
-						<div class="form-group">
-							<select class="form-control" name="state" id="state" readonly>
+						<div class="form-group" id="state">
+							<select class="form-control" name="state" id="state-input" readonly>
+								<option selected="true" disabled="disabled">Estado</option>
 							</select>
 							<input type="hidden" name="state" />
 						</div>
 
-						<div class="form-group">
-							<select class="form-control" name="municipality" id="municipality" readonly>
+						<div class="form-group" id="municipality">
+							<select class="form-control" name="municipality" id="municipality-input" readonly>
+								<option selected="true" disabled="disabled">Municipio</option>
 							</select>
 						</div>
 
-						<div class="form-group">
-							<select class="form-control" name="settlement" id="settlement">
+						<div class="form-group" id="settlement">
+							<select class="form-control" name="settlement" id="settlement-input">
+								<option selected="true" disabled="disabled">Colonia</option>
 							</select>
 						</div>
 

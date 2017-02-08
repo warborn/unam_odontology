@@ -11,42 +11,42 @@ class FederalEntitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\FederalEntity::class, 3)->make()->each(function($entity) {
+        // factory(App\FederalEntity::class, 3)->make()->each(function($entity) {
+        //     $entity->generatePK();
+        //     $entity->save();
+        //     $entity = $entity->fresh();
+        // 	$entity->addresses()->saveMany(factory(App\Address::class, 5)->make()->each(function($address) {
+        //         $address->generatePK();
+        //     }));
+        // });
+
+        $keys = ['federal_entity_name'];
+        $results = getRowsFromCsv('federal_entities.csv', $keys);
+
+        foreach ($results as $row) {
+            $entity = new App\FederalEntity($row);
             $entity->generatePK();
             $entity->save();
-            $entity = $entity->fresh();
-        	$entity->addresses()->saveMany(factory(App\Address::class, 5)->make()->each(function($address) {
-                $address->generatePK();
-            }));
-        });
+        }
 
-        // $keys = ['federal_entity_name'];
-        // $results = getRowsFromCsv('federal_entities.csv', $keys);
+        $keys = ['postal_code', 'settlement', 'municipality'];
+        $results = getRowsFromCsv('addresses_mexico.csv', $keys, "|");
 
-        // foreach ($results as $row) {
-        //     $entity = new App\FederalEntity($row);
-        //     $entity->generatePK();
-        //     $entity->save();
-        // }
+        foreach ($results as $row) {
+            $entity = App\Address::firstOrNew($row);
+            $entity->generatePK();
+            $entity->federal_entity_id = 'ETAMXI';
+            $entity->save();
+        }
 
-        // $keys = ['postal_code', 'settlement', 'municipality'];
-        // $results = getRowsFromCsv('addresses_mexico.csv', $keys, "|");
+        $results = getRowsFromCsv('addresses_df.csv', $keys, "|");
 
-        // foreach ($results as $row) {
-        //     $entity = App\Address::firstOrNew($row);
-        //     $entity->generatePK();
-        //     $entity->federal_entity_id = 'ETAMXI';
-        //     $entity->save();
-        // }
-
-        // $results = getRowsFromCsv('addresses_df.csv', $keys, "|");
-
-        // foreach ($results as $row) {
-        //     $entity = App\Address::firstOrNew($row);
-        //     $entity->generatePK();
-        //     $entity->federal_entity_id = 'DTRFER';
-        //     $entity->save();
-        // }
+        foreach ($results as $row) {
+            $entity = App\Address::firstOrNew($row);
+            $entity->generatePK();
+            $entity->federal_entity_id = 'DTRFER';
+            $entity->save();
+        }
 
     }
 }

@@ -39,7 +39,7 @@ class CatalogsController extends Controller
         $singulars = ['groups' => 'group', 'periods' => 'period', 
                         'subjects' => 'subject', 'privileges' => 'privilege', 
                         'roles' => 'role', 'federal-entities' => 'federal-entity',
-                        'diseases' => 'diseases', 'addresses' => 'address', 
+                        'diseases' => 'disease', 'addresses' => 'address', 
                         'clinics' => 'clinic'];
     	return view('catalogs._' . $singulars[$view] . '_modal');
     }

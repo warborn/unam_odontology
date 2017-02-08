@@ -6,10 +6,10 @@ jQuery(function ($) {
 });
 
 var options = {
-	postalCode: $('#postal-code'),
-	state: $('#state'),
-	municipality: $('#municipality'),
-	settlement: $('#settlement')
+	postalCode: $('#postal-code-input'),
+	state: $('#state-input'),
+	municipality: $('#municipality-input'),
+	settlement: $('#settlement-input')
 }
 
 if(options.settlement.html() == '' && options.postalCode.val() && options.postalCode.val().length == 5) {
@@ -37,7 +37,7 @@ function fillSelect(input, options, selected) {
 }
 
 
-function addressByPostalCode(options, postalCode) {
+function addressByPostalCode(options, postalCode, settlement) {
 	$.ajax({
 		dataType: 'json',
 		method: 'get',
@@ -47,7 +47,7 @@ function addressByPostalCode(options, postalCode) {
 			console.log(response);
 			fillSelect(options.state, {list: response.states, value: 'federal_entity_id', content: 'federal_entity_name'}, response.state);
 			fillSelect(options.municipality, {list: response.municipalities, value: 'municipality', content: 'municipality'}, response.municipality);
-			fillSelect(options.settlement, {list: response.settlements, value: 'settlement', content: 'settlement'});
+			fillSelect(options.settlement, {list: response.settlements, value: 'settlement', content: 'settlement'}, settlement || '');
 		},
 		error: function(response) {
 			console.log(response.responseText);

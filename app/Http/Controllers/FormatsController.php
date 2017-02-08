@@ -243,10 +243,11 @@ class FormatsController extends Controller
         if($request->has_disease && isset($request->general_disease)) {
             $general_disease = Disease::find($request->general_disease);
         }
-        // dd($request->all());
+        
         $address = Address::fromFields($request);
 
         if($address && $dental_disease && (!$request->has_disease || $general_disease || $request->other_disease)) {
+            // dd($address);
             // update user personal information 
             $patient = $format->patient;
             $patient->user->personal_information->update(array_merge(['address_id' => $address->address_id], $request->all()));

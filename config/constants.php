@@ -59,18 +59,18 @@ return [
 		'destroy' => 'BAJANA'
 	],
 	'diseases'  => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'   => 'CULEME',
+		'store'   => 'ALTERM',
+		'show'    => 'CULEME',
+		'update'  => 'MFIERM',
+		'destroy' => 'BAJERM'
 	],
 	'clinics'  => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'   => 'CULCNI',
+		'store'   => 'ALTCNI',
+		'show'    => 'CULCNI',
+		'update'  => 'MFICNI',
+		'destroy' => 'BAJCNI'
 	],
 	'addresses'  => [
 		'index'   => '',

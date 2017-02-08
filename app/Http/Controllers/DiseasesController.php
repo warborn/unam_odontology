@@ -11,6 +11,8 @@ class DiseasesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:diseases');
+        $this->middleware('privileges.catalogs:diseases', ['only' => 'index']);
     }
     
     /**

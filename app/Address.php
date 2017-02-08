@@ -17,7 +17,7 @@ class Address extends Model
     }
 
     public function scopeFromFields($query, $request) {
-      return Address::where('federal_entity_id', $request->state)
+      return $query->where('federal_entity_id', $request->state)
               ->where('municipality', $request->municipality)
               ->where('settlement', $request->settlement)
               ->where('postal_code', $request->postal_code)
