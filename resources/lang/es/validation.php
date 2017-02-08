@@ -188,6 +188,7 @@ return [
         'period_start_date' => 'fecha de inicio del periodo',
         'period_end_date' => 'fecha de termino del periodo',
         // Subjects
+        'subject_id' => 'campo clave de asignatura',
         'subject_name' => 'nombre de la asignatura',
         'semester' => 'semestre',
         // Users

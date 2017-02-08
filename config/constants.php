@@ -52,11 +52,11 @@ return [
 		'destroy' => 'BAJPIOEOL'
 	],
 	'subjects'  => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'   => 'CULAAT',
+		'store'   => 'ALTANA',
+		'show'    => 'CULAAT',
+		'update'  => 'MFIANA',
+		'destroy' => 'BAJANA'
 	],
 	'diseases'  => [
 		'index'   => '',

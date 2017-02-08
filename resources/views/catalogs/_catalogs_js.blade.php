@@ -208,7 +208,6 @@ function attachUpdateEvent(elements, callback) {
 		var $form = $modal.find('.modal-form');
 		$form.attr('data-action', 'update');
 		$form.attr('data-id', id);
-		console.log(id);
 		showCatalog(catalog, id, function(response) {
 			var excluded = ['created_at', 'updated_at'];
 			var entity = response;

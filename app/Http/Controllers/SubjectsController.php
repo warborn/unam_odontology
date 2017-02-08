@@ -11,6 +11,8 @@ class SubjectsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:subjects');
+        $this->middleware('privileges.catalogs:subjects', ['only' => 'index']);
     }
     
     /**
@@ -32,7 +34,8 @@ class SubjectsController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->makeValidation($request);
+        $validations = ['subject_id' => 'required|unique:subjects|max:15'];
+        return $this->makeValidation($request, $validations);
     }
 
     /**
@@ -55,7 +58,8 @@ class SubjectsController extends Controller
      */
     public function update(Request $request, Subject $subject)
     {
-        return $this->makeValidation($request, $subject);
+        $validations = ['subject_id' => "required|unique:subjects,subject_id,{$subject->subject_id},subject_id|max:15"];
+        return $this->makeValidation($request, $validations, $subject);
     }
 
     /**
@@ -70,25 +74,26 @@ class SubjectsController extends Controller
         return response()->json($subject);
     }
 
-    private function makeValidation(Request $request, $resource = null) 
+    private function makeValidation(Request $request, $validations = [], $resource = null) 
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), array_merge($validations, [
             'subject_name' => 'required',
             'semester' => 'required|max:3' 
-        ]);
+        ]));
 
         if($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
         
-        $values = ['subject_name' => $request->subject_name,
+        $values = ['subject_id' => $request->subject_id,
+                   'subject_name' => $request->subject_name,
                    'semester' => $request->semester];
 
         if(isset($resource)) {
             $resource->update($values);
         } else {
             $resource = new Subject($values);
-            $resource->generatePK();
+            // $resource->generatePK();
             $resource->save();
         }
 
