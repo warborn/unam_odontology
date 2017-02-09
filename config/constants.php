@@ -73,11 +73,11 @@ return [
 		'destroy' => 'BAJCNI'
 	],
 	'addresses'  => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'   => 'CULDCI',
+		'store'   => 'ALTDCC',
+		'show'    => 'CULDCI',
+		'update'  => 'MFIDCC',
+		'destroy' => 'BAJDCC'
 	],
 	'federal-entities'  => [
 		'index'   => '',

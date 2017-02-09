@@ -4,6 +4,7 @@
 <script>
 $tableHeaderRow = $('#table-header-row');
 $tableBody = $('#table-content');
+account = {};
 
 function flatInnerObject(object, innerObject) {
 	for(var property in object[innerObject]) {
@@ -227,7 +228,7 @@ function attachUpdateEvent(elements, callback) {
 			keys.forEach(function(key) {
 				$('#' + catalog + '-form [name=' + key + ']').val(entity[key]);
 			});
-			if(catalog == 'clinics') {
+			if(catalog == 'clinics' || catalog == 'addresses') {
 				addressByPostalCode(options, options.postalCode.val(), response.settlement);
 			}
 		});
@@ -272,6 +273,8 @@ function getCatalogs(catalog) {
 					translated = translateProperty(str) || str;
 					return translated.split('_').map(capitalize).join(' ');
 			});
+
+			account.privileges = response.privileges;
 			
 			$actionColumns = [response.privileges.update, response.privileges.destroy]
 				.filter(function(value) { return value; })
@@ -301,7 +304,7 @@ function createCatalog(form, catalog) {
 	var $formGroups = removeErrors(form);
 
 	var success = function(response) {
-		var $tr = createCatalogRow(catalog, response);
+		var $tr = createCatalogRow(catalog, response, account.privileges);
 		$tableBody.append($tr);
 		$('#' + catalog + '-modal').modal('hide');
 		swal("¡Se ha agregado un nuevo registro!", null, "success");
@@ -400,6 +403,7 @@ function setupCatalogsListBinding(catalog) {
 		},
 		error: function(response) {
 			console.log(response.responseText);
+			$('#catalog-container').html('');
 		}
 	});
 } 

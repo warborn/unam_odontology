@@ -12,20 +12,24 @@ class AddressesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:addresses', ['except' => 'index_by_postal_code']);
+        $this->middleware('privileges.catalogs:addresses', ['only' => 'index']);
     }
 
     public function index_by_postal_code($code)
     {
         $addresses = Address::where('postal_code', $code)->get();
-        $state = $municipality = null;
+        $states = $state = $municipality = null;
         if(count($addresses) > 0) {
             $state = $addresses[0]->federal_entity_id;
             $municipality = $addresses[0]->municipality;
+            $states = FederalEntity::where('federal_entity_id', $state)->get();
         }
 
         return response()->json([
-            'states' => FederalEntity::all(),
-            'municipalities' => Address::where('federal_entity_id', $state)->where('postal_code', $code)->get(),
+            // 'states' => FederalEntity::all(),
+            'states' => ($states !== null ? $states : FederalEntity::all()),
+            'municipalities' => Address::select('municipality')->distinct()->where('federal_entity_id', $state)->where('postal_code', $code)->get(),
             'settlements' => $addresses,
             'state' => $state,
             'municipality' => $municipality
@@ -39,7 +43,7 @@ class AddressesController extends Controller
      */
     public function index()
     {
-        $addresses = Address::all();
+        $addresses = Address::limit(20)->orderBy('created_at', 'DESC')->get();
         return $addresses->toJson();
     }
 

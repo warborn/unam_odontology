@@ -13,7 +13,7 @@ class CreateFederalEntitiesTable extends Migration
     public function up()
     {
         Schema::create('federal_entities', function (Blueprint $table) {
-            $table->string('federal_entity_id', 20)->primary('id_federal_entity');
+            $table->string('federal_entity_id', 35)->primary('id_federal_entity');
             $table->string('federal_entity_name', 35);
             $table->timestamps();
         });

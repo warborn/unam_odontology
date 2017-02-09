@@ -26,7 +26,7 @@ class ActivationService
 		$message = sprintf('Activa tu cuenta %s', $link, $link);
 
 		$this->mailer->raw($message, function(Message $m) use ($user) {
-			$m->to($user->personal_information->email)->subject('Activation de cuenta');
+			$m->to($user->personal_information->email)->subject('Activación de cuenta');
 		});
 	}
 
