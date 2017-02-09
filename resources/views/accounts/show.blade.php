@@ -7,7 +7,7 @@
 	<div class="col-sm-12 col-md-12 col-lg-12">
 		<h3>Cuenta: {{$account->user->user_id}}</h3>
 
-		@if(account()->allow_action('accounts.store_role') && count($roles) > 0)
+		@if(account()->allow_action('accounts.store_role') && account()->can_action_over($account) && count($roles) > 0)
 		{{ Form::open(['action' => ['AccountsController@store_role', $account->user_id], 'class' => 'form-inline', ]) }}
 		<div class="form-group">
 			{{ Form::select('role_id', $roles, null, ['class' => 'form-control'] )}}
@@ -57,6 +57,7 @@
 				<tr>
 					<td>{{$privilege['privilege_id']}} - {{$privilege['privilege_name']}}</td>
 					<td>
+					@if(account()->can_action_over($account))
 						@if($privilege['status'] == 'enabled' && account()->allow_action('accounts.store_disabled_privilege'))
 						<form action="{{url('accounts/' . $account->user_id . '/privileges/' . $privilege_id  )}}" method="POST">
 							<input type="submit" value="Deshabilitar" class="btn btn-danger">
@@ -68,6 +69,7 @@
 						</form>
 						@endif
 					</td>
+					@endif
 				</tr>			
 			@endforeach
 			</tbody>
@@ -75,7 +77,7 @@
 	</div>
 
 @if($account->isActive())
-	@if(account()->allow_action('accounts.deactivate'))
+	@if(account()->allow_action('accounts.deactivate') && account()->can_action_over($account))
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseDeactiveForm" aria-expanded="false" aria-controls="collapseExample">
@@ -115,7 +117,7 @@
 	</div>
 	@endif
 @else
-	@if(account()->allow_action('accounts.activate'))
+	@if(account()->allow_action('accounts.activate') && account()->can_action_over($account))
 	<div class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
 			<form action="{{url('accounts/' . $account->user_id . '/activate')}}" method="POST">

@@ -143,14 +143,14 @@ return [
 	// Role assignation privileges
 	'role' => [
 		'store'   => [
-			'super_user'    => '',
+			'super_user'    => 'AGNROLSPEU',
 			'administrator' => 'AGNROLASTC',
 			'teacher'       => 'AGNROLPFEC',
 			'intern'        => 'AGNROLPANC',
 			'student'       => 'AGNROLEDIC',
 		],
 		'destroy' => [
-			'super_user'    => '',
+			'super_user'    => 'BAJROLSPEU',
 			'administrator' => 'BAJROLASTC',
 			'teacher'       => 'BAJROLPFEC',
 			'intern'        => 'BAJROLPANC',

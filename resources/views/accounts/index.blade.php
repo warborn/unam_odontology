@@ -22,7 +22,7 @@
 	</thead>
 	<tbody>
 	@foreach($accounts as $account)
-		@if(!$account->is(account()))
+		@if(!$account->is(account()) && account()->can_action_over($account))
 		<tr>
 			<td>{{$account->user->user_id}}</td>
 			<td>{{$account->user->personal_information->fullname()}}</td>

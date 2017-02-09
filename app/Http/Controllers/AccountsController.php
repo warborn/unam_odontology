@@ -30,7 +30,7 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $accounts = Account::notPatient()->with('user.personal_information')->get();
+        $accounts = Account::notPatient()->fromClinic(clinic())->with('user.personal_information')->get();
         return View('accounts.index')->with('accounts', $accounts);
     }
 

@@ -205,4 +205,8 @@ class Account extends Model
                     return $this->allow_action($catalog_name . '.' . $action); 
         })->toArray();
     }
+
+    public function can_action_over($another_account) {
+        return !$another_account->has_role('super_user') || ($another_account->has_role('super_user') && account()->has_role('super_user'));
+    }
 }

@@ -17,7 +17,7 @@ class CheckAccountOwner
     {
         $account = \App\Account::from($request->route('user')->user_id, clinic()->clinic_id);
 
-        if($account->is(account()) || $account->is_patient()) {
+        if($account->is(account()) || $account->is_patient() || !account()->can_action_over($account)) {
             return redirect()->route('accounts.index');
         }
 
