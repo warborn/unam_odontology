@@ -13,6 +13,8 @@ class RolesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:roles');
+        $this->middleware('privileges.catalogs:roles', ['only' => 'index']);
     }
     
     /**

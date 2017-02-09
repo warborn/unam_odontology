@@ -12,6 +12,8 @@ class FederalEntitiesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('privileges:federal-entities');
+        $this->middleware('privileges.catalogs:federal-entities', ['only' => 'index']);
     }
     
     /**

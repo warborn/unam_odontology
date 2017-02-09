@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-primary catalog" id="privilege-btn">Agregar Privilegio</button>
+<button type="button" class="btn btn-primary catalog" id="privileges-btn">Agregar Privilegio</button>
 
-<div class="modal fade" id="privilege-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="privileges-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form id="privilege-form" class="modal-form">
+					<form id="privileges-form" class="modal-form">
 						<div class="form-group" id="privilege_name">
 							<input type="text" name="privilege_name" placeholder="Nombre del privilegio" class="form-control">
 						</div>

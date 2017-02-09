@@ -1,6 +1,6 @@
-<button type="button" class="btn btn-primary catalog" id="role-btn">Agregar Rol</button>
+<button type="button" class="btn btn-primary catalog" id="roles-btn">Agregar Rol</button>
 
-<div class="modal fade" id="role-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="roles-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form id="role-form" class="modal-form">
+					<form id="roles-form" class="modal-form">
 						<div class="form-group" id="role_name">
 							<input type="text" name="role_name" placeholder="Nombre del rol" class="form-control">
 						</div>

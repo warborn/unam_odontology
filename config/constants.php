@@ -5,7 +5,7 @@
 return [
 	// Account privileges
 	'accounts' => [
-		'index'    					 => 'CULCNT',
+		'index'    					         => 'CULCNT',
 		'show'                       => 'CULCNT',
 		'store_role'                 => 'AGNROLCEN',
 		'destroy_role'               => 'BAJROLCEN',
@@ -32,9 +32,9 @@ return [
 	],
 	// Catalogs privileges
 	'catalogs' => [
-		'index' => 'CULCLO',
-		'display' => 'CULCLO',
-		'address_js' => 'CULCLO',
+		'index'             => 'CULCLO',
+		'display'           => 'CULCLO',
+		'address_js'        => 'CULCLO',
 		'datetimepicker_js' => 'CULCLO'
 	],
 	'groups' => [
@@ -80,25 +80,28 @@ return [
 		'destroy' => 'BAJDCC'
 	],
 	'federal-entities'  => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'   => 'CULEDAFAT',
+		'store'   => 'ALTEIDFRA',
+		'show'    => 'CULEDAFAT',
+		'update'  => 'MFIEIDFRA',
+		'destroy' => 'BAJEIDFRA'
 	],
 	'roles'  => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'             => 'CULRLE',
+		'store'             => 'ALTROL',
+		'show'              => 'CULRLE',
+		'update'            => 'MFIROL',
+		'destroy'           => 'BAJROL',
+		'index_privileges'  => 'CULPLEROL',
+		'store_privilege'   => 'AGNPILROL',
+		'destroy_privilege' => 'BAJPILROL'
 	],
 	'privileges'  => [
-		'index'   => '',
-		'store'   => '',
-		'show'    => '',
-		'update'  => '',
-		'destroy' => ''
+		'index'   => 'CULPLE',
+		'store'   => 'ALTPIL',
+		'show'    => 'CULPLE',
+		'update'  => 'MFIPIL',
+		'destroy' => 'BAJPIL'
 	],
 	
 

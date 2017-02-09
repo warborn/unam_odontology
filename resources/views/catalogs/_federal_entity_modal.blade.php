@@ -1,8 +1,8 @@
-<button type="button" class="btn btn-primary catalog" id="federal-entity-btn">
+<button type="button" class="btn btn-primary catalog" id="federal-entities-btn">
 	Agregar Entidad Federativa
 </button>
 
-<div class="modal fade" id="federal-entity-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="federal-entities-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -11,7 +11,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="well">
-					<form id="federal-entity-form" class="modal-form">
+					<form id="federal-entities-form" class="modal-form">
 						<div class="form-group" id="federal_entity_name">
 							<input type="text" name="federal_entity_name" placeholder="Nombre" class="form-control">
 						</div>

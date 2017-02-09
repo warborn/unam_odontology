@@ -58,13 +58,17 @@ Consultar Cursos Asignados
 Consultar Cursos Abiertos
 Solicitar Curso
 Gestionar Solicitudes de Curso
+Consultar Privilegios de Rol
 Asignar Rol a Cuenta
 Asignar Privilegio a Rol
+Asignar Rol Super Usuario a Cuenta
 Asignar Rol Administrador a Cuenta
 Asignar Rol Estudiante a Cuenta
 Asignar Rol Pasante a Cuenta
 Asignar Rol Profesor a Cuenta
 Baja de Rol a Cuenta
+Baja de Privilegio a Rol
+Baja Rol Super Usuario a Cuenta
 Baja de Rol Administrador a Cuenta
 Baja de Rol Estudiante a Cuenta
 Baja de Rol Pasante a Cuenta
