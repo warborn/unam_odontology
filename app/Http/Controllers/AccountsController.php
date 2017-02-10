@@ -30,7 +30,7 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $accounts = Account::notPatient()->fromClinic(clinic())->with('user.personal_information')->get();
+        $accounts = Account::activated()->notPatient()->fromClinic(clinic())->with('user.personal_information')->get();
         return View('accounts.index')->with('accounts', $accounts);
     }
 
@@ -44,7 +44,7 @@ class AccountsController extends Controller
     {
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $roles = account()->enabled_role_privileges('role.store')->pluck('role_name','role_id');
-        // $roles = Role::pluck('role_name','role_id');
+
         $roles = $roles->diffKeys($account->roles->pluck('role_name','role_id'));
         $deactivation = ['disabled' => 'deshabilitar', 'deleted' => 'eliminar'];
 
@@ -61,7 +61,7 @@ class AccountsController extends Controller
         if(isset($role) && account()->allow_role_action('role.store', $role)) {
             if(!$account->has_role($role)) {
                 $account->roles()->attach($role->role_id);
-                Movement::register(account(), $account, Privilege::first()); // assign role movement
+                Movement::register(account(), $account, $account->get_action_by_role('store', $role)); // assign role movement
             }
             if(!$account->has_profile($role)) {
                 $account->assign_profile($role);
@@ -79,7 +79,7 @@ class AccountsController extends Controller
         if(isset($role) && account()->allow_role_action('role.destroy', $role)) {
             $account->roles()->detach($role->role_id);
             $account->destroy_disabled_privileges($role);
-            Movement::register(account(), $account, Privilege::first());  // remove role
+            Movement::register(account(), $account, $account->get_action_by_role('destroy', $role));  // remove role
             session()->flash('success', 'El rol fue eliminado correctamente.');
         } else {
             session()->flash('danger', 'Hubo un problema al eliminar el rol.');
@@ -90,14 +90,14 @@ class AccountsController extends Controller
     public function store_disabled_privilege(User $user, Privilege $privilege) {
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->disabledPrivileges()->attach($privilege->privilege_id);
-        Movement::register(account(), $account, Privilege::first());  // disable privilege
+        Movement::register(account(), $account, 'accounts.store_disabled_privilege');  // disable privilege
         return redirect()->back();
     }
 
     public function destroy_disabled_privilege(User $user, Privilege $privilege) {
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->disabledPrivileges()->detach($privilege->privilege_id);
-        Movement::register(account(), $account, Privilege::first());  // enable privilege
+        Movement::register(account(), $account, 'accounts.destroy_disabled_privilege');  // enable privilege
         return redirect()->back();
     }
 
@@ -119,7 +119,7 @@ class AccountsController extends Controller
         }
 
         $account->inactiveAccount()->save(new InactiveAccount($request->all()));
-        Movement::register(account(), $account, Privilege::first());  // inactivate account
+        Movement::register(account(), $account, 'accounts.deactivate');  // inactivate account
         session()->flash('success', 'Se ha desactivado esta cuenta correctamente.');
         return redirect()->back();
     }
@@ -127,7 +127,7 @@ class AccountsController extends Controller
     public function activate(User $user) {
         $account = Account::from($user->user_id, clinic()->clinic_id);
         $account->inactiveAccount()->delete();
-        Movement::register(account(), $account, Privilege::first());  // activate account
+        Movement::register(account(), $account, 'accounts.activate');  // activate account
         session()->flash('success', 'Se ha activado esta cuenta correctamente.');
         return redirect()->back();
     }

@@ -20,6 +20,7 @@ use App\Course;
 use App\Clinic;
 use App\Account;
 use App\FormatRegistrationForm;
+Use App\Movement;
 use Carbon\Carbon;
 
 class FormatsController extends Controller
@@ -28,6 +29,7 @@ class FormatsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('privileges:formats');
+        $this->middleware('check.clinic:format', ['except' => ['index', 'create', 'store']]);
     }
     
     /**
@@ -146,6 +148,7 @@ class FormatsController extends Controller
             }
 
             $format->save();
+            Movement::register(account(), $account, 'formats.store'); // store format
             
             session()->flash('success', 'El formato se creo correctamente.');
         } else {
@@ -156,10 +159,11 @@ class FormatsController extends Controller
 
     public function store_student(Request $request, Format $format)
     {
-        $course = Course::find($request->course_id);
+        $course = Course::fromClinic(clinic())->find($request->course_id);
         $student = Student::find($request->user_id);
-        if(isset($course) && isset($student)) {
+        if(isset($course) && isset($student) && $course->has_student($student) && !$format->has_student($student)) {
             $format->students()->attach($student->user_id, ['course_id' => $course->course_id]);
+            Movement::register(account(), $student->account(clinic()), 'formats.store_student'); // store format
             session()->flash('success', 'El alumno fue asignado correctamente.');
         } else {
             session()->flash('danger', 'Hubo un problema al asignar al alumno.');
@@ -286,6 +290,7 @@ class FormatsController extends Controller
             }
 
             $format->update($values);
+            Movement::register(account(), $patient->account(clinic()), 'formats.update'); // update format
             
             session()->flash('success', 'El formato se modifico correctamente.');
         } else {
@@ -314,8 +319,11 @@ class FormatsController extends Controller
 
     public function destroy_student(Format $format, Student $student)
     {
-        $format->students()->detach($student->user_id);
-        session()->flash('success', 'El alumno fue eliminado correctamente.');
+        if($format->has_student($student)) {
+            $format->students()->detach($student->user_id);
+            Movement::register(account(), $student->account(clinic()), 'formats.destroy_student'); // store format
+            session()->flash('success', 'El alumno fue eliminado correctamente.');
+        }
         return redirect()->back();
     }
 }

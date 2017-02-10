@@ -16,7 +16,7 @@ class MovementsController extends Controller
     }
     
     public function index() {
-    	$movements = Movement::all();
+    	$movements = Movement::orderBy('timestamp', 'DESC')->get();
     	return View('movements.index')->with('movements', $movements);
     }
 }

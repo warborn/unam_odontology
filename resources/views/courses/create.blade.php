@@ -5,9 +5,9 @@
 {{ Form::open(['action' => ['CoursesController@store']]) }}
 <div class="form-group">
 	{{Form::label('Grupo')}}: 
-	{{ Form::select('group_id', $groups, null, ['class' => 'form-control'] )}}<br>
-	{{Form::label('Periodo')}}: {{ Form::select('period_id', $periods, null, ['class' => 'form-control'] )}}<br>
-	{{Form::label('Asignatura')}}: {{ Form::select('subject_id', $subjects, null, ['class' => 'form-control'] )}}<br>
+	{{ Form::select('group_id', $groups, old('group_id'), ['class' => 'form-control'] )}}<br>
+	{{Form::label('Periodo')}}: {{ Form::select('period_id', $periods, old('period_id'), ['class' => 'form-control'] )}}<br>
+	{{Form::label('Asignatura')}}: {{ Form::select('subject_id', $subjects, old('subject_id'), ['class' => 'form-control'] )}}<br>
 	{{ Form::submit('Crear curso', ['class' => 'btn btn-success form-control'])}}
 </div>
 {{Form::close() }}

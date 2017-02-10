@@ -160,7 +160,7 @@ class Account extends Model
     }
 
     public function scopeNotPatient($query) {
-        return $query->where('user_id', 'NOT LIKE', '_PAS_%');
+        return $query->where('users.user_id', 'NOT LIKE', '_PAS_%');
     }
 
     public function scopeActivated($query)
@@ -189,13 +189,7 @@ class Account extends Model
     // Check if account has privilege to assisn or eliminate role from another account
     public function allow_role_action($type, $role) 
     {
-        $role_constants = [$this->get_role_id('super_user') => 'super_user',
-            $this->get_role_id('administrator') => 'administrator',
-            $this->get_role_id('teacher') => 'teacher',
-            $this->get_role_id('intern') => 'intern',
-            $this->get_role_id('student') => 'student'];
-
-        return $this->allow_action($type . '.' . $role_constants[$role->role_id]);
+        return $this->allow_action($type . '.' . $this->map_role_alias($role));
     }
 
     public function get_catalog_privileges($catalog_name) 
@@ -208,5 +202,20 @@ class Account extends Model
 
     public function can_action_over($another_account) {
         return !$another_account->has_role('super_user') || ($another_account->has_role('super_user') && account()->has_role('super_user'));
+    }
+
+    public function get_action_by_role($type, $role) {
+        return 'role.' . $type . '.' . $this->map_role_alias($role); 
+    }
+
+    // Map role id with the corresponding role alias
+    // ['SPEUAR' => 'super_user']
+    private function map_role_alias($role) {
+        $role_constants = [$this->get_role_id('super_user') => 'super_user',
+            $this->get_role_id('administrator') => 'administrator',
+            $this->get_role_id('teacher') => 'teacher',
+            $this->get_role_id('intern') => 'intern',
+            $this->get_role_id('student') => 'student'];
+        return $role_constants[$role->role_id];
     }
 }

@@ -48,5 +48,12 @@ class Format extends Model
     public function filled_by(Intern $intern) {
         return $this->intern->getKey() == $intern->getKey();
     }
+
+    public function has_student(Student $student) {
+        return \DB::table('format_student')
+            ->where('format_id', $this->format_id)
+            ->where('user_id', $student->user_id)
+            ->count() > 0;
+    }
 }
 

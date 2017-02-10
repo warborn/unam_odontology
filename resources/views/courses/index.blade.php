@@ -14,10 +14,10 @@
 			<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Curso</th>
-					<th>Grupo</th>
 					<th>Periodo</th>
 					<th>Asignatura</th>
+					<th>Grupo</th>
+					<th># Estudiantes</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
@@ -26,10 +26,10 @@
 			<tbody>
 				@foreach($courses as $course)
 				<tr>
-					<td>{{$course->course_id}}</td>
-					<td>{{$course->group_id}}</td>
 					<td>{{$course->period->period_id}}</td>
-					<td>{{$course->subject->subject_name}}</td>
+					<td>[{{$course->subject->subject_id}}] {{$course->subject->subject_name}}</td>
+					<td>{{$course->group_id}}</td>
+					<td>{{$course->students_count}}</td>
 					<td><a class="btn btn-success" href="{{ url('/courses/' . $course->course_id) }}">Mostrar</a></td>
 
 					@if(account()->allow_action('courses.edit'))

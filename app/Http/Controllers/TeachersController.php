@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Course;
 use App\Teacher;
 use App\Student;
+use App\Movement;
 
 class TeachersController extends Controller
 {
@@ -16,6 +17,7 @@ class TeachersController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('privileges:teachers');
+        $this->middleware('check.clinic:course', ['only' => ['show_course', 'update_student_status']]);
     }
     
     /**
@@ -104,6 +106,7 @@ class TeachersController extends Controller
         if($request->status == 'accepted' || $request->status == 'rejected') {
             if($course->has_student($student)) {            
                 $course->students()->updateExistingPivot($student->user_id, ['status' => $request->status]);
+                // Movement::register(account(), $student->account(clinic()), 'teachers.update_student_status');
             }
         }
         return redirect()->back();

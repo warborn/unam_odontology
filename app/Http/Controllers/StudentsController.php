@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Course;
 use App\Student;
+use App\Movement;
 
 class StudentsController extends Controller
 {
@@ -15,6 +16,7 @@ class StudentsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('privileges:students');
+        $this->middleware('check.clinic:course', ['except' => ['index_courses', 'index_accepted_courses']]);
     }
     
     /**
@@ -102,13 +104,14 @@ class StudentsController extends Controller
     }
 
     public function index_accepted_courses(Student $student) {
-        return response()->json($student->courses()->where('status', 'accepted')->get()->load('subject'));
+        return response()->json($student->courses()->fromClinic(clinic())->where('status', 'accepted')->get()->load('subject'));
     }
 
     public function store_course(Course $course) {
         $student = Auth::user()->student;
         if(!$course->has_student($student)) {            
             $course->students()->attach($student->user_id);
+            Movement::register(account(), null, 'students.store_course');
         }
         return redirect()->back();
     }
@@ -117,6 +120,7 @@ class StudentsController extends Controller
         $student = Auth::user()->student;
         if($course->has_student($student)) {
             $course->students()->detach($student->user_id);
+            Movement::register(account(), null, 'students.destroy_course');
         }
         return redirect()->back();
     }

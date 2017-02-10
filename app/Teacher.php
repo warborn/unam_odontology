@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
+    use AccountTrait;
+    
     public $incrementing = false;
     public $primaryKey = 'user_id';
     protected $fillable = ['user_id', 'rfc'];

@@ -5,21 +5,32 @@
 <table class="table table-hover table-striped">
 	<thead>
 		<tr>
-			<th>Nombre de Usuario</th>
-			<th>Nombre de Usuario Afectado</th>
-			<th>IP</th>
+			<th>Realizó</th>
+			<th>Afectado</th>
 			<th>Fecha</th>
-			<th>Descripción del movimiento</th>
+			<th>Movimiento</th>
+			<th>IP</th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach($movements as $movement)
 		<tr>
-			<td>{{$movement->maker_account->user->user_id}}</td>
-			<td>{{$movement->receiver_account->user->user_id}}</td>
-			<td>{{$movement->ip}}</td>
+			<td>[{{$movement->maker_account->user->user_id}}] {{$movement->maker_account->user->personal_information->fullname()}}</td>
+			<td>
+			@if(!isset($movement->receiver_account))
+			&nbsp;
+			@else
+				@if($movement->receiver_account->is_patient())
+				[*PACIENTE]
+				@else
+				[{{$movement->receiver_account->user->user_id}}]
+				@endif
+			{{$movement->receiver_account->user->personal_information->fullname()}}
+			@endif
+			</td>
 			<td>{{$movement->timestamp}}</td>
 			<td>{{$movement->privilege->privilege_name}}</td>
+			<td>{{$movement->ip}}</td>
 		</tr>
 		@endforeach
 	</tbody>

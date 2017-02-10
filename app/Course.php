@@ -51,4 +51,17 @@ class Course extends Model
     public function scopeFromClinic($query, $clinic) {
         return $query->where('courses.clinic_id', $clinic->clinic_id);
     }
+
+    public function have_teacher($user) {
+        return \DB::table('course_teacher')
+            ->where('course_id', $this->course_id)
+            ->where('user_id', $user->user_id)
+            ->count() > 0;
+    }
+
+    public function scopeWithData($query, $request) {
+        return $query->where('subject_id', $request->subject_id)
+                    ->where('group_id', $request->group_id)
+                    ->where('period_id', $request->period_id);
+    }
 }

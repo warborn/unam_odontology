@@ -31,10 +31,11 @@ class Movement extends Model
         return $this;
     }
 
-    public static function register($maker_account, $receiver_account, $privilege) {
+    public static function register($maker_account, $receiver_account, $action_name) {
+        $privilege_id = config('constants.' . $action_name);
         return Movement::create(['maker_account_id' => $maker_account->account_id, 
-                                 'receiver_account_id' => $receiver_account->account_id, 
-                                 'ip' => request()->ip(), 'privilege_id' => $privilege->privilege_id, 
+                                 'receiver_account_id' => ($receiver_account !== null ? $receiver_account->account_id : null), 
+                                 'ip' => request()->ip(), 'privilege_id' => $privilege_id, 
                                  'timestamp' => new Carbon()]);
     }
 }

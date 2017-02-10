@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
 {
+    use AccountTrait;
+    
     public $incrementing = false;
     public $primaryKey = 'user_id';
     protected $fillable=['age', 'ocupation', 'school_grade', 'civil_status', 'phone', 'has_medical_service', 'medical_service', 'other_medical_service'];

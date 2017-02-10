@@ -50,7 +50,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'account' => \App\Http\Middleware\CheckAccountOwner::class,
-        'course' => \App\Http\Middleware\CheckCoursesClinic::class,
+        'check.clinic' => \App\Http\Middleware\CheckClinic::class,
         'privileges' => \App\Http\Middleware\VerifyPrivileges::class,
         'privileges.catalogs' => \App\Http\Middleware\AddCatalogPrivilegesToResponse::class
     ];
