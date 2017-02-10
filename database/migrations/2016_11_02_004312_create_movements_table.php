@@ -14,13 +14,13 @@ class CreateMovementsTable extends Migration
     {
         Schema::create('movements', function (Blueprint $table) {
             $table->datetime('timestamp')->index();
-            $table->string('receiver_account_id', 45)->index();
+            $table->string('receiver_account_id', 45)->nullable()->index();
             $table->foreign('receiver_account_id')->references('account_id')->on('accounts');
             $table->string('maker_account_id', 45)->index();
             $table->foreign('maker_account_id')->references('account_id')->on('accounts');
             $table->string('ip', 16)->index();
             $table->string('privilege_id', 10)->index();
-            $table->foreign('privilege_id')->references('privilege_id')->on('privileges');
+            $table->foreign('privilege_id')->references('privilege_id')->on('privileges')->onUpdate('cascade');
         });
     }
 

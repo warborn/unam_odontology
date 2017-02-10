@@ -87,7 +87,9 @@ class FederalEntitiesController extends Controller
         $values = ['federal_entity_name' => $request->federal_entity_name];
 
         if(isset($resource)) {
-            $resource->update($values);
+            $resource->federal_entity_name = $request->federal_entity_name;
+            $resource->generatePK();
+            $resource->save();
         } else {
             $resource = new FederalEntity($values);
             $resource->generatePK();

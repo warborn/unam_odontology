@@ -22,7 +22,7 @@
 							<select name="type_of_disease" class="form-control">
 								<option selected disabled>Categoria</option>
 								<option value="general" selected>General</option>
-								<option value="odontológica">Odontológica</option>
+								<option value="odontologica">Odontológica</option>
 							</select>
 						</div>
 

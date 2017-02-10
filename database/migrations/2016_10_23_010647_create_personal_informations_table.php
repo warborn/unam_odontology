@@ -22,7 +22,7 @@ class CreatePersonalInformationsTable extends Migration
             $table->string('phone', 16)->nullable();
             $table->string('gender', 1)->nullable();
             $table->string('address_id', 200)->nullable();
-            $table->foreign('address_id')->references('address_id')->on('addresses');
+            $table->foreign('address_id')->references('address_id')->on('addresses')->onUpdate('cascade');
             $table->string('street', 100)->nullable();
             $table->timestamps();
         });

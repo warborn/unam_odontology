@@ -14,6 +14,7 @@ class CreateUserActivationsTable extends Migration
     {
         Schema::create('user_activations', function (Blueprint $table) {
             $table->string('user_id', 20)->primary('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('token')->index();
             $table->timestamp('created_at');
         });

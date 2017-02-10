@@ -14,9 +14,9 @@ class CreateTablePrivilegeRolePivotTable extends Migration
     {
         Schema::create('privilege_role', function(Blueprint $table){
             $table->string('role_id', 10);
-            $table->foreign('role_id')->references('role_id')->on('roles');
+            $table->foreign('role_id')->references('role_id')->on('roles')->onUpdate('cascade');
             $table->string('privilege_id', 10);
-            $table->foreign('privilege_id')->references('privilege_id')->on('privileges');
+            $table->foreign('privilege_id')->references('privilege_id')->on('privileges')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -115,6 +115,11 @@ class RolesController extends Controller
                    'role_description' =>$request->role_description];
 
         if(isset($resource)) {
+            // Make use of update cascade and updates role_id
+            // $resource->role_name = $request->role_name;
+            // $resource->role_description = $request->role_description;
+            // $resource->generatePK();
+            // $resource->save();
             $resource->update($values);
         } else {
             $resource = new Role($values);

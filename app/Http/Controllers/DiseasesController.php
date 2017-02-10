@@ -88,7 +88,7 @@ class DiseasesController extends Controller
             return response()->json($validator->messages(), 422);
         }
 
-        $values = ['disease_name' => $request->disease_name,
+        $values = ['disease_id' => $request->disease_id, 'disease_name' => $request->disease_name,
                    'type_of_disease' => $request->type_of_disease];
 
         if(isset($resource)) {

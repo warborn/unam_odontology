@@ -14,7 +14,7 @@ class CreateCourseTeacherPivotTable extends Migration
     {
         Schema::create('course_teacher', function(Blueprint $table){
             $table->string('course_id', 28);
-            $table->foreign('course_id')->references('course_id')->on('courses');
+            $table->foreign('course_id')->references('course_id')->on('courses')->onUpdate('cascade');
             $table->string('user_id', 20);
             $table->foreign('user_id')->references('user_id')->on('teachers');
             $table->timestamps();

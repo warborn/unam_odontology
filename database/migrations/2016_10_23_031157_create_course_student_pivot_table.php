@@ -16,7 +16,7 @@ class CreateCourseStudentPivotTable extends Migration
             $table->string('user_id', 20);
             $table->foreign('user_id')->references('user_id')->on('students');
             $table->string('course_id', 28);
-            $table->foreign('course_id')->references('course_id')->on('courses');
+            $table->foreign('course_id')->references('course_id')->on('courses')->onUpdate('cascade');
             $table->string('status', 10)->default('pending');
             $table->timestamps();
         });

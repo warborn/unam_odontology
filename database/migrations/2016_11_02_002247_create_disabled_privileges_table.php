@@ -16,7 +16,7 @@ class CreateDisabledPrivilegesTable extends Migration
             $table->string('account_id', 45)->index();
             $table->foreign('account_id')->references('account_id')->on('accounts');
             $table->string('privilege_id', 10);
-            $table->foreign('privilege_id')->references('privilege_id')->on('privileges');
+            $table->foreign('privilege_id')->references('privilege_id')->on('privileges')->onUpdate('cascade');
             $table->timestamps();
         });
     }

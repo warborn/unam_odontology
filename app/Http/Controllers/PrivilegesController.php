@@ -86,6 +86,10 @@ class PrivilegesController extends Controller
         $values = ['privilege_name' => $request->privilege_name];
 
         if(isset($resource)) {
+            // Make use of update cascade and updates role_id
+            // $resource->privilege_name = $request->privilege_name;
+            // $resource->generatePK();
+            // $resource->save();
             $resource->update($values);
         } else {
             $resource = new Privilege($values);

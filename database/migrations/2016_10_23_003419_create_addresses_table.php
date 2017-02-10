@@ -18,7 +18,7 @@ class CreateAddressesTable extends Migration
             $table->string('settlement', 70);
             $table->string('municipality', 70);
             $table->string('federal_entity_id', 35);
-            $table->foreign('federal_entity_id')->references('federal_entity_id')->on('federal_entities');
+            $table->foreign('federal_entity_id')->references('federal_entity_id')->on('federal_entities')->onUpdate('cascade');
             $table->timestamps();
         });
     }
