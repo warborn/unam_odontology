@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Format extends Model
 {
+    use PaginateTrait;
+
     public $incrementing = false;
     public $primaryKey = 'format_id';
     protected $fillable = ['medical_history_number', 'hour_data_fill', 'consultation_reason', 'has_disease', 'other_disease', 'medical_treatment', 'therapeutic_used', 'observations', 'referred_by', 'format_status'];
@@ -49,11 +51,32 @@ class Format extends Model
         return $this->intern->getKey() == $intern->getKey();
     }
 
+    public function scopeFromClinic($query, $clinic) {
+        return $query->where('formats.clinic_id', $clinic->clinic_id);
+    }
+
     public function has_student(Student $student) {
         return \DB::table('format_student')
             ->where('format_id', $this->format_id)
             ->where('user_id', $student->user_id)
             ->count() > 0;
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        $term = trim($term);
+        return $query->join('personal_informations AS intern', 'intern.user_id', '=', 'formats.user_intern_id')
+                     ->join('personal_informations AS patient', 'patient.user_id', '=', 'formats.user_patient_id')
+                     ->where(function($query) use($term) {
+                        $query->where('formats.format_id', $term)
+                              ->orWhere(\DB::raw('CONCAT_WS(" ", intern.name, intern.last_name, intern.mother_last_name)'), 'like', "%{$term}%")
+                              ->orWhere(\DB::raw('CONCAT_WS(" ", patient.name, patient.last_name, patient.mother_last_name)'), 'like', "%{$term}%");
+                     });
+    }
+
+    public function scopeBetween($query, $start_date, $end_date)
+    {
+        return $query->whereBetween('formats.fill_datetime', [$start_date, $end_date]);
     }
 }
 

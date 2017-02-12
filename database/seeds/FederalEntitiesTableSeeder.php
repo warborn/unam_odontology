@@ -44,7 +44,7 @@ class FederalEntitiesTableSeeder extends Seeder
         foreach ($results as $row) {
             $entity = App\Address::firstOrNew($row);
             $entity->generatePK();
-            $entity->federal_entity_id = 'DTRFER';
+            $entity->federal_entity_id = 'CIDMXI';
             $entity->save();
         }
 

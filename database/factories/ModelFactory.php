@@ -182,7 +182,7 @@ $factory->define(App\Format::class, function(Faker\Generator $faker) {
 	return [
 		'format_id'=> $faker->unique()->numerify('F###'),
 		'medical_history_number'=> $faker->unique()->regexify('(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9][0-9][0-9]'),
-		'hour_date_fill'=> $faker->dateTimeThisMonth($max='now'),
+		'fill_datetime'=> $faker->dateTimeThisMonth($max='now'),
 		'consultation_reason'=> $faker->text($maxNbChars = 50),
 		'has_disease'=> 1,
 		'medical_treatment'=> 1,

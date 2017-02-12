@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    use PaginateTrait; 
+    
     public $incrementing = false;
     protected $primaryKey = 'course_id';
     protected $fillable = ['group_id', 'period_id', 'subject_id'];

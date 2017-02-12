@@ -13,7 +13,6 @@ use App\Account;
 use App\Role;
 use App\Movement;
 use App\Http\Requests;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class CoursesController extends Controller
 {
@@ -32,16 +31,16 @@ class CoursesController extends Controller
     public function index(Request $request)
     {
         // Get current page form url e.g. &page=6
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        // Define how many items we want to be visible in each page
-        $perPage = 20;
+        // $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        // // Define how many items we want to be visible in each page
+        // $perPage = 20;
 
-        $courses = Course::fromClinic(clinic())->orderBy('period_id', 'DESC')->orderBy('subject_id', 'DESC')->with('group')->with('period')->with('subject')->withCount('students')->skip(($currentPage - 1) * $perPage)->limit($perPage)->get();
+        $courses = Course::fromClinic(clinic())->orderBy('period_id', 'DESC')->orderBy('subject_id', 'DESC')->with('group')->with('period')->with('subject')->withCount('students')->customPaginate(20, $request);
 
         // Create our paginator and pass it to the view
-        $courses = new LengthAwarePaginator($courses, Course::count(), $perPage);
-        $courses->setPath($request->url());
-        $courses->appends($request->except(['page']));
+        // $courses = new LengthAwarePaginator($courses, Course::count(), $perPage);
+        // $courses->setPath($request->url());
+        // $courses->appends($request->except(['page']));
 
         return View('courses.index')->with('courses', $courses);
     }

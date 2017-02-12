@@ -37,11 +37,26 @@ class FormatsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $intern = account()->user->intern;
-        $formats = Format::orderBy('created_at', 'DESC')->paginate(15);
-        return View('formats.index')->with('formats', $formats);
+        $format_builder = Format::fromClinic(clinic())->select('formats.*');
+
+        if(!empty($request->search)) {
+            $format_builder = $format_builder->search($request->search);
+        } 
+
+        if(!empty($request->start_date) && !empty($request->end_date)) {
+            $format_builder = $format_builder->between($request->start_date, $request->end_date);
+        }
+
+        $search = $request->search;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        $formats = $format_builder->orderBy('formats.fill_datetime', 'DESC')->customPaginate(5, $request, true);
+        
+        return View('formats.index')->with('formats', $formats)->with('search', $search)
+                                    ->with('start_date', $start_date)->with('end_date', $end_date);
     }
 
     /**

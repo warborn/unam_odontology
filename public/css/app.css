@@ -1,3 +1,5 @@
-/*.btn.catalog {
-	display: none;
-}*/
+#search-btn:hover {
+	background-color: #E0E0E0;
+	/*color: white;*/
+	cursor: pointer;
+}

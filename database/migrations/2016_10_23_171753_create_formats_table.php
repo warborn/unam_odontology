@@ -21,7 +21,7 @@ class CreateFormatsTable extends Migration
             $table->string('user_patient_id', 20);
             $table->foreign('user_patient_id')->references('user_id')->on('patients');
             $table->string('medical_history_number', 8);
-            $table->datetime('hour_date_fill');
+            $table->datetime('fill_datetime');
             $table->string('consultation_reason', 70);
             $table->boolean('has_disease')->default(false);
             $table->string('general_disease', 20)->nullable();
