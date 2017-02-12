@@ -1,9 +1,13 @@
 @extends('layouts.app')
 @section('content')
 @include('shared._alerts')
-<!-- in process -->
 <div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+	</div>
+</div>
 
+<div class="row">
 	@if(account()->allow_action('formats.store_student') && count($students) > 0)
 	<div class="remission">
 		{{ Form::open(['action' => ['FormatsController@store_student', $format->format_id]]) }}
@@ -29,8 +33,9 @@
 		{{Form::close() }}
 	</div>
 	@endif
-
+	
 	<div class="col-sm-12 col-md-12 col-lg-12 table-responsive">
+		<h4>Estudiantes Asignados</h4>
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
@@ -68,108 +73,91 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-6">
-		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseDatosGenerales" aria-expanded="false" aria-controls="collapseExample">
-			Datos Generales
-		</button>
-	</div><div class="col-lg-6">
-		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseEstadoGeneral" aria-expanded="false" aria-controls="collapseExample">
-			Estado General
-		</button>
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	<h4>Datos Generales</h4>
+	{{Form::label('Nombre del paciente')}} : {{Form::text('name',$patient->user->personal_information->name.' '.$patient->user->personal_information->last_name.' '.$patient->user->personal_information->mother_last_name,['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-6 col-lg-6 form-group">
+	{{Form::label('Historia clinica')}} : {{Form::text('clinic_history', $format->medical_history_number, ['class'=>'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-6 col-lg-6 form-group">
+	{{Form::label('Genero')}} : {{Form::text('gender',$patient->user->personal_information->gender, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	{{Form::label('Direccion')}} : {{Form::text('street',$patient->user->personal_information->street, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
+	{{Form::label('Codigo postal')}} : {{Form::text('postal_code',$patient->user->personal_information->address->postal_code,['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
+	{{Form::label('Colonia')}} : {{Form::text('settlement',$patient->user->personal_information->address->settlement,['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
+	{{Form::label('Delegacion o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address->municipality,['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
+	{{Form::label('Estado')}} : {{Form::text('federal_entity_id',($patient->personal_information->address ? $patient->personal_information->address->federal_entity_id : null),['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-3 col-lg-3 form-group">
+	{{Form::label('Edad')}} : {{Form::text('age',$patient->age,['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-9 col-lg-9 form-group">
+	{{Form::label('Lugar de nacimiento')}} : {{Form::text('federal_entity_name',($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null), ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
+	{{Form::label('Ocupacion')}} : {{Form::text('ocupation',$patient->ocupation,['class' => 'form-control', 'readonly'] )}}
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
+	{{Form::label('Grado escolar')}} : {{Form::text('school_grade',$patient->school_grade,['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
+	{{Form::label('Estado civil')}} : {{Form::text('civil_status',$patient->civil_status, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	{{Form::label('Telefono')}} : {{Form::text('phone',$patient->user->personal_information->phone, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-3 form-group">
+	{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::text('has_medical_service',($patient->has_medical_service ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
+	{{Form::label('Nombre del servicio medico')}} : {{Form::text('medical_service',$patient->medical_service,['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-5 form-group">
+	{{Form::label('Otro')}} : {{Form::text('other_medical_service', $patient->other_medical_service, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	{{Form::label('Referido por')}} : {{Form::text('referred_by', $format->referred_by , ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	{{Form::label('Motivo de consulta')}} :{{Form::text('consultation_reason', $format->consultation_reason, ['class' => 'form-control', 'readonly'])}}
 	</div>
 </div>
 
 <div class="row">
-	<div class="collapse" id="collapseDatosGenerales">
-		<h3>Datos Generales</h3>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Nombre del paciente')}} : {{Form::text('name',$patient->user->personal_information->name.' '.$patient->user->personal_information->last_name.' '.$patient->user->personal_information->mother_last_name,['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-6 col-lg-6">
-		{{Form::label('Historia clinica')}} : {{Form::text('clinic_history', $format->medical_history_number, ['class'=>'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-6 col-lg-6">
-		{{Form::label('Genero')}} : {{Form::text('gender',$patient->user->personal_information->gender, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Direccion')}} : {{Form::text('street',$patient->user->personal_information->street, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-3 col-lg-3">
-		{{Form::label('Codigo postal')}} : {{Form::text('postal_code',$patient->user->personal_information->address->postal_code,['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-3 col-lg-3">
-		{{Form::label('Colonia')}} : {{Form::text('settlement',$patient->user->personal_information->address->settlement,['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-3 col-lg-3">
-		{{Form::label('Delegacion o Municipio')}} : {{Form::text('municipality',$patient->user->personal_information->address->municipality,['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-3 col-lg-3">
-		{{Form::label('Estado')}} : {{Form::text('federal_entity_id',($patient->personal_information->address ? $patient->personal_information->address->federal_entity_id : null),['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-3 col-lg-3">
-		{{Form::label('Edad')}} : {{Form::text('age',$patient->age,['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-9 col-lg-9">
-		{{Form::label('Lugar de nacimiento')}} : {{Form::text('federal_entity_name',($patient->federalEntity ? $patient->federalEntity->federal_entity_name : null), ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-4">
-		{{Form::label('Ocupacion')}} : {{Form::text('ocupation',$patient->ocupation,['class' => 'form-control', 'readonly'] )}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-4">
-		{{Form::label('Grado escolar')}} : {{Form::text('school_grade',$patient->school_grade,['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-4">
-		{{Form::label('Estado civil')}} : {{Form::text('civil_status',$patient->civil_status, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Telefono')}} : {{Form::text('phone',$patient->user->personal_information->phone, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-3">
-		{{Form::label('¿Cuenta con servicio medico?')}} : {{Form::text('has_medical_service',($patient->has_medical_service ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-4">
-		{{Form::label('Nombre del servicio medico')}} : {{Form::text('medical_service',$patient->medical_service,['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-5">
-		{{Form::label('Otro')}} : {{Form::text('other_medical_service', $patient->other_medical_service, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Referido por')}} : {{Form::text('referred_by', $format->referred_by , ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Motivo de consulta')}} :{{Form::text('consultation_reason', $format->consultation_reason, ['class' => 'form-control', 'readonly'])}}
-		</div>
+	<div class="col-sm-12 col-md-4 col-lg-3 form-group">
+	{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::text('has_disease',($format->has_disease ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
 	</div>
-</div>
-
-<div class="row">
-	<div class="collapse" id="collapseEstadoGeneral">
-		<h3>Estado General</h3>
-		<div class="col-sm-12 col-md-4 col-lg-3">
-		{{Form::label('¿Padece alguna enfermedad?')}} : {{Form::text('has_disease',($format->has_disease ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-4">
-		@if($format->generalDisease)
-		{{Form::label('¿Cuál enfermedad?')}} : {{Form::text('general_disease',$format->generalDisease->disease_name,['class' => 'form-control', 'readonly'])}}
-		@else
-			{{Form::label('¿Cuál enfermedad?')}} : {{Form::text('general_disease',null,['class' => 'form-control', 'readonly'])}}
-		@endif
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-5">
-		{{Form::label('Otra')}} : {{Form::text('other_disease',$format->other_disease, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-4 col-lg-3">
-		{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::text('medical_treatment', ($format->medical_treatment ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-8 col-lg-9">
-		{{Form::label('Terapeutica empleada')}} : {{Form::textArea('therapeutic_used',$format->therapeutic_used, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Observaciones')}} : {{Form::textArea('observations',$format->observations, ['class' => 'form-control', 'readonly'])}}
-		</div>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-		{{Form::label('Diagnóstico de presunción')}} : {{Form::text('dental_disease',($format->dentalDisease->disease_name),['class' => 'form-control', 'readonly'])}}
-		</div>
+	<div class="col-sm-12 col-md-4 col-lg-4 form-group">
+	@if($format->generalDisease)
+	{{Form::label('¿Cuál enfermedad?')}} : {{Form::text('general_disease',$format->generalDisease->disease_name,['class' => 'form-control', 'readonly'])}}
+	@else
+		{{Form::label('¿Cuál enfermedad?')}} : {{Form::text('general_disease',null,['class' => 'form-control', 'readonly'])}}
+	@endif
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-5 form-group">
+	{{Form::label('Otra')}} : {{Form::text('other_disease',$format->other_disease, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-4 col-lg-3 form-group">
+	{{Form::label('¿Esta bajo tratamiento médico?')}} : {{Form::text('medical_treatment', ($format->medical_treatment ? 'Sí' : 'No'),['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-8 col-lg-9 form-group">
+	{{Form::label('Terapeutica empleada')}} : {{Form::textArea('therapeutic_used',$format->therapeutic_used, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	{{Form::label('Observaciones')}} : {{Form::textArea('observations',$format->observations, ['class' => 'form-control', 'readonly'])}}
+	</div>
+	<div class="col-sm-12 col-md-12 col-lg-12 form-group">
+	{{Form::label('Diagnóstico de presunción')}} : {{Form::text('dental_disease',($format->dentalDisease->disease_name),['class' => 'form-control', 'readonly'])}}
 	</div>
 </div>
 

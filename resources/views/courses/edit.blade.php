@@ -2,6 +2,11 @@
 @section('content')
 @include('shared._alerts')
 <div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+	</div>
+</div>
+<div class="row">
 <div class="col-sm-12 col-md-12 col-lg-12">
 {{ Form::open(['action' => ['CoursesController@update', 'course' => $course->course_id], 'method' => 'POST', 'method' => 'PATCH' ]) }}
 	<div class="form-group">

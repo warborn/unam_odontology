@@ -30,7 +30,7 @@
 						{{ Auth::user()->personal_information->fullname() }} | {{ session()->get('clinic_id')}}<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="{{ url('/my-profile') }}"><i class="fa fa-btn fa-user"></i>Mi perfil</a></li>
+						<li><a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Mi perfil</a></li>
 						<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
 						@foreach( Auth::user()->accounts as $account)
 						@if($account->clinic_id == clinic()->clinic_id )

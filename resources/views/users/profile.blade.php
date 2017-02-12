@@ -2,13 +2,19 @@
 
 @section('content')
 @include('shared._alerts')
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+	</div>
+</div>
+
 <ul class="nav nav-tabs nav-justified" role="tablist">
-  <li role="presentation" class="active" id="perfil_a"><a href="#perfil"  role="tab" data-toggle="tab">Perfil</a></li>
-  <li role="presentation"><a href="#cambiarContraseña" role="tab" data-toggle="tab">Cambiar contraseña</a></li>
+  <li role="presentation" class="active" id="perfil_a"><a href="#profile"  role="tab" data-toggle="tab">Perfil</a></li>
+  <li role="presentation"><a href="#password" role="tab" data-toggle="tab">Cambiar contraseña</a></li>
 </ul>
 
 <div class="tab-content">
-	<div role="tabpanel" class="tab-pane active" id="perfil">
+	<div role="tabpanel" class="tab-pane active" id="profile">
 		<h3>Datos personales</h3>
 
 		<form class="form-horizontal">
@@ -77,7 +83,7 @@
 		</form>
 	</div>
 
-	<div role="tabpanel" class="tab-pane" id="cambiarContraseña">
+	<div role="tabpanel" class="tab-pane" id="password">
 		<h3>Cambiar Contraseña</h3>
 		<form class="form-horizontal" action="{{url('password')}}" method="POST">
 			{{ method_field('PATCH') }}

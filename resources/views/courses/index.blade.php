@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
 @include('shared._alerts')
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+	</div>
+</div>
 @if(account()->allow_action('courses.create'))
 <div class="row">
 	<div class="col-lg-10">
@@ -30,7 +35,7 @@
 					<td>[{{$course->subject->subject_id}}] {{$course->subject->subject_name}}</td>
 					<td>{{$course->group_id}}</td>
 					<td>{{$course->students_count}}</td>
-					<td><a class="btn btn-success" href="{{ url('/courses/' . $course->course_id) }}">Mostrar</a></td>
+					<td><a class="btn btn-success" href="{{ url('/courses/' . $course->course_id) }}">Administrar profesores</a></td>
 
 					@if(account()->allow_action('courses.edit'))
 					<td><a class="btn btn-info" href="{{ url('/courses/' . $course->course_id . '/edit') }}">Editar</a></td>

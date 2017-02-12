@@ -2,9 +2,15 @@
 @section('content')
 @include('shared._alerts')
 <div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+	</div>
+</div>
+
+<div class="row">
 @if(account()->allow_action('formats.create'))
 	<div class="form-group col-lg-2 col-sm-12 col-md-12">
-		<button href="{{url('/formats/create')}}" class="btn btn-success btn-block">Agregar Formato</button>
+		<a href="{{url('/formats/create')}}" class="btn btn-success btn-block">Agregar Formato</a>
 	</div>
 @endif
 	<div class="col-lg-10 col-sm-12 col-md-12">

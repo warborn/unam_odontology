@@ -13,7 +13,7 @@
 
 Route::singularResourceParameters();
 
-Route::get('/catalogs', 'CatalogsController@index');
+Route::get('/catalogs', 'CatalogsController@index')->name('catalogs.index');
 Route::get('/catalogs/address-js', 'CatalogsController@address_js');
 Route::get('/catalogs/datetimepicker-js', 'CatalogsController@datetimepicker_js');
 Route::get('/catalogs/{view}', 'CatalogsController@display');
@@ -38,24 +38,24 @@ Route::get('/addresses/postal-code/{code}', 'AddressesController@index_by_postal
 Route::post('/courses/{course}/teachers/', 'CoursesController@store_teacher');
 Route::delete('/courses/{course}/teachers/{teacher}', 'CoursesController@destroy_teacher');
 
-Route::get('/teacher/courses', 'TeachersController@index_courses');
-Route::get('/teacher/courses/{course}', 'TeachersController@show_course');
+Route::get('/teacher/courses', 'TeachersController@index_courses')->name('teachers.index_courses');
+Route::get('/teacher/courses/{course}', 'TeachersController@show_course')->name('teachers.show_course');
 Route::patch('/teacher/courses/{course}/students/{student}', 'TeachersController@update_student_status');
 
 
 Route::get('/student/{student}/courses', 'StudentsController@index_accepted_courses');
-Route::get('/student/courses', 'StudentsController@index_courses');
+Route::get('/student/courses', 'StudentsController@index_courses')->name('students.index_courses');
 Route::post('/student/course/{course}', 'StudentsController@store_course');
 Route::delete('/student/course/{course}', 'StudentsController@destroy_course');
 
-Route::get('/movements', 'MovementsController@index');
+Route::get('/movements', 'MovementsController@index')->name('movements.index');
 
-Route::get('/roles/{role}/privileges', 'RolesController@index_privileges');
+Route::get('/roles/{role}/privileges', 'RolesController@index_privileges')->name('roles.index_privileges');
 Route::post('/roles/{role}/privileges', 'RolesController@store_privilege');
 Route::delete('/roles/{role}/privileges/{privilege}', 'RolesController@destroy_privilege');
 
 Route::get('/accounts', 'AccountsController@index')->name('accounts.index');
-Route::get('/accounts/{user}', 'AccountsController@show');
+Route::get('/accounts/{user}', 'AccountsController@show')->name('accounts.show');
 Route::post('/accounts/{user}/roles', 'AccountsController@store_role');
 Route::delete('/accounts/{user}/roles/{role}', 'AccountsController@destroy_role');
 Route::post('/accounts/{user}/privileges/{privilege}', 'AccountsController@store_disabled_privilege');
@@ -67,5 +67,5 @@ Route::post('/formats/{format}/students', 'FormatsController@store_student');
 Route::delete('/formats/{format}/students/{student}', 'FormatsController@destroy_student');
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/my-profile', 'UsersController@profile');
+Route::get('/profile', 'UsersController@profile')->name('users.profile');
 Route::patch('/password', 'UsersController@update_password');

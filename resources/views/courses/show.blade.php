@@ -2,6 +2,12 @@
 @section('content')
 @include('shared._alerts')
 
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+	</div>
+</div>
+
 @if(account()->allow_action('courses.store_teacher'))
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12">

@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
 @include('shared._alerts')
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+	</div>
+</div>
+
 <h3>Datos Generales</h3>
 {{ Form::open(['action' => ['FormatsController@update', $format->format_id], 'method' => 'PATCH']) }}
 <div class="row">

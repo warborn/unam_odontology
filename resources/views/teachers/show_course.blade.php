@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="row">
-<div class="col-sm-12 col-md-12 col-lg-12">
-<h1>Solicitud de Alumnos</h1>
-</div>
-</div>
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+		<h1>Solicitud de Alumnos</h1>
+		</div>
+	</div>
 <div class="table-responsive">
 <table class="table table-hover table-striped">
 	<tr>

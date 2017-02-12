@@ -4,9 +4,10 @@
 @include('shared._alerts')
 
 <div class="row">
-<div class="col-sm-12 col-md-12 col-lg-12">
-<h3>Cuentas</h3>
-</div>
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		{!! Breadcrumbs::render() !!}
+		<h3>Cuentas</h3>
+	</div>
 </div>
 <div class="table-responsive">
 <table class="table table-hover table-striped">

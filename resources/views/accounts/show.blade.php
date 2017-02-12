@@ -5,7 +5,8 @@
 
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12">
-		<h3>Cuenta: {{$account->user->user_id}}</h3>
+		{!! Breadcrumbs::render() !!}
+		<h3>Cuenta: {{$account->user_id}}</h3>
 
 		@if(account()->allow_action('accounts.store_role') && account()->can_action_over($account) && count($roles) > 0)
 		{{ Form::open(['action' => ['AccountsController@store_role', $account->user_id], 'class' => 'form-inline', ]) }}
