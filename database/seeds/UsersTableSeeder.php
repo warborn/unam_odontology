@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $federal_entity = App\FederalEntity::first();
+        $federal_entity = App\FederalEntity::find('CIDMXI');
         $address = $federal_entity->addresses()->first();
         $clinic = App\Clinic::first();
         factory(App\User::class, 5)->create()->each(function($user) 

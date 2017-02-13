@@ -10,47 +10,17 @@ use App\Course;
 use App\Teacher;
 use App\Student;
 use App\Movement;
+use Validator;
 
 class TeachersController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('privileges:teachers');
-        $this->middleware('check.clinic:course', ['only' => ['show_course', 'update_student_status']]);
+        $this->middleware('privileges:teachers', ['except' => 'update']);
+        $this->middleware('check.clinic:course', ['except' => ['update', 'index_courses']]);
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -64,37 +34,29 @@ class TeachersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Teacher $teacher)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'rfc' => 'required|max:14',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+
+        $values = [
+            'rfc' => $request->rfc,
+        ];
+
+        $teacher->update($values);
+        session()->flash('success', 'Se ha actualizado la información exitosamente.');
+        return redirect()->back();
     }
 
     public function index_courses() {

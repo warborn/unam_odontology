@@ -160,12 +160,18 @@ class Account extends Model
     }
 
     public function scopeNotPatient($query) {
-        return $query->where('users.user_id', 'NOT LIKE', '_PAS_%');
+        return $query->where('accounts.user_id', 'NOT LIKE', '_PAS_%');
     }
 
     public function scopeActivated($query)
     {
-        return $query->join('users', 'users.user_id', '=', 'accounts.user_id')->where('users.activated', true);
+        return $query->join('users', 'users.user_id', '=', 'accounts.user_id')->where('users.activated', true)->select('accounts.*');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->leftJoin('inactive_accounts', 'inactive_accounts.account_id', '=', 'accounts.account_id')
+                     ->whereNull('inactive_accounts.account_id')->select('accounts.*');
     }
 
     public function is(Account $account)

@@ -80,32 +80,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        $clinic = Clinic::findOrFail($data['clinic_id']);
-
-        $personal_information = new PersonalInformation([
-            'name' => $data['name'],
-            'last_name' => $data['last_name'],
-            'mother_last_name' => $data['mother_last_name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'gender' => $data['gender'],
-            'street' => $data['street'],
-        ]);
-
-        $user = User::create([
-            'user_id' => $data['user_id'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-        $user->personal_information()->save($personal_information);
-        $account = new Account([
-            'clinic_id' => $clinic->clinic_id,
-            'user_id' => $user->user_id,
-        ]);
-        $account->generatePK();
-        $user->accounts()->save($account);
-
-        return $user;
+        return User::setupAccount($data);
     }
 
     public function authenticated(Request $request, $user) 

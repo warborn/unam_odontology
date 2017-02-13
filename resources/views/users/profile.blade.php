@@ -9,14 +9,13 @@
 </div>
 
 <ul class="nav nav-tabs nav-justified" role="tablist">
-  <li role="presentation" class="active" id="perfil_a"><a href="#profile"  role="tab" data-toggle="tab">Perfil</a></li>
+  <li role="presentation" class="active"><a href="#profile"  role="tab" data-toggle="tab">Perfil</a></li>
+  <li role="presentation"><a href="#information"  role="tab" data-toggle="tab">Actualizar Información</a></li>
   <li role="presentation"><a href="#password" role="tab" data-toggle="tab">Cambiar contraseña</a></li>
 </ul>
 
 <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="profile">
-		<h3>Datos personales</h3>
-
 		<form class="form-horizontal">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Usuario</label>
@@ -70,7 +69,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Dirección</label>
 				<div class="col-sm-10">
-					{{-- <p class="form-control-static">{{$user->personal_information->full_address()}}</p> --}}
+					<p class="form-control-static">{{$user->personal_information->full_address()}}</p>
 				</div>
 			</div>
 
@@ -84,7 +83,6 @@
 	</div>
 
 	<div role="tabpanel" class="tab-pane" id="password">
-		<h3>Cambiar Contraseña</h3>
 		<form class="form-horizontal" action="{{url('password')}}" method="POST">
 			{{ method_field('PATCH') }}
 			<div class="form-group{{ $errors->has('old_password') ? ' has-error' : '' }}">
@@ -123,11 +121,18 @@
 		</form>
 	</div>
 
-	<div role="tabpanel" class="tab-pane" id="profesores">jdasjksajhsdhj</div>
-	<div role="tabpanel" class="tab-pane" id="asignaturas">...</div>
-	<div role="tabpanel" class="tab-pane" id="periodo">...</div>
-	<div role="tabpanel" class="tab-pane" id="grupo">...</div>
-	<div role="tabpanel" class="tab-pane" id="privilegios">...</div>
+	<div role="tabpanel" class="tab-pane" id="information">
+		@include('users._profile_form', ['user' => $user])
+		@if(account()->has_profile('student'))
+			@include('users._student_form', ['student' => $user->student])
+		@endif
+		@if(account()->has_profile('teacher'))
+			@include('users._teacher_form', ['teacher' => $user->teacher])
+		@endif
+		@if(account()->has_profile('intern'))
+			@include('users._intern_form', ['intern' => $user->intern])
+		@endif
+	</div>
 </div>
 
 @endsection

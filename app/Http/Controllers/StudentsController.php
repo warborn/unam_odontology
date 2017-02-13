@@ -9,67 +9,15 @@ use App\Http\Requests;
 use App\Course;
 use App\Student;
 use App\Movement;
+use Validator;
 
 class StudentsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('privileges:students');
-        $this->middleware('check.clinic:course', ['except' => ['index_courses', 'index_accepted_courses']]);
-    }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $this->middleware('privileges:students', ['except' => 'update']);
+        $this->middleware('check.clinic:course', ['except' => ['index_courses', 'index_accepted_courses', 'update']]);
     }
 
     /**
@@ -79,20 +27,23 @@ class StudentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Student $student)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'account_number' => 'required|max:10',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+
+        $values = [
+            'account_number' => $request->account_number,
+        ];
+
+        $student->update($values);
+        session()->flash('success', 'Se ha actualizado la información exitosamente.');
+        return redirect()->back();
     }
 
     public function index_courses() {

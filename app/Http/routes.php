@@ -69,3 +69,8 @@ Route::delete('/formats/{format}/students/{student}', 'FormatsController@destroy
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/profile', 'UsersController@profile')->name('users.profile');
 Route::patch('/password', 'UsersController@update_password');
+
+Route::patch('/users/{user}', 'UsersController@update');
+Route::patch('/students/{student}', 'StudentsController@update');
+Route::patch('/teachers/{teacher}', 'TeachersController@update');
+Route::patch('/interns/{intern}', 'InternsController@update');
