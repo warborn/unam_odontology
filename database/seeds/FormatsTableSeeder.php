@@ -15,10 +15,11 @@ class FormatsTableSeeder extends Seeder
        $course = App\Course::first();
        $intern = App\Intern::first();
        $clinic = App\Clinic::first();
-       $address = App\Address::first();
-       $medical_disease = App\Disease::where('type_of_disease', '=', 'general')->first();
-       $dental_disease = App\Disease::where('type_of_disease', '=', 'odontologica')->first();
-       factory(App\Format::class, 10)->make()->each(function($format) use ($course, $address, $student1, $intern, $clinic, $medical_disease, $dental_disease){
+       factory(App\Format::class, 200)->make()->each(function($format) use ($course, $student1, $intern, $clinic){
+          $medical_disease = App\Disease::where('type_of_disease', '=', 'general')->inRandomOrder()->first();
+          $dental_disease = App\Disease::where('type_of_disease', '=', 'odontologica')->inRandomOrder()->first();
+          $address = App\Address::inRandomOrder()->first();
+
           $format->user_intern_id = $intern->user_id;
        		$format->clinic_id = $clinic->clinic_id;
 

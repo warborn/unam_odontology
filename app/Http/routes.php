@@ -74,3 +74,5 @@ Route::patch('/users/{user}', 'UsersController@update');
 Route::patch('/students/{student}', 'StudentsController@update');
 Route::patch('/teachers/{teacher}', 'TeachersController@update');
 Route::patch('/interns/{intern}', 'InternsController@update');
+
+Route::get('/stats', 'StatsController@index');

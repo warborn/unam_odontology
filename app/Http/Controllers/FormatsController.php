@@ -149,7 +149,7 @@ class FormatsController extends Controller
             $format->intern()->associate($intern);
             $format->patient()->associate($patient);
             $format->dentalDisease()->associate($dental_disease);
-            $format->hour_date_fill = new Carbon();
+            $format->fill_datetime = new Carbon();
             if($request->has_disease) {
                 if($general_disease) {
                     $format->generalDisease()->associate($general_disease);
@@ -284,7 +284,7 @@ class FormatsController extends Controller
                     'observations' => $request->observations];
 
             $format->dentalDisease()->associate($dental_disease);
-            $format->hour_date_fill = new Carbon();
+            
             if($request->has_disease) {
                 if($general_disease) {
                     $format->generalDisease()->associate($general_disease);

@@ -129,6 +129,11 @@ return [
 		'destroy_course' 				   => 'SCICRS',
 	  'index_accepted_courses'   => 'AGNEDIFMA',
 	],
+	// Stats Privileges
+	'stats' => [
+		'index'  => 'GEREIS',
+		'report' => 'GERROR'
+	],
 
 
 	// Role ids

@@ -166,7 +166,7 @@ $factory->define(App\Patient::class, function(Faker\Generator $faker) {
 	$medical_service = $faker->randomElement($option);
 	$service_name = ($medical_service == 1 ? $faker->randomElement($services) : null);
 	return [
-		'age' => $faker->numberBetween(1, 100),
+		'age' => $faker->numberBetween(5, 100),
 		'ocupation' => $faker->randomElement($ocupations),
 		'school_grade' => $faker->randomElement($grades),
 		'civil_status' => $faker->randomElement($civil_status),
