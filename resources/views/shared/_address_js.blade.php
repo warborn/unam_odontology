@@ -5,6 +5,8 @@ jQuery(function ($) {
   });
 });
 
+var siteRoot = "{{env('SITE_ROOT')}}";
+
 var options = {
 	postalCode: $('#postal-code-input'),
 	state: $('#state-input'),
@@ -41,7 +43,7 @@ function addressByPostalCode(options, postalCode, settlement) {
 	$.ajax({
 		dataType: 'json',
 		method: 'get',
-		url: '/addresses/postal-code/' + postalCode,
+		url: siteRoot + '/addresses/postal-code/' + postalCode,
 		data: {code: postalCode},
 		success: function(response) {
 			console.log(response);

@@ -27,7 +27,8 @@ class CatalogsController extends Controller
                      'privileges' => ['body' => 'Privilegios']]; 
 
         $catalogs = collect($catalogs)->map(function($properties, $catalog_name) {
-            return [$catalog_name => ['enabled' => isset(account()->get_catalog_privileges($catalog_name)['index']),
+            $privilege = account()->get_catalog_privileges($catalog_name);
+            return [$catalog_name => ['enabled' => isset($privilege['index']),
                                       'body' => $properties['body']]];
         })->flatten(1);
 
