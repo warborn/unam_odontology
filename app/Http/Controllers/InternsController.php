@@ -18,21 +18,25 @@ class InternsController extends Controller
      */
     public function update(Request $request, Intern $intern)
     {
-        $validator = Validator::make($request->all(), [
-            'account_number' => 'required|max:10',
-            'service_start_date' => 'required|date',
-            'service_end_date' => 'required|date|after:' . $request->service_start_date
-        ]);
+        if(account()->allow_action('interns.update')) {
+            $validations = ['service_start_date' => 'required|date',
+                            'service_end_date' => 'required|date|after:' . $request->service_start_date];
+        } else {
+            $validations = ['account_number' => 'required|max:10'];
+        }
+        
 
+        $validator = Validator::make($request->all(), $validations);
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
 
-        $values = [
-            'account_number' => $request->account_number,
-            'service_start_date' => $request->service_start_date,
-            'service_end_date' => $request->service_end_date
-        ];
+        if(account()->allow_action('interns.update')) {
+            $values = ['service_start_date' => $request->service_start_date,
+                       'service_end_date' => $request->service_end_date];
+        } else {
+            $values = ['account_number' => $request->account_number];
+        }
 
         $intern->update($values);
         session()->flash('success', 'Se ha actualizado la información exitosamente.');

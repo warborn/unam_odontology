@@ -18,7 +18,7 @@
     <label for="service_start_date" class="col-md-4 control-label">Fecha de inicio de servicio</label>
     <div class="col-md-6">
         <div class="col-md-6 input-group date" id="datetimepicker1">
-            <input type='text' class="form-control" name="service_start_date" placeholder="Fecha de inicio de servicio" value="{{$intern->service_start_date}}"/>
+            <input type='text' class="form-control" name="service_start_date" placeholder="Fecha de inicio de servicio" value="{{$intern->service_start_date}}" disabled/>
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -35,7 +35,7 @@
     <label for="service_end_date" class="col-md-4 control-label">Fecha de fín de servicio</label>
     <div class="col-md-6">
         <div class="col-md-6 input-group date" id="datetimepicker2">
-            <input type='text' class="form-control" name="service_end_date" placeholder="Fecha de fín de servicio" value="{{$intern->service_end_date}}"/>
+            <input type='text' class="form-control" name="service_end_date" placeholder="Fecha de fín de servicio" value="{{$intern->service_end_date}}" disabled/>
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -56,9 +56,3 @@
     </div>
 </div>
 </form>
-
-@push('js')
-<script type="text/javascript">
-    @include('shared._datetimepicker_js')
-</script>
-@endpush

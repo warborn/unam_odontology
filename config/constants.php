@@ -135,6 +135,10 @@ return [
 		'report' => 'GERROR'
 	],
 
+	// Interns Privileges
+	'interns' => [
+		'update' => 'AGNDTOSVIS'
+	],
 
 	// Role ids
 	'id' => [

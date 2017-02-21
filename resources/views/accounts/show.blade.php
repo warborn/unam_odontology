@@ -77,6 +77,58 @@
 		</table>
 	</div>
 
+@if(account()->allow_action('interns.update') && $account->has_profile('intern'))
+<div class="row">
+	
+<form class="form-horizontal" role="form" method="POST" action="{{ url('interns/' . $account->user->intern->user_id) }}">
+{{ csrf_field() }}
+{{ method_field('PATCH') }}
+
+	<div class="form-group{{ $errors->has('service_start_date') ? ' has-error' : '' }}">
+	    <label for="service_start_date" class="col-md-4 control-label">Fecha de inicio de servicio</label>
+	    <div class="col-md-6">
+	        <div class="col-md-6 input-group date" id="datetimepicker1">
+	            <input type='text' class="form-control" name="service_start_date" placeholder="Fecha de inicio de servicio" value="{{$account->user->intern->service_start_date}}"/>
+	            <span class="input-group-addon">
+	                <span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+	        </div>
+	        @if ($errors->has('service_start_date'))
+	            <span class="help-block">
+	                <strong>{{ $errors->first('service_start_date') }}</strong>
+	            </span>
+	        @endif
+	    </div>
+	</div>
+
+	<div class="form-group{{ $errors->has('service_end_date') ? ' has-error' : '' }}">
+	    <label for="service_end_date" class="col-md-4 control-label">Fecha de fín de servicio</label>
+	    <div class="col-md-6">
+	        <div class="col-md-6 input-group date" id="datetimepicker2">
+	            <input type='text' class="form-control" name="service_end_date" placeholder="Fecha de fín de servicio" value="{{$account->user->intern->service_end_date}}"/>
+	            <span class="input-group-addon">
+	                <span class="glyphicon glyphicon-calendar"></span>
+	            </span>
+	        </div>
+	        @if ($errors->has('service_end_date'))
+	            <span class="help-block">
+	                <strong>{{ $errors->first('service_end_date') }}</strong>
+	            </span>
+	        @endif
+	    </div>
+	</div>
+
+	<div class="form-group">
+	    <div class="col-md-6 col-md-offset-4">
+	        <button type="submit" class="btn btn-primary">
+	            <i class="fa fa-btn fa-user"></i> Actualizar información de pasante
+	        </button>
+	    </div>
+	</div>
+</form>
+</div>
+@endif
+
 @if($account->isActive())
 	@if(account()->allow_action('accounts.deactivate') && account()->can_action_over($account))
 	<div class="row">
@@ -128,6 +180,14 @@
 		</div>
 	</div>
 	@endif
+@endif
+
+@if(account()->allow_action('interns.update'))
+	@push('js')
+	<script type="text/javascript">
+	    @include('shared._datetimepicker_js')
+	</script>
+	@endpush
 @endif
 
 @endsection
