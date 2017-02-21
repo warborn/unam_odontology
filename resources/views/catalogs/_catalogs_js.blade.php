@@ -5,6 +5,7 @@
 $tableHeaderRow = $('#table-header-row');
 $tableBody = $('#table-content');
 account = {};
+var siteRoot = "{{env('SITE_ROOT')}}";
 
 function flatInnerObject(object, innerObject) {
 	for(var property in object[innerObject]) {
@@ -64,7 +65,7 @@ function mapCatalogName(name) {
 function translateProperty(name) {
 	var translations = {'group_id': 'grupo', 
 		'period_id': 'periodo', 'period_start_date': 'fecha de inicio', 'period_end_date': 'fecha de fin',
-		'subject_name': 'asignatura', 'semester': 'semestre',
+		'subject_id': 'clave', 'subject_name': 'asignatura', 'semester': 'semestre',
 		'privilege_name': 'privilegio',
 		'role_name': 'rol', 'role_description': 'descripción',
 		'federal_entity_name': 'entidad_federativa',
@@ -245,7 +246,7 @@ function attachDeleteEvent(elements, callback) {
 
 // send AJAX request
 function sendAJAX(options, catalog, id) {
-	options['url'] = '/' + catalog + (id ? '/' + id : '');
+	options['url'] = siteRoot + '/' + catalog + (id ? '/' + id : '');
 	$.ajax(options);
 }
 
@@ -388,16 +389,16 @@ if(window.location.hash) {
 function setupCatalogsListBinding(catalog) {
 	getCatalogs(catalog);
 	$.ajax({
-		url: '/catalogs/' + catalog,
+		url: siteRoot + '/catalogs/' + catalog,
 		type: 'GET',
 		success: function(response) {
 			$('#catalog-container').html(response).fadeIn();
 			setupModals();
 			if(catalog == 'addresses' || catalog == 'clinics') {	
-				$.getScript('/catalogs/address-js', function() {
+				$.getScript(siteRoot + '/catalogs/address-js', function() {
 				});
 			} else if(catalog == 'periods') {
-				$.getScript('/catalogs/datetimepicker-js', function() {
+				$.getScript(siteRoot + '/catalogs/datetimepicker-js', function() {
 				});
 			}
 		},
