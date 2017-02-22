@@ -30,7 +30,7 @@ $factory->define(App\PersonalInformation::class, function(Faker\Generator $faker
 		'last_name' => $faker->lastName,
 		'mother_last_name' => $faker->lastName,
 		'email' => $faker->email,
-		'phone' => $faker->phoneNumber,
+		'phone' => $faker->tollFreePhoneNumber,
 		'gender' => $faker->randomElement($genders),
 		'street' => $faker->streetAddress,
 	];

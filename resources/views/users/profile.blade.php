@@ -69,7 +69,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Dirección</label>
 				<div class="col-sm-10">
-					<p class="form-control-static">{{$user->personal_information->full_address()}}</p>
+					<p class="form-control-static">{{$user->personal_information->address_id !== null ? $user->personal_information->full_address() : ''}}</p>
 				</div>
 			</div>
 
