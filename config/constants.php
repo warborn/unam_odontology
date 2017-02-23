@@ -127,6 +127,7 @@ return [
 		'index_courses'				 		 => 'CULCRSAER',
 		'store_course'				 	   => 'SCICRS',
 		'destroy_course' 				   => 'SCICRS',
+		'update_course_request'    => 'SCICRS', // not mapping a controller action
 	  'index_accepted_courses'   => 'AGNEDIFMA',
 	],
 	// Stats Privileges

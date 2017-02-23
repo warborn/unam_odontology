@@ -58,7 +58,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
+{{-- <div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
     <label for="street" class="col-md-4 control-label">Calle</label>
 
     <div class="col-md-6">
@@ -70,7 +70,7 @@
             </span>
         @endif
     </div>
-</div>
+</div> --}}
 
 <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
     <label for="gender" class="col-md-4 control-label">Sexo</label>

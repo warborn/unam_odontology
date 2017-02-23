@@ -52,6 +52,10 @@ class User extends Authenticatable
     public static function setupAccount($data) {
         $clinic = Clinic::findOrFail($data['clinic_id']);
 
+        if(!isset($data['street'])) {
+            $data['street'] = null;
+        }
+
         $personal_information = new PersonalInformation([
             'name' => $data['name'],
             'last_name' => $data['last_name'],

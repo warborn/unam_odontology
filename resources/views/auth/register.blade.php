@@ -4,13 +4,15 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-            <div class="panel-heading">Registrate</div>
+            <div class="panel-heading">Registrate
+                <h6>Los campos con un asterisco son obligatorios.</h6>
+            </div>
             <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                     {{ csrf_field() }}
-
+                    
                     <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
-                        <label for="user_id" class="col-md-4 control-label">Nombre de usuario</label>
+                        <label for="user_id" class="col-md-4 control-label">* Nombre de usuario</label>
 
                         <div class="col-md-6">
                             <input id="user_id" type="text" class="form-control" name="user_id" value="{{ old('user_id') }}">
@@ -24,7 +26,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                        <label for="email" class="col-md-4 control-label">Correo electrónico</label>
+                        <label for="email" class="col-md-4 control-label">* Correo electrónico</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -38,7 +40,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('clinic_id') ? ' has-error' : '' }}">
-                        <label for="clinic_id" class="col-md-4 control-label">Clínica</label>
+                        <label for="clinic_id" class="col-md-4 control-label">* Clínica</label>
 
                         <div class="col-md-6">
                             {{ Form::select('clinic_id', $clinics, null, ['class' => 'form-control'] )}}
@@ -52,7 +54,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                        <label for="password" class="col-md-4 control-label">Contraseña</label>
+                        <label for="password" class="col-md-4 control-label">* Contraseña</label>
 
                         <div class="col-md-6">
                             <input id="password" type="password" class="form-control" name="password">
@@ -66,7 +68,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                        <label for="password-confirm" class="col-md-4 control-label">Confirmar Contraseña</label>
+                        <label for="password-confirm" class="col-md-4 control-label">* Confirmar Contraseña</label>
 
                         <div class="col-md-6">
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
@@ -80,7 +82,7 @@
                     </div>
 
                      <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">Nombre(s)</label>
+                        <label for="name" class="col-md-4 control-label">* Nombre(s)</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -94,7 +96,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                        <label for="last_name" class="col-md-4 control-label">Apellido Paterno</label>
+                        <label for="last_name" class="col-md-4 control-label">* Apellido Paterno</label>
 
                         <div class="col-md-6">
                             <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}">
@@ -108,7 +110,7 @@
                     </div>
 
                     <div class="form-group{{ $errors->has('mother_last_name') ? ' has-error' : '' }}">
-                        <label for="mother_last_name" class="col-md-4 control-label">Apellido Materno</label>
+                        <label for="mother_last_name" class="col-md-4 control-label">* Apellido Materno</label>
 
                         <div class="col-md-6">
                             <input id="mother_last_name" type="text" class="form-control" name="mother_last_name" value="{{ old('mother_last_name') }}">
@@ -135,7 +137,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
+                   {{--  <div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
                         <label for="street" class="col-md-4 control-label">Calle</label>
 
                         <div class="col-md-6">
@@ -147,7 +149,7 @@
                                 </span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
                         <label for="gender" class="col-md-4 control-label">Sexo</label>
