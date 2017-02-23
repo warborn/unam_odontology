@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-6 col-lg-6 form-group{{ $errors->has('medical_history_number') ? ' has-error' : '' }}">
-		{{Form::label('No. Historia clinica')}} : {{Form::text('medical_history_number', $format->medical_history_number, ['class'=>'form-control'])}}
+		{{Form::label('No. Historia clinica')}} : {{Form::text('medical_history_number', $format->medical_history_number, ['class'=>'form-control', 'placeholder' => 'YYMM####'])}}
 		@if ($errors->has('medical_history_number'))
       <span class="help-block">
           <strong>{{ $errors->first('medical_history_number') }}</strong>

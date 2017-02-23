@@ -12,9 +12,9 @@
 	<div class="remission">
 		{{ Form::open(['action' => ['FormatsController@store_student', $format->format_id]]) }}
 		<div class="col-sm-12 col-md-4 col-lg-4 form-group">
-			{{Form::label('Alumno')}} :
+			{{Form::label('Estudiantes')}} :
 			<select class="form-control" name="user_id" id="students">
-				<option selected disabled>Seleccione alumno</option>
+				<option selected disabled>Seleccione estudiante</option>
 				@foreach($students as $student)
 				<option value={{$student->user_id}}>{{$student->personal_information->fullname()}}</option>
 				@endforeach
@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="col-sm-12 col-md-2 col-lg-2 form-group">
-			{{ Form::submit('Asignar', ['class' => 'btn btn-info form-control bottom'])}}
+			{{ Form::submit('Asignar a paciente', ['class' => 'btn btn-info form-control bottom'])}}
 		</div>
 		{{Form::close() }}
 	</div>
@@ -39,7 +39,7 @@
 		<table class="table table-hover table-striped">
 			<thead>
 				<tr>
-					<th>Nombre del alumno</th>
+					<th>Nombre</th>
 					<th>Asignatura</th>
 					<th>Grupo</th>
 					<th>&nbsp;</th>

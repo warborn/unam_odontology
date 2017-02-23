@@ -6,7 +6,7 @@
 		{!! Breadcrumbs::render() !!}
 	</div>
 </div>
-
+<h3 class="text-center">Ficha de Admisión</h3>
 <h3>Datos Generales</h3>
 {{ Form::open(['action' => ['FormatsController@store']]) }}
 <div class="row">
@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="col-sm-12 col-md-6 col-lg-6 form-group{{ $errors->has('medical_history_number') ? ' has-error' : '' }}">
-		{{Form::label('No. Historia clinica')}} : {{Form::text('medical_history_number', old('medical_history_number'), ['class'=>'form-control'])}}
+		{{Form::label('No. Historia clinica')}} : {{Form::text('medical_history_number', old('medical_history_number'), ['class'=>'form-control', 'placeholder' => 'YYMM####'])}}
 		@if ($errors->has('medical_history_number'))
       <span class="help-block">
           <strong>{{ $errors->first('medical_history_number') }}</strong>

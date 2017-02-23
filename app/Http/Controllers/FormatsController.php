@@ -179,9 +179,9 @@ class FormatsController extends Controller
         if(isset($course) && isset($student) && $course->has_student($student) && !$format->has_student($student)) {
             $format->students()->attach($student->user_id, ['course_id' => $course->course_id]);
             Movement::register(account(), $student->account(clinic()), 'formats.store_student'); // store format
-            session()->flash('success', 'El alumno fue asignado correctamente.');
+            session()->flash('success', 'El estudiante fue asignado correctamente.');
         } else {
-            session()->flash('danger', 'Hubo un problema al asignar al alumno.');
+            session()->flash('danger', 'Hubo un problema al asignar al estudiante.');
         }
         return redirect()->back();
     }
@@ -337,7 +337,7 @@ class FormatsController extends Controller
         if($format->has_student($student)) {
             $format->students()->detach($student->user_id);
             Movement::register(account(), $student->account(clinic()), 'formats.destroy_student'); // store format
-            session()->flash('success', 'El alumno fue eliminado correctamente.');
+            session()->flash('success', 'El estudiante fue eliminado correctamente.');
         }
         return redirect()->back();
     }

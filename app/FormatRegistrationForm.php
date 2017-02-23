@@ -6,7 +6,7 @@ use Validator;
 class FormatRegistrationForm
 {
 	private $rules = [
-      'medical_history_number' => ['required', 'max:8', 'regex:/^(0[1-9]|1[0-2])[0-9][0-9][0-9][0-9][0-9][0-9]$/'],
+      'medical_history_number' => ['required', 'max:8', 'regex:/^[0-9][0-9](0[1-9]|1[0-2])[0-9][0-9][0-9][0-9]$/'], // 12
       'has_disease' => 'required|boolean',
       'medical_treatment' => 'required|boolean',
       'referred_by' => 'max:50',

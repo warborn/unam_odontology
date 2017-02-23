@@ -45,7 +45,7 @@
 		    </div>
 
 		    <div class="form-group col-lg-2 col-sm-12 col-md-12">
-		      <button class="btn btn-info btn-block" type="reset" id="clear-btn">Limpiar</button>
+		      <a href="{{url('/formats')}}" class="btn btn-info btn-block" >Limpiar</a>
 		    </div>
 			</form>
 		</div>
@@ -105,10 +105,6 @@
 @push('js')
 <script type="text/javascript">
 	@include('shared._datetimepicker_js')
-
-  $("#clear-btn").click(function() {
-    window.location.href = '/formats';
-  });
 
   var $form = $('#search-form');
 

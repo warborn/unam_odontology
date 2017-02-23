@@ -4,13 +4,13 @@
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12">
 		{!! Breadcrumbs::render() !!}
-		<h1>Solicitud de Alumnos</h1>
+		<h1>Solicitud de estudiantes</h1>
 		</div>
 	</div>
 <div class="table-responsive">
 <table class="table table-hover table-striped">
 	<tr>
-		<th>Nombre del Alumno</th>
+		<th>Nombre del estudiante</th>
 		<th>Asignatura</th>
 		<th>Grupos</th>
 		<th>Periodo</th>
