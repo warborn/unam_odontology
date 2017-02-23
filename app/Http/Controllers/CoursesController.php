@@ -35,7 +35,7 @@ class CoursesController extends Controller
         // // Define how many items we want to be visible in each page
         // $perPage = 20;
 
-        $courses = Course::fromClinic(clinic())->orderBy('period_id', 'DESC')->orderBy('subject_id', 'DESC')->with('group')->with('period')->with('subject')->withCount('students')->customPaginate(20, $request);
+        $courses = Course::fromClinic(clinic())->orderBy('period_id', 'DESC')->orderBy('subject_id', 'DESC')->with('group')->with('period')->with('subject')->withCount('students')->with('teachers')->customPaginate(20, $request);
 
         // Create our paginator and pass it to the view
         // $courses = new LengthAwarePaginator($courses, Course::count(), $perPage);

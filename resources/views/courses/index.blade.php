@@ -14,7 +14,7 @@
 </div>
 @endif
 <div class="row">
-	<div class="col-lg-10">
+	<div class="col-lg-12">
 		<div class="table-responsive">
 			<table class="table table-striped table-hover">
 			<thead>
@@ -22,6 +22,7 @@
 					<th>Periodo</th>
 					<th>Asignatura</th>
 					<th>Grupo</th>
+					<th>Profesor(es)</th>
 					<th># Estudiantes</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
@@ -34,6 +35,11 @@
 					<td>{{$course->period->period_id}}</td>
 					<td>[{{$course->subject->subject_id}}] {{$course->subject->subject_name}}</td>
 					<td>{{$course->group_id}}</td>
+					<td>
+						@foreach($course->teachers as $teacher)
+							<span class="block">{{$teacher->personal_information->fullname()}}</span>
+						@endforeach
+					</td>
 					<td>{{$course->students_count}}</td>
 					<td><a class="btn btn-success" href="{{ url('/courses/' . $course->course_id) }}">Administrar profesores</a></td>
 
@@ -51,9 +57,14 @@
 				</tr>
 				@endforeach
 				</tbody>
-				{{ $courses->links() }}
 			</table>
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="text-center">
+		{{ $courses->links() }}
 	</div>
 </div>
 

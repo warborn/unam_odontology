@@ -41,19 +41,23 @@ class FormatsController extends Controller
     {
         $format_builder = Format::fromClinic(clinic())->select('formats.*');
 
+        $filtering = false;
+
         if(!empty($request->search)) {
             $format_builder = $format_builder->search($request->search);
+            $filtering = true;
         } 
 
         if(!empty($request->start_date) && !empty($request->end_date)) {
             $format_builder = $format_builder->between($request->start_date, $request->end_date);
+            $filtering = true;
         }
 
         $search = $request->search;
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
-        $formats = $format_builder->orderBy('formats.fill_datetime', 'DESC')->customPaginate(5, $request, true);
+        $formats = $format_builder->orderBy('formats.fill_datetime', 'DESC')->customPaginate(5, $request, $filtering);
         
         return View('formats.index')->with('formats', $formats)->with('search', $search)
                                     ->with('start_date', $start_date)->with('end_date', $end_date);

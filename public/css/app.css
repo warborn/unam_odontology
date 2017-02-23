@@ -3,3 +3,8 @@
 	/*color: white;*/
 	cursor: pointer;
 }
+
+.block {
+	display: block;
+	font-size: 0.95em;
+}
