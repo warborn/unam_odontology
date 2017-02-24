@@ -63,12 +63,15 @@ function mapCatalogName(name) {
 
 // tanslate catalogs properties
 function translateProperty(name) {
+	console.log(name);
 	var translations = {'group_id': 'grupo', 
 		'period_id': 'periodo', 'period_start_date': 'fecha de inicio', 'period_end_date': 'fecha de fin',
 		'subject_id': 'clave', 'subject_name': 'asignatura', 'semester': 'semestre',
 		'privilege_name': 'privilegio',
 		'role_name': 'rol', 'role_description': 'descripción',
-		'federal_entity_name': 'entidad_federativa',
+		'federal_entity_name': 'entidad federativa',
+		'federal_entity_id': 'entidad federativa',
+		'federal_entity': 'entidad federativa',
 		'disease_id': 'código', 'disease_name': 'enfermedad', 'type_of_disease': 'tipo',
 		'postal_code': 'código postal', 'settlement': 'colonia', 'municipality': 'municipio',
 		'clinic_id': 'clínica', 'clinic_email': 'correo electrónico', 'clinic_phone': 'teléfono', 'address': 'dirección',
@@ -104,7 +107,6 @@ function generateHTMLString(array) {
 
 // get columns from catalog's properties
 function getColumns(catalog, entity) {
-	console.log(entity);
 	var columns = null;
 	switch(catalog) {
 		case 'groups':
