@@ -104,6 +104,7 @@ function generateHTMLString(array) {
 
 // get columns from catalog's properties
 function getColumns(catalog, entity) {
+	console.log(entity);
 	var columns = null;
 	switch(catalog) {
 		case 'groups':
@@ -132,8 +133,8 @@ function getColumns(catalog, entity) {
 			columns = [entity.postal_code, entity.settlement, entity.municipality, entity.federal_entity.federal_entity_name];
 		break;
 		case 'clinics':
-			columns = [entity.clinic_id, entity.address_id, entity.clinic_email, entity.clinic_phone, entity.street];
-			columns.push([entity.address.settlement, entity.address.municipality, entity.address.federal_entity_id, entity.address.postal_code].join(' '));
+			columns = [entity.clinic_id, entity.clinic_email, entity.clinic_phone, entity.street];
+			columns.push([entity.address.settlement, entity.address.municipality, entity.address.postal_code + ' ' + entity.address.federal_entity.federal_entity_name].join(', '));
 		break;
 	}
 	return columns;

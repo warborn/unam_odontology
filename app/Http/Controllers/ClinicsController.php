@@ -23,7 +23,7 @@ class ClinicsController extends Controller
      */
     public function index()
     {
-        $clinics = Clinic::with('address')->orderBy('clinic_id')->get();
+        $clinics = Clinic::with('address.federalEntity')->orderBy('clinic_id')->get();
         return $clinics->toJson();
     }
 
