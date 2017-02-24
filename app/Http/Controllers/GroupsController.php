@@ -23,7 +23,7 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $groups = Group::all();
+        $groups = Group::orderBy('group_id')->get();
         return $groups->toJson();
     }
 

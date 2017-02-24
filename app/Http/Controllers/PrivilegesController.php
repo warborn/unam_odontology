@@ -22,7 +22,7 @@ class PrivilegesController extends Controller
      */
     public function index()
     {
-        $privileges = Privilege::all();
+        $privileges = Privilege::orderBy('privilege_name')->get();
         return $privileges->toJson();        
     }
 

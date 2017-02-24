@@ -22,7 +22,7 @@ class SubjectsController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
+        $subjects = Subject::orderBy('subject_id')->get();
         return $subjects->toJson();
     }
 

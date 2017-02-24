@@ -56,7 +56,7 @@
 			<tbody>
 				@foreach($account->all_privileges() as $privilege_id => $privilege)
 				<tr>
-					<td>{{$privilege['privilege_id']}} - {{$privilege['privilege_name']}}</td>
+					<td>{{$privilege['privilege_name']}}</td>
 					<td>
 					@if(account()->can_action_over($account))
 						@if($privilege['status'] == 'enabled' && account()->allow_action('accounts.store_disabled_privilege'))

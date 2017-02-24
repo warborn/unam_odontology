@@ -43,7 +43,7 @@ class AddressesController extends Controller
      */
     public function index()
     {
-        $addresses = Address::limit(20)->orderBy('created_at', 'DESC')->get();
+        $addresses = Address::with('federalEntity')->limit(20)->orderBy('created_at', 'DESC')->get();
         return $addresses->toJson();
     }
 

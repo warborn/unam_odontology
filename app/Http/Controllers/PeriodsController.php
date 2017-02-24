@@ -22,7 +22,7 @@ class PeriodsController extends Controller
      */
     public function index()
     {
-        $periods = Period::all();
+        $periods = Period::orderBy('period_start_date', 'DESC')->get();
         return $periods->toJson();
     }
 

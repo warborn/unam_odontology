@@ -2,9 +2,9 @@
 @push('js')
 
 <script>
-$tableHeaderRow = $('#table-header-row');
-$tableBody = $('#table-content');
-account = {};
+var $tableHeaderRow = $('#table-header-row');
+var $tableBody = $('#table-content');
+var account = {};
 var siteRoot = "{{env('SITE_ROOT')}}";
 
 function flatInnerObject(object, innerObject) {
@@ -117,19 +117,19 @@ function getColumns(catalog, entity) {
 			columns = [entity.subject_id, entity.subject_name, entity.semester + '°'];
 		break;
 		case 'privileges':
-			columns = [entity.privilege_id, entity.privilege_name];
+			columns = [entity.privilege_name];
 		break;
 		case 'roles':
-			columns = [entity.role_id, entity.role_name, entity.role_description];
+			columns = [entity.role_name, entity.role_description];
 		break;
 		case 'federal-entities':
-			columns = [entity.federal_entity_id, entity.federal_entity_name];
+			columns = [entity.federal_entity_name];
 		break;
 		case 'diseases':
 			columns = [entity.disease_id, entity.disease_name, entity.type_of_disease];
 		break;
 		case 'addresses':
-			columns = [entity.address_id, entity.postal_code, entity.settlement, entity.municipality, entity.federal_entity_id];
+			columns = [entity.postal_code, entity.settlement, entity.municipality, entity.federal_entity.federal_entity_name];
 		break;
 		case 'clinics':
 			columns = [entity.clinic_id, entity.address_id, entity.clinic_email, entity.clinic_phone, entity.street];
@@ -159,7 +159,7 @@ function createCatalogRow(catalog, entity, privileges) {
 
 	// If current catalog is role, add a button to manage the privilege for each role
 	if(catalog == 'roles') {
-		var rolePrivilegesUrl = '/roles/' + entity.role_id + '/privileges';
+		var rolePrivilegesUrl = siteRoot +  '/roles/' + entity.role_id + '/privileges';
 		buttons.splice(1, 0, '<a class="btn btn-primary" href="' + rolePrivilegesUrl + '">Privilegios</a>');
 	}
 	var $columns = getColumns(catalog, entity).concat(buttons)
@@ -269,7 +269,7 @@ function getCatalogs(catalog) {
 		$tableBody.html('');
 		object = response.data[0];
 		if(object) {
-			var excluded = ['created_at', 'updated_at'];
+			var excluded = ['created_at', 'updated_at', 'privilege_id', 'role_id', 'federal_entity_id', 'address_id'];
 			var keys = excludeProperties(excluded, object).map(function(str) { 
 					translated = translateProperty(str) || str;
 					return translated.split('_').map(capitalize).join(' ');

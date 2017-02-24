@@ -23,7 +23,7 @@ class FederalEntitiesController extends Controller
      */
     public function index()
     {
-        $entities = FederalEntity::all();
+        $entities = FederalEntity::orderBy('federal_entity_name')->get();
         return $entities->toJson();
     }
 

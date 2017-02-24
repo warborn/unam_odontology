@@ -22,7 +22,7 @@ class DiseasesController extends Controller
      */
     public function index()
     {
-        $diseases = Disease::all();
+        $diseases = Disease::orderBy('type_of_disease')->orderBy('disease_id')->get();
         return $diseases->toJson();
     }
 
