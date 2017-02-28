@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Subject;
+use App\Movement;
 class SubjectsController extends Controller
 {
     public function __construct()
@@ -71,6 +72,7 @@ class SubjectsController extends Controller
     public function destroy(Subject $subject)
     {
         $subject->delete();
+        Movement::register(account(), null, 'subjects.destroy'); 
         return response()->json($subject);
     }
 
@@ -91,10 +93,12 @@ class SubjectsController extends Controller
 
         if(isset($resource)) {
             $resource->update($values);
+            Movement::register(account(), null, 'subjects.update'); 
         } else {
             $resource = new Subject($values);
             // $resource->generatePK();
             $resource->save();
+            Movement::register(account(), null, 'subjects.store'); 
         }
 
         return response()->json($resource, 200);

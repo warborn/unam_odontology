@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Privilege;
+use App\Movement;
 class PrivilegesController extends Controller
 {
     public function __construct()
@@ -71,6 +72,7 @@ class PrivilegesController extends Controller
     public function destroy(Privilege $privilege)
     {
         $privilege->delete();
+        Movement::register(account(), null, 'privileges.destroy'); 
         return response()->json($privilege);
         
     }
@@ -91,10 +93,12 @@ class PrivilegesController extends Controller
             // $resource->generatePK();
             // $resource->save();
             $resource->update($values);
+            Movement::register(account(), null, 'privileges.update'); 
         } else {
             $resource = new Privilege($values);
             $resource->generatePK();
             $resource->save();
+            Movement::register(account(), null, 'privileges.store'); 
         }
 
         return response()->json($resource, 200);

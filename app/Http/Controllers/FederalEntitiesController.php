@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\FederalEntity;
+use App\Movement;
 
 class FederalEntitiesController extends Controller
 {
@@ -73,6 +74,7 @@ class FederalEntitiesController extends Controller
     public function destroy(FederalEntity $federal_entity)
     {
         $federal_entity->delete();
+        Movement::register(account(), null, 'federal-entities.destroy'); 
         return response()->json($federal_entity);
     }
 
@@ -90,10 +92,12 @@ class FederalEntitiesController extends Controller
             $resource->federal_entity_name = $request->federal_entity_name;
             $resource->generatePK();
             $resource->save();
+            Movement::register(account(), null, 'federal-entities.update'); 
         } else {
             $resource = new FederalEntity($values);
             $resource->generatePK();
             $resource->save();
+            Movement::register(account(), null, 'federal-entities.store'); 
         }
 
         return response()->json($resource, 200);

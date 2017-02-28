@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Requests;
 use App\Role;
 use App\Privilege;
+use App\Movement;
 
 class RolesController extends Controller
 {
@@ -92,6 +93,7 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+        Movement::register(account(), null, 'roles.destroy'); 
         return response()->json($role);
     }
 
@@ -121,10 +123,12 @@ class RolesController extends Controller
             // $resource->generatePK();
             // $resource->save();
             $resource->update($values);
+            Movement::register(account(), null, 'roles.update'); 
         } else {
             $resource = new Role($values);
             $resource->generatePK();
             $resource->save();
+            Movement::register(account(), null, 'roles.store');  
         }
 
         return response()->json($resource, 200);

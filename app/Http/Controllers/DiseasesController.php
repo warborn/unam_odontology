@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Disease;
+use App\Movement;
 class DiseasesController extends Controller
 {
     public function __construct()
@@ -72,6 +73,7 @@ class DiseasesController extends Controller
     public function destroy(Disease $disease)
     {
         $disease->delete();
+        Movement::register(account(), null, 'diseases.destroy'); 
         return response()->json($disease);
     }
  
@@ -93,10 +95,12 @@ class DiseasesController extends Controller
 
         if(isset($resource)) {
             $resource->update($values);
+            Movement::register(account(), null, 'diseases.update'); 
         } else {
             $resource = new Disease($values);
             $resource->disease_id = $request->disease_id;
             $resource->save();
+            Movement::register(account(), null, 'diseases.store'); 
         }
 
         return response()->json($resource, 200);

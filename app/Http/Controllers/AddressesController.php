@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Requests;
 use App\Address;
 use App\FederalEntity;
+use App\Movement;
 class AddressesController extends Controller
 {
     public function __construct()
@@ -90,6 +91,7 @@ class AddressesController extends Controller
     public function destroy(Address $address)
     {
         if($address->delete()) {
+            Movement::register(account(), null, 'addresses.destroy'); 
             return response()->json($address);
         } else {
             return response()->json([
@@ -120,10 +122,12 @@ class AddressesController extends Controller
         ];
         if(isset($resource)) {
             $resource->update($values);
+            Movement::register(account(), null, 'addresses.update'); 
         } else {
             $resource = new Address($values);
             $resource->generatePK();
             $resource->save();
+            Movement::register(account(), null, 'addresses.store'); 
         }
 
         return response()->json($resource, 200);

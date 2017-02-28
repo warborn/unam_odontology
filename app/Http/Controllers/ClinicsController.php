@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Requests;
 use App\Clinic;
 use App\Address;
+use App\Movement;
 class ClinicsController extends Controller
 {
     public function __construct()
@@ -72,6 +73,7 @@ class ClinicsController extends Controller
     public function destroy(Clinic $clinic)
     {
         if($clinic->delete()) {
+            Movement::register(account(), null, 'clinics.destroy'); 
             return response()->json($clinic);
         } else {
             return response()->json([
@@ -108,9 +110,11 @@ class ClinicsController extends Controller
             ];
             if(isset($resource)) {
                 $resource->update($values);
+                Movement::register(account(), null, 'clinics.update'); 
             } else {
                 $resource = Clinic::create($values);
                 $resource->load('address');
+                Movement::register(account(), null, 'clinics.store');     
             }
         }
 

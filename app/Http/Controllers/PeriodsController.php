@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Period;
+use App\Movement;
 class PeriodsController extends Controller
 {
     public function __construct()
@@ -71,6 +72,7 @@ class PeriodsController extends Controller
     public function destroy(Period $period)
     {
         $period->delete();
+        Movement::register(account(), null, 'periods.destroy');
         return response()->json($period);
     }
 
@@ -91,8 +93,10 @@ class PeriodsController extends Controller
 
         if(isset($resource)) {
             $resource->update($values);
+            Movement::register(account(), null, 'periods.update');
         } else {
             $resource = Period::create($values);
+            Movement::register(account(), null, 'periods.store');
         }
 
         return response()->json($resource, 200);

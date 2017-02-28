@@ -64,7 +64,7 @@
 						<li><a href="{{ url('/catalogs') }}"><i class="fa fa-btn glyphicon glyphicon-th-list"></i>Catalogos</a></li>
 						@endif
 
-						<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+						<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Sesión</a></li>
 					</ul>
 				</li>
 				@endif

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Group;
+use App\Movement;
 
 class GroupsController extends Controller
 {
@@ -72,6 +73,7 @@ class GroupsController extends Controller
     public function destroy(Group $group)
     {
         $group->delete();
+        Movement::register(account(), null, 'groups.destroy'); 
         return response()->json($group);
     }
 
@@ -87,8 +89,10 @@ class GroupsController extends Controller
 
         if(isset($resource)) {
             $resource->update($values);
+            Movement::register(account(), null, 'groups.update'); 
         } else {
             $resource = Group::create($values);
+            Movement::register(account(), null, 'groups.store'); 
         }
 
         return response()->json($resource, 200);
