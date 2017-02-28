@@ -32,6 +32,7 @@ class UsersController extends Controller
             'mother_last_name' => 'required|max:20',
             'phone' => 'alpha_num',
             'street' => 'string|max:100',
+            'gender' => 'string|max:1'
         ]);
 
         if($validator->fails()) {
@@ -44,6 +45,7 @@ class UsersController extends Controller
             'mother_last_name' => $request->mother_last_name,
             'phone' => $request->phone,
             'street' => $request->street,
+            'gender' => $request->gender
         ];
 
         $user->personal_information()->update($values);
