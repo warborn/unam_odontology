@@ -102,15 +102,17 @@ $factory->define(App\Group::class, function(Faker\Generator $faker) {
 
 // Periods Factory
 $factory->define(App\Period::class, function(Faker\Generator $faker) {
-	$period = $faker->randomElement($period =['1','2']);
-	$age = $faker->unique()->numerify('20##');
-	if($period == '1'){
-		$start = $faker->numerify( $age.'-08-04');
-		$end = $faker->numerify( $age.'-11-24');
-	}else{
+	// $period = $faker->randomElement($period =['1','2']);
+	// $age = $faker->unique()->numerify('20##');
+	$period = '2';
+	$age = '2017';
+	// if($period == '1'){
+		// $start = $faker->numerify( $age.'-08-04');
+		// $end = $faker->numerify( $age.'-11-24');
+	// }else{
 		$start = $faker->numerify( $age.'-01-04');
 		$end = $faker->numerify( $age.'-05-24');
-	}
+	// }
 	return [
 		'period_id'=> $age. '-' . $period,
 		'period_start_date'=> $start,

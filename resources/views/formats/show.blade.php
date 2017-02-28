@@ -163,28 +163,29 @@
 
 @push('js')
 <script type="text/javascript">
-	$('#students').on('change', function() {
-		$.ajax({
-			url: '/student/' + this.value + '/courses',
-			method: 'GET', 
-			dataType: 'JSON', 
-			success: function(response) {
-				console.log(response);
-				var $select = $('#courses');
-				$select.removeAttr('disabled');
-				$select.find('option').remove();
-				$select.append('<option selected disabled>Seleccione un curso</option>');
-				$.each(response, function(key, object) {
-					console.log(key, object);
-					$select.append('<option value=' + object.course_id + '>' + object.group_id + ' ' + object.subject.subject_name + '</option>');
-				});
-			}, 
-			error: function(error) {
-				console.log(error.responseText);
-			}
-		});
-	});
+var siteRoot = "{{env('SITE_ROOT')}}";
 
+$('#students').on('change', function() {
+	$.ajax({
+		url: siteRoot + '/student/' + this.value + '/courses',
+		method: 'GET', 
+		dataType: 'JSON', 
+		success: function(response) {
+			console.log(response);
+			var $select = $('#courses');
+			$select.removeAttr('disabled');
+			$select.find('option').remove();
+			$select.append('<option selected disabled>Seleccione un curso</option>');
+			$.each(response, function(key, object) {
+				console.log(key, object);
+				$select.append('<option value=' + object.course_id + '>' + object.group_id + ' ' + object.subject.subject_name + '</option>');
+			});
+		}, 
+		error: function(error) {
+			console.log(error.responseText);
+		}
+	});
+});
 </script>
 @endpush
 

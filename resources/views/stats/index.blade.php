@@ -1,6 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="row">
+<form action="{{ url('stats') }}" method="GET">
+  <div class="form-group col-lg-3 col-sm-12 col-md-12">
+      <div class='input-group date' id="datetimepicker1">
+          <input type='text' class="form-control" name="start_date" placeholder="Fecha de inicio" value="{{$start_date}}"/>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+      </div>
+  </div>
+
+  <div class="form-group col-lg-3 col-sm-12 col-md-12">
+      <div class='input-group date' id="datetimepicker2">
+          <input type='text' class="form-control" name="end_date" placeholder="Fecha de fín" value="{{$end_date}}"/>
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+      </div>
+  </div>
+
+  <div class="form-group col-lg-2 col-sm-12 col-md-12">
+    <button class="btn btn-info btn-block" type="submit">Generar</button>
+  </div>
+
+  <div class="form-group col-lg-2 col-sm-12 col-md-12">
+    <a href="{{url('/stats')}}" class="btn btn-info btn-block" >Limpiar</a>
+  </div>
+</form>
+</div>
+
+
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-6">
 		<canvas id="age-graph"></canvas>
@@ -223,6 +255,7 @@ new Chart(context, {
   }
 });
 
+@include('shared._datetimepicker_js')
 </script>	
 @endpush
 @endsection
